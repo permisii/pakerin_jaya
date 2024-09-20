@@ -2,11 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
+abstract class Controller {
+    protected $breadcrumbs = [];
+    protected $params = [];
 
-class Controller extends BaseController
-{
-    use AuthorizesRequests, ValidatesRequests;
+    protected function setBreadcrumbs(array $breadcrumbs) {
+        $this->breadcrumbs = $breadcrumbs;
+    }
+
+    protected function getBreadcrumbs() {
+        return $this->breadcrumbs;
+    }
+
+    protected function setParams(array $params) {
+        $this->params = $params;
+    }
+
+    protected function getParams() {
+        return $this->params;
+    }
+
+    protected function renderView($view, $data = []) {
+        return view($view, array_merge($data, ['breadcrumbs' => $this->getBreadcrumbs(), 'params' => $this->getParams()]));
+    }
 }

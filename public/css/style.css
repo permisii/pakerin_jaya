@@ -1,0 +1,71 @@
+.form-group {
+    margin-bottom: .5rem;
+}
+
+.text-divider {
+    line-height: 0;
+    text-align: left;
+}
+
+.text-divider span {
+    background-color: #17a2b8;
+    padding: 0.2em 1em;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.text-divider:before {
+    content: " ";
+    display: block;
+    border-top: 1px dashed #e3e3e3;
+    border-bottom: 1px dashed #f7f7f7;
+}
+
+a.nav-link p {
+    text-wrap: nowrap !important;
+    overflow: hidden;
+}
+
+table.dataTable thead tr {
+    background-color: #17a2b8;
+    color: #fff
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #fff !important;
+}
+
+.table-striped tbody tr:nth-of-type(even) {
+    background-color: rgb(17 162 184 / 5%);
+}
+
+select.form-control-sm ~ .select2-container--default {
+    font-size: 90%;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    padding-left: 0px
+}
+
+.breadcrumb.nav-asset .breadcrumb-item + .breadcrumb-item::before {
+    color: #6c757d;
+    content: ">";
+}
+
+[class*=sidebar-light-] .nav-sidebar > .nav-item > .nav-link.active {
+    box-shadow: none;
+}
+
+/* Datatable */
+.action-btn {
+    padding: 0.3rem .7rem; /* Adjust padding as needed */
+    gap: 0.5rem; /* Adjust gap as needed */
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    display: flex;
+    width: fit-content; /* Ensure all buttons have the same width */
+    text-align: center;
+    white-space: nowrap;
+}
