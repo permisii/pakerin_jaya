@@ -27,6 +27,16 @@
                         </div>
                     </div>
                 </form>
+                    @if(!$todayWorkInstruction)
+                    <div class="alert alert-warning">
+                        No work instruction for today.
+
+                        <a href="{{ route('work-instructions.create') }}" class="ml-2 btn btn-primary text-decoration-none">
+                            <i class="fas fa-plus"></i>
+                            Create Work Instruction
+                        </a>
+                    </div>
+                @endif
 
                 {{$dataTable->table()}}
             </div>
