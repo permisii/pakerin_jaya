@@ -19,16 +19,16 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Email</label>
                             <div class="col-sm-4">
-                                <input type="email" class="form-control form-control form-control-sm" name="email">
+                                <input class="form-control form-control form-control-sm" name="email" data-inputmask="'alias': 'email'" placeholder="Enter email">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">NIP</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control form-control form-control-sm"
+                                <input class="form-control form-control form-control-sm"
                                        name="nip"
-                                       autocomplete="off">
+                                           autocomplete="off"  data-inputmask="'mask': '**_***_***_*[*]'"  placeholder="K3_20L_003_(P)">
                             </div>
                         </div>
 

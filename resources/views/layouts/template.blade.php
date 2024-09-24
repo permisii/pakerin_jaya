@@ -40,6 +40,7 @@
 <script src="{{ asset('adminlte/plugins/bootstrap-datepicker-1.9.0/js/bootstrap-datepicker.min.js') }}"></script>
 
 <script src="{{ asset('adminlte/plugins/jquery-inputmask/dist/jquery.inputmask.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/jquery-inputmask/dist/bindings/inputmask.binding.js') }}"></script>
 
 <script src="{{ asset('adminlte/plugins/moment/moment.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/daterangepicker/daterangepicker.js') }}"></script>
