@@ -22,8 +22,8 @@
             {{--                                        class="fas fa-check"></i> Akses</a>--}}
             <a href="{{route('users.edit', $id)}}"
                class="btn btn-sm btn-default text-blue action-btn">
-                <i class="fas fa-edit"></i>
-                Edit
+                <i class="fas fa-check"></i>
+                Akses
             </a>
         </div>
     </th>

@@ -11,6 +11,7 @@ class MonthlyReportController extends Controller {
      * Handle the incoming request.
      */
     public function __invoke(Request $request, MonthlyReportDataTable $dataTable) {
+        $this->checkPermission('read', 'monthly-reports');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Monthly Report' => '',

@@ -11,6 +11,7 @@ use App\Models\WorkInstruction;
 
 class AssignmentController extends Controller {
     public function index(AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
+        $this->checkPermission('read', 'work-instructions.assignments');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Work Instructions' => route('work-instructions.index'),

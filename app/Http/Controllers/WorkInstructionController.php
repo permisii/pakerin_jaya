@@ -10,6 +10,7 @@ use App\Models\WorkInstruction;
 
 class WorkInstructionController extends Controller {
     public function index(WorkInstructionsDataTable $dataTable) {
+        $this->checkPermission('read', 'work-instructions');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Work Instructions' => '',
@@ -24,6 +25,7 @@ class WorkInstructionController extends Controller {
     }
 
     public function create() {
+        $this->checkPermission('create', 'work-instructions');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Work Instructions' => route('work-instructions.index'),
@@ -39,12 +41,14 @@ class WorkInstructionController extends Controller {
     }
 
     public function store(StoreWorkInstructionRequest $request) {
+        $this->checkPermission('create', 'work-instructions');
         WorkInstruction::create($request->validated());
 
         return redirect()->route('work-instructions.index')->with('success', 'WorkInstruction created.');
     }
 
     public function show(WorkInstruction $workInstruction) {
+        $this->checkPermission('read', 'work-instructions');
         $workInstruction = new WorkInstructionResource($workInstruction->load('user', 'updatedBy', 'createdBy'));
 
         $this->setBreadcrumbs([
@@ -62,6 +66,7 @@ class WorkInstructionController extends Controller {
     }
 
     public function edit(WorkInstruction $workInstruction) {
+        $this->checkPermission('update', 'work-instructions');
         $workInstruction = new WorkInstructionResource($workInstruction);
 
         $this->setBreadcrumbs([
@@ -80,12 +85,14 @@ class WorkInstructionController extends Controller {
     }
 
     public function update(UpdateWorkInstructionRequest $request, WorkInstruction $workInstruction) {
+        $this->checkPermission('update', 'work-instructions');
         $workInstruction->update($request->validated());
 
         return redirect()->route('work-instructions.index')->with('success', 'WorkInstruction updated.');
     }
 
     public function destroy(WorkInstruction $workInstruction) {
+        $this->checkPermission('delete', 'work-instructions');
         $workInstruction->delete();
 
         return redirect()->route('work-instructions.index')->with('success', 'WorkInstruction deleted.');

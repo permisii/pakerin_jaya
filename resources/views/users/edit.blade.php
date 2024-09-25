@@ -1,103 +1,108 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('users.update', $user->id) }}" method="post" id="update-form-{{$user->id}}"
-          onsubmit="confirmUpdate(event, {{$user->id}})">
+    <form id="update-form-{{ $user->id }}" action="{{ route('users.update-access', $user->id) }}" method="post">
         @csrf
         @method('PUT')
         <div class="row">
             <div class="col-12">
-                <div class="card card-info card-outline card-outline-tabs">
-
+                <div class="card card-info card-outline">
                     <div class="card-body">
-                        <h6 class="text-divider mb-4"><span>Identity</span></h6>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Nama Lengkap</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control form-control-sm" name="name"
-                                       value="{{ $user->name }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Email</label>
-                            <div class="col-sm-4">
-                                <input type="email" class="form-control form-control-sm" name="email"
-                                       value="{{ $user->email }}">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">NIP</label>
-                            <div class="col-sm-4">
-                                <input type="number" class="form-control form-control-sm" name="nip"
-                                       value="{{ $user->nip }}" autocomplete="off">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-2 col-form-label text-right">Unit</label>
-                            <div class="col-sm-3">
-                                <select name="unit_id" id="unit_id" class="form-control form-control-sm">
-                                    @foreach($units as $unit)
-                                        <option
-                                            value="{{ $unit->id }}" {{ $user->unit_id == $unit->id ? 'selected' : '' }}>{{ $unit->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="offset-sm-2 col-sm-2">
-                                <div class="form-check">
-                                    <input type="hidden" name="active" value="0">
-                                    <input type="checkbox" class="form-check-input" id="active-checkbox" name="active"
-                                           value="1" {{ $user->active ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="active-checkbox">Aktif</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h6 class="text-divider mb-4"><span>Security</span></h6>
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Password</label>
-                            <div class="col-sm-4">
-                                <input class="form-control form-control-sm" type="password" name="password"
-                                       autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Retype Password</label>
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control form-control-sm"
-                                       name="password_confirmation">
-                            </div>
-                        </div>
-
+                        <table id="data-table" class="table table-bordered table-striped table-hover nowrap">
+                            <thead>
+                            <th>Menu</th>
+                            <th>
+                                View
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('view')">Check All</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('view')">Remove All</button>
+                            </th>
+                            <th>
+                                Create
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('create')">Check All</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('create')">Remove All</button>
+                            </th>
+                            <th>
+                                Update
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('update')">Check All</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('update')">Remove All</button>
+                            </th>
+                            <th>
+                                Delete
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('delete')">Check All</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('delete')">Remove All</button>
+                            </th>
+                            <th>
+                                Etc
+                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('etc')">Check All</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('etc')">Remove All</button>
+                            </th>
+                            </thead>
+                            <tbody>
+                            @foreach($menus as $menu => $perm)
+                                @php
+                                    $userPerm = $userPermissions[$perm['id']] ?? null;
+                                @endphp
+                                <tr>
+                                    <td>{{ ucfirst($perm['name']) }}</td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input checkbox-view" id="view-{{ $menu }}" name="permissions[{{ $perm['code'] }}][view]" {{ $userPerm && $userPerm->can_read ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="view-{{ $menu }}">View</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input checkbox-create" id="create-{{ $menu }}" name="permissions[{{ $perm['code'] }}][create]" {{ $userPerm && $userPerm->can_create ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="create-{{ $menu }}">Create</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input checkbox-update" id="update-{{ $menu }}" name="permissions[{{ $perm['code'] }}][update]" {{ $userPerm && $userPerm->can_update ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="update-{{ $menu }}">Update</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input checkbox-delete" id="delete-{{ $menu }}" name="permissions[{{ $perm['code'] }}][delete]" {{ $userPerm && $userPerm->can_delete ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="delete-{{ $menu }}">Delete</label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input checkbox-etc" id="etc-{{ $menu }}" name="permissions[{{ $perm['code'] }}][etc]" {{ $userPerm && $userPerm->can_etc ? 'checked' : '' }}>
+                                            <label class="form-check-label" for="etc-{{ $menu }}">Etc</label>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </div>
-
                     <div class="card-footer">
                         <a href="{{ route('users.index') }}" class="btn btn-default">
-                            <i class="fa fa-fw fa-arrow-left"></i>
-                            Kembali Ke Daftar User
+                            <i class="fa fa-fw fa-arrow-left"></i> Back to Users
                         </a>
-
-                        <div class="btn-group float-right">
-                            <button class="btn btn-default text-blue">
-                                <i class="fa fa-fw fa-save"></i>
-                                Ubah
-                            </button>
-
-                            <a class="btn btn-default text-maroon" href="{{route('users.index')}}">
-                                <i class="fas fa-ban"></i>
-                                Batalkan
-                            </a>
-                        </div>
+                        <button type="submit" class="btn btn-primary float-right">Save Permissions</button>
                     </div>
-                    <!-- /.card -->
                 </div>
             </div>
         </div>
     </form>
+@endsection
+
+@section('scripts')
+    <script>
+        function toggleCheckAll(type) {
+            document.querySelectorAll('.checkbox-' + type).forEach(checkbox => {
+                checkbox.checked = true;
+            });
+        }
+
+        function removeAll(type) {
+            document.querySelectorAll('.checkbox-' + type).forEach(checkbox => {
+                checkbox.checked = false;
+            });
+        }
+    </script>
 @endsection

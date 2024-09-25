@@ -25,4 +25,31 @@ abstract class Controller {
     protected function renderView($view, $data = []) {
         return view($view, array_merge($data, ['breadcrumbs' => $this->getBreadcrumbs(), 'params' => $this->getParams()]));
     }
+
+    protected function checkPermission($permissionType, $menuCode) {
+        // Get the user's access to this menu based on the menu code
+        $accessMenu = auth()->user()->accessMenus()->whereHas('menu', function ($query) use ($menuCode) {
+            $query->where('code', $menuCode);
+        })->first();
+
+        if (!$accessMenu) {
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.')->send();
+        }
+
+        // Check for specific permission (create, read, update, delete)
+        $hasPermission = match ($permissionType) {
+            'create' => $accessMenu->can_create,
+            'read' => $accessMenu->can_read,
+            'update' => $accessMenu->can_update,
+            'delete' => $accessMenu->can_delete,
+            'etc' => $accessMenu->can_etc,
+            default => false,
+        };
+
+        if (!$hasPermission) {
+            return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.')->send();
+        }
+
+        return true;
+    }
 }

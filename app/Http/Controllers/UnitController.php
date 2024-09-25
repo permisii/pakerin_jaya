@@ -10,6 +10,7 @@ use App\Models\Unit;
 
 class UnitController extends Controller {
     public function index(UnitsDataTable $dataTable) {
+        $this->checkPermission('read', 'units');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Units' => '',
@@ -24,6 +25,7 @@ class UnitController extends Controller {
     }
 
     public function create() {
+        $this->checkPermission('create', 'units');
         $units = UnitResource::collection(Unit::all());
 
         $this->setBreadcrumbs([
@@ -41,12 +43,14 @@ class UnitController extends Controller {
     }
 
     public function store(StoreUnitRequest $request) {
+        $this->checkPermission('create', 'units');
         Unit::create($request->validated());
 
         return redirect()->route('units.index')->with('success', 'Unit created.');
     }
 
     public function show(Unit $unit) {
+        $this->checkPermission('read', 'units');
         $unit = new UnitResource($unit);
 
         $this->setBreadcrumbs([
@@ -64,6 +68,7 @@ class UnitController extends Controller {
     }
 
     public function edit(Unit $unit) {
+        $this->checkPermission('update', 'units');
         $unit = new UnitResource($unit);
 
         $this->setBreadcrumbs([
@@ -82,12 +87,14 @@ class UnitController extends Controller {
     }
 
     public function update(UpdateUnitRequest $request, Unit $unit) {
+        $this->checkPermission('update', 'units');
         $unit->update($request->validated());
 
         return redirect()->route('units.index')->with('success', 'Unit updated.');
     }
 
     public function destroy(Unit $unit) {
+        $this->checkPermission('delete', 'units');
         $unit->delete();
 
         return redirect()->route('units.index')->with('success', 'Unit deleted.');

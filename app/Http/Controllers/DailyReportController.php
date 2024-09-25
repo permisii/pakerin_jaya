@@ -10,6 +10,7 @@ class DailyReportController extends Controller {
      * Handle the incoming request.
      */
     public function __invoke(Request $request, DailyReportsDataTable $dataTable) {
+        $this->checkPermission('read', 'daily-reports');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Daily Report' => '',
