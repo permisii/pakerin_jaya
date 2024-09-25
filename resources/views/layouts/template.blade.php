@@ -21,6 +21,8 @@
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('select2/select2.min.css') }}">
 
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @yield('css')
 
     @yield('style')

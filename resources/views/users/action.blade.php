@@ -15,8 +15,8 @@
                         class="fas fa-trash"></i> Delete
                 </button>
             </form>
-            <button onclick="resetpass()" class="btn btn-sm btn-default text-info action-btn"><i
-                    class="fas fa-fw fa-lock-open"></i> Reset Pass
+            <button onclick="resetpass({{ $id }})" class="btn btn-sm btn-default text-info action-btn">
+                <i class="fas fa-fw fa-lock-open"></i> Reset Pass
             </button>
             {{--                                <a href="{{ route('users.akses') }}" class="btn btn-sm btn-default text-blue"><i--}}
             {{--                                        class="fas fa-check"></i> Akses</a>--}}
@@ -26,7 +26,30 @@
                 Edit
             </a>
         </div>
-
     </th>
-
 </tr>
+
+<script>
+    function resetpass(userId) {
+        if (confirm('Are you sure you want to reset the password?')) {
+            fetch(`/users/${userId}`, {
+                method: 'POST', // Using POST method, with _method=PUT
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                },
+                body: JSON.stringify({
+                    _method: 'PUT',  // Laravel will interpret this as a PUT request
+                    password: 'Pakerin999',
+                }),
+            })
+                .then(data => {
+                    alert('Password has been reset to "Pakerin999".');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred: ' + error.message);
+                });
+        }
+    }
+</script>
