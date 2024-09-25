@@ -11,7 +11,7 @@ use App\Models\WorkInstruction;
 
 class AssignmentController extends Controller {
     public function index(AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
-        $this->checkPermission('read', 'work-instructions.assignments');
+        $this->checkPermission('read', 'assignments');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Work Instructions' => route('work-instructions.index'),
@@ -32,6 +32,7 @@ class AssignmentController extends Controller {
     }
 
     public function create(WorkInstruction $workInstruction) {
+        $this->checkPermission('create', 'assignments');
         $assignments = AssignmentResource::collection($workInstruction->assignments()->get());
 
         $this->setBreadcrumbs([
@@ -53,6 +54,7 @@ class AssignmentController extends Controller {
     }
 
     public function store(StoreAssignmentRequest $request, WorkInstruction $workInstruction) {
+        $this->checkPermission('create', 'assignments');
         $workInstruction->assignments()->create($request->validated());
 
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)
@@ -60,6 +62,7 @@ class AssignmentController extends Controller {
     }
 
     public function show(WorkInstruction $workInstruction, Assignment $assignment) {
+        $this->checkPermission('read', 'assignments');
         $assignment = new AssignmentResource($assignment->load('workInstruction', 'updatedBy', 'createdBy'));
 
         $this->setBreadcrumbs([
@@ -81,6 +84,7 @@ class AssignmentController extends Controller {
     }
 
     public function edit(WorkInstruction $workInstruction, Assignment $assignment) {
+        $this->checkPermission('update', 'assignments');
         $assignment = new AssignmentResource($assignment);
 
         $this->setBreadcrumbs([
@@ -103,12 +107,14 @@ class AssignmentController extends Controller {
     }
 
     public function update(UpdateAssignmentRequest $request, WorkInstruction $workInstruction, Assignment $assignment) {
+        $this->checkPermission('update', 'assignments');
         $assignment->update($request->validated());
 
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)->with('success', 'Assignment updated.');
     }
 
     public function destroy(WorkInstruction $workInstruction, Assignment $assignment) {
+        $this->checkPermission('delete', 'assignments');
         $assignment->delete();
 
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)->with('success', 'Assignment deleted.');

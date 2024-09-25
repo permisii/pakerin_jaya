@@ -6,8 +6,9 @@
 
 @section('content')
 
-    <form action="{{route('work-instructions.assignments.store', $workInstruction->id)}}" method="post" id="create-form"
-          onsubmit="confirmCreate(event)">
+    <form action="{{route('work-instructions.assignments.store', $workInstruction->id)}}" method="post"
+          id="create-form">
+        {{--    <form action="{{route('work-instructions.assignments.store', $workInstruction->id)}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
         @csrf
         <div class="row">
             <div class="col-12">
@@ -103,26 +104,21 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Resolution</label>
                             <div class="col-sm-4">
-                            <textarea class="form-control" rows="3" placeholder="Resolution" rows="20"
-                                      name="resolution">
-                            </textarea>
+                            <textarea class="form-control" rows="3" placeholder="Resolution" rows="20" name="resolution"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Description</label>
                             <div class="col-sm-4">
-                            <textarea class="form-control" rows="3" placeholder="Description" rows="20"
-                                      name="description">
-                            </textarea>
+                            <textarea class="form-control" rows="3" placeholder="Description" rows="20" name="description"></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Material</label>
                             <div class="col-sm-4">
-                            <textarea class="form-control" rows="3" placeholder="Material" name="material">
-                            </textarea>
+                            <textarea class="form-control" rows="3" placeholder="Material" name="material"></textarea>
                             </div>
                         </div>
 
@@ -155,10 +151,10 @@
                         </a>
 
                         <div class="btn-group float-right">
-{{--                            <button class="btn btn-default text-green">--}}
-{{--                                <i class="fa fa-fw fa-mail-bulk"></i>--}}
-{{--                                Draft--}}
-{{--                            </button>--}}
+                            {{--                            <button class="btn btn-default text-green">--}}
+                            {{--                                <i class="fa fa-fw fa-mail-bulk"></i>--}}
+                            {{--                                Draft--}}
+                            {{--                            </button>--}}
 
                             <button class="btn btn-default text-blue">
                                 <i class="fa fa-fw fa-save"></i>
@@ -176,4 +172,64 @@
             </div>
         </div>
     </form>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            initializeValidation('#create-form', {
+                assignment_number: {
+                    required: true,
+                    minlength: 3,
+                },
+                problem: {
+                    required: true,
+                    minlength: 3,
+                },
+                resolution: {
+                    required: true,
+                    minlength: 3,
+                },
+                description: {
+                    required: true,
+                    minlength: 3,
+                },
+                material: {
+                    required: true,
+                    minlength: 3,
+                },
+                percentage: {
+                    required: true,
+                    min: 0,
+                    max: 100,
+                },
+            }, {
+                assignment_number: {
+                    required: 'Assignment Number must be filled',
+                    minlength: 'Assignment Number must be at least 3 characters',
+                },
+                problem: {
+                    required: 'Problem must be filled',
+                    minlength: 'Problem must be at least 3 characters',
+                },
+                resolution: {
+                    required: 'Resolution must be filled',
+                    minlength: 'Resolution must be at least 3 characters',
+                },
+                description: {
+                    required: 'Description must be filled',
+                    minlength: 'Description must be at least 3 characters',
+                },
+                material: {
+                    required: 'Material must be filled',
+                    minlength: 'Material must be at least 3 characters',
+                },
+                percentage: {
+                    required: 'Percentage must be filled',
+                    min: 'Percentage must be at least 0',
+                    max: 'Percentage must be at most 100',
+                },
+            });
+        });
+    </script>
 @endsection

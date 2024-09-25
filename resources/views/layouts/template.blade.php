@@ -61,10 +61,12 @@
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 <script src="{{ asset('select2/select2.min.js') }}"></script>
 @yield('scripts')
 
-@include('layouts.validation_alert')
-
+{{--@include('layouts.validation_alert')--}}
+@include('layouts.validation_form')
 
 </html>

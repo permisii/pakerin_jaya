@@ -10,9 +10,13 @@
                   id="delete-form-{{$id}}">
                 @csrf
                 @method('DELETE')
-                <button type="button" onclick="confirmDelete({{ $id }})"
-                        class="btn btn-sm btn-default text-danger action-btn"><i
-                        class="fas fa-trash"></i> Delete
+                {{--                <button type="button" onclick="confirmDelete({{ $id }})"--}}
+                {{--                        class="btn btn-sm btn-default text-danger action-btn"><i--}}
+                {{--                        class="fas fa-trash"></i> Delete--}}
+                {{--                </button>--}}
+                <button onclick="confirm('Are you sure?')"
+                        class="btn btn-sm btn-default text-danger action-btn">
+                    <i class="fas fa-trash"></i> Delete
                 </button>
             </form>
             <button onclick="resetpass({{ $id }})" class="btn btn-sm btn-default text-info action-btn">

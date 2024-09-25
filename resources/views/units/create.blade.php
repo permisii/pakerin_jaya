@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{route('units.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">
+    <form action="{{route('units.store')}}" method="post" id="create-form" >
+{{--    <form action="{{route('units.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
         @csrf
         <div class="row">
             <div class="col-12">
@@ -46,4 +47,30 @@
             </div>
         </div>
     </form>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            initializeValidation('#create-form', {
+                name: {
+                    required: true,
+                    minlength: 3
+                },
+                unit_code: {
+                    required: true,
+                    minlength: 3
+                }
+            }, {
+                name: {
+                    required: "Please enter a name",
+                    minlength: "Name must be at least 3 characters long"
+                },
+                unit_code: {
+                    required: "Please enter a unit code",
+                    minlength: "Unit code must be at least 3 characters long"
+                }
+            });
+        });
+    </script>
 @endsection

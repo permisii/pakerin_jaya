@@ -2,7 +2,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{route('work-instructions.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">
+    <form action="{{route('work-instructions.store')}}" method="post" id="create-form">
+{{--    <form action="{{route('work-instructions.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
         @csrf
         <div class="row">
             <div class="col-12">
@@ -13,7 +14,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Worker</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" name="user_id">
+                                <select class="form-control form-control-sm select2" name="user_id" required>
                                     <option value="">-- Pilih Worker --</option>
                                 </select>
                             </div>
@@ -23,7 +24,7 @@
                             <label class="col-sm-2 col-form-label text-right">Date</label>
                             <div class="col-sm-4">
                                 <input type="date" class="form-control form-control form-control-sm" id="work_date"
-                                       name="work_date">
+                                       name="work_date" required>
                             </div>
                         </div>
                     </div>
@@ -83,6 +84,28 @@
                         };
                     },
                     cache: true,
+                },
+            });
+        });
+    </script>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            initializeValidation('#create-form', {
+                user_id: {
+                    required: true,
+                },
+                work_date: {
+                    required: true,
+                },
+            }, {
+                user_id: {
+                    required: "Please select a worker",
+                },
+                work_date: {
+                    required: "Please enter a date",
                 },
             });
         });
