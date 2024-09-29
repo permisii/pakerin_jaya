@@ -10,32 +10,37 @@
                     <div class="card-body">
                         <table id="data-table" class="table table-bordered table-striped table-hover nowrap">
                             <thead>
-                            <th>Menu</th>
-                            <th>
-                                View
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('view')">Check All</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('view')">Remove All</button>
-                            </th>
-                            <th>
-                                Create
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('create')">Check All</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('create')">Remove All</button>
-                            </th>
-                            <th>
-                                Update
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('update')">Check All</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('update')">Remove All</button>
-                            </th>
-                            <th>
-                                Delete
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('delete')">Check All</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('delete')">Remove All</button>
-                            </th>
-                            <th>
-                                Etc
-                                <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('etc')">Check All</button>
-                                <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('etc')">Remove All</button>
-                            </th>
+                            <tr>
+                                <th>Menu</th>
+                                <th>View</th>
+                                <th>Create</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                                <th>Etc</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('view')">Check All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('view')">Remove All</button>
+                                </th>
+                                <th>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('create')">Check All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('create')">Remove All</button>
+                                </th>
+                                <th>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('update')">Check All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('update')">Remove All</button>
+                                </th>
+                                <th>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('delete')">Check All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('delete')">Remove All</button>
+                                </th>
+                                <th>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('etc')">Check All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('etc')">Remove All</button>
+                                </th>
+                            </tr>
                             </thead>
                             <tbody>
                             @foreach($menus as $menu => $perm)
