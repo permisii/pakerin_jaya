@@ -78,7 +78,7 @@ class UsersDataTable extends DataTable {
             Column::make('name'),
             Column::make('email'),
             Column::make('unit.name')->title('Unit'),
-            Column::make('active')->title('Active'),
+            Column::make('active')->title('Active')->addClass('text-center'),
         ];
     }
 
