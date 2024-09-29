@@ -69,3 +69,7 @@ select.form-control-sm ~ .select2-container--default {
     text-align: center;
     white-space: nowrap;
 }
+
+.dataTable thead th {
+    text-align: center;
+}
