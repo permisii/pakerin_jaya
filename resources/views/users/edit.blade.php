@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-info card-outline">
-                    <div class="card-body">
+                    <div class="card-body  text-center">
                         <table id="data-table" class="table table-bordered table-striped table-hover nowrap">
                             <thead>
                             <tr>
@@ -22,23 +22,23 @@
                                 <th></th>
                                 <th>
                                     <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('view')">Check All</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('view')">Remove All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3" onclick="removeAll('view')">Remove All</button>
                                 </th>
                                 <th>
                                     <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('create')">Check All</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('create')">Remove All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3" onclick="removeAll('create')">Remove All</button>
                                 </th>
                                 <th>
                                     <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('update')">Check All</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('update')">Remove All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3" onclick="removeAll('update')">Remove All</button>
                                 </th>
                                 <th>
                                     <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('delete')">Check All</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('delete')">Remove All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3" onclick="removeAll('delete')">Remove All</button>
                                 </th>
                                 <th>
                                     <button type="button" class="btn btn-sm btn-outline-primary" onclick="toggleCheckAll('etc')">Check All</button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger" onclick="removeAll('etc')">Remove All</button>
+                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3" onclick="removeAll('etc')">Remove All</button>
                                 </th>
                             </tr>
                             </thead>
