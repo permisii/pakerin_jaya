@@ -42,9 +42,9 @@ class WorkInstructionController extends Controller {
 
     public function store(StoreWorkInstructionRequest $request) {
         $this->checkPermission('create', 'work-instructions');
-        WorkInstruction::create($request->validated());
+        $workInstruction = WorkInstruction::create($request->validated());
 
-        return redirect()->route('work-instructions.index')->with('success', 'WorkInstruction created.');
+        return redirect()->route('work-instructions.assignments.index', $workInstruction->id)->with('success', 'WorkInstruction created.');
     }
 
     public function show(WorkInstruction $workInstruction) {
