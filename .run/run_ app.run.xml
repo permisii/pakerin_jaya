@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="run: app" type="CompoundRunConfigurationType">
+    <toRun name="run: npm run dev" type="ShConfigurationType" />
+    <toRun name="run: php artisan serve" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
