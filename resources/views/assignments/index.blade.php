@@ -23,18 +23,17 @@
                 </ul>
             </div>
 
-
             <form action="{{route('work-instructions.update', $workInstruction->id)}}" method="post" id="draft-form">
                 @csrf
                 @method('PUT')
                 <input type="hidden" name="status" value="{{WorkInstructionStatusEnum::Draft}}">
             </form>
 
-            <form action="{{route('work-instructions.update', $workInstruction->id)}}" method="post" id="submit-form">
-                @csrf
-                @method('PUT')
-                <input type="hidden" name="status" value="{{WorkInstructionStatusEnum::Submitted}}">
-            </form>
+{{--            <form action="{{route('work-instructions.update', $workInstruction->id)}}" method="post" id="submit-form">--}}
+{{--                @csrf--}}
+{{--                @method('PUT')--}}
+{{--                <input type="hidden" name="status" value="{{WorkInstructionStatusEnum::Submitted}}">--}}
+{{--            </form>--}}
 
             <div class="card-body">
                 {{$dataTable->table()}}

@@ -19,11 +19,6 @@
                         class="fas fa-trash"></i> Delete
                 </button>
             </form>
-            <a href="{{route('units.edit', $id)}}"
-               class="btn btn-sm btn-default text-blue action-btn">
-                <i class="fas fa-edit"></i>
-                Edit
-            </a>
         </div>
 
     </th>

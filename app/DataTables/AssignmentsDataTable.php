@@ -88,13 +88,13 @@ class AssignmentsDataTable extends DataTable {
                     }',
                     'className' => 'btn btn-default text-primary',
                 ]),
-                Button::make([
-                    'text' => '<i class="fas fa-check"></i> Finish',
-                    'action' => 'function() {
-                        document.getElementById("submit-form").submit();
-                    }',
-                    'className' => 'btn btn-default text-success',
-                ]),
+//                Button::make([
+//                    'text' => '<i class="fas fa-check"></i> Finish',
+//                    'action' => 'function() {
+//                        document.getElementById("submit-form").submit();
+//                    }',
+//                    'className' => 'btn btn-default text-success',
+//                ]),
             ]);
     }
 
