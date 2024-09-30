@@ -60,13 +60,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Status</label>
+                            <label class="col-sm-2 col-form-label text-right"></label>
                             <div class="col-sm-4">
-                                <select name="status" class="form-control" id="status">
-                                    @foreach(AssignmentStatusEnum::cases() as $status)
-                                        <option value="{{$status}}" {{ $assignment->status == $status ? 'selected' : '' }}>{{$status->name}}</option>
-                                    @endforeach
-                                </select>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id="statusCheckbox"
+                                           name="status_checkbox" {{$assignment->status === AssignmentStatusEnum::Done->value ? 'checked': ''}}>
+                                    <label class="custom-control-label" for="statusCheckbox">Finish</label>
+                                </div>
+                                <input type="hidden" name="status" id="status" value="DRAFT">
                             </div>
                         </div>
                         <input type="hidden" name="created_by" value="{{auth()->id()}}">

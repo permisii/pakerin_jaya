@@ -8,6 +8,7 @@ use App\Http\Requests\Assignment\UpdateAssignmentRequest;
 use App\Http\Resources\AssignmentResource;
 use App\Models\Assignment;
 use App\Models\WorkInstruction;
+use App\Support\Enums\AssignmentStatusEnum;
 
 class AssignmentController extends Controller {
     public function index(AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
@@ -55,11 +56,14 @@ class AssignmentController extends Controller {
 
     public function store(StoreAssignmentRequest $request, WorkInstruction $workInstruction) {
         $this->checkPermission('create', 'assignments');
-        $workInstruction->assignments()->create($request->validated());
+        $data = $request->validated();
+        $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
+        $workInstruction->assignments()->create($data);
 
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)
             ->with('success', 'Assignment created.');
     }
+
 
     public function show(WorkInstruction $workInstruction, Assignment $assignment) {
         $this->checkPermission('read', 'assignments');
@@ -108,7 +112,9 @@ class AssignmentController extends Controller {
 
     public function update(UpdateAssignmentRequest $request, WorkInstruction $workInstruction, Assignment $assignment) {
         $this->checkPermission('update', 'assignments');
-        $assignment->update($request->validated());
+        $data = $request->validated();
+        $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
+        $assignment->update($data);
 
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)->with('success', 'Assignment updated.');
     }

@@ -26,7 +26,7 @@ class StoreAssignmentRequest extends FormRequest {
             'resolution' => 'required|string',
             'material' => 'required|string',
             'description' => 'required|string',
-            'status' => 'required|numeric',
+            'status' => 'required|string',
             'percentage' => 'required|integer',
             'created_by' => 'nullable|exists:users,id',
             'updated_by' => 'nullable|exists:users,id',
