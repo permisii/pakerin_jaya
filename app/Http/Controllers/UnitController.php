@@ -46,7 +46,7 @@ class UnitController extends Controller {
         $this->checkPermission('create', 'units');
         Unit::create($request->validated());
 
-        return redirect()->route('dashboard')->with('success', 'Unit created.');
+        return redirect()->route('units.index')->with('success', 'Unit created.');
     }
 
     public function show(Unit $unit) {
@@ -90,7 +90,7 @@ class UnitController extends Controller {
         $this->checkPermission('update', 'units');
         $unit->update($request->validated());
 
-        return redirect()->route('dashboard')->with('success', 'Unit updated.');
+        return redirect()->route('units.index')->with('success', 'Unit updated.');
     }
 
     public function destroy(Unit $unit) {
