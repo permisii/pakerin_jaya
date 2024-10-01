@@ -55,6 +55,9 @@ class WorkInstructionsDataTable extends DataTable {
      * Optional method if you want to use the html builder.
      */
     public function html(): HtmlBuilder {
+
+        $menuPrefix = request()->query('menu-prefix');
+
         return $this->builder()
             ->setTableId('work-instructions-table')
             ->columns($this->getColumns())
@@ -66,7 +69,7 @@ class WorkInstructionsDataTable extends DataTable {
                 Button::make([
                     'text' => '<i class="fas fa-plus"></i> Add Work Instruction',
                     'action' => 'function() {
-                        window.location.href = "' . route('work-instructions.create') . '";
+                        window.location.href = "' . route('work-instructions.create', $menuPrefix ? ['menu-prefix' => $menuPrefix] : []) . '";
                     }',
                     'className' => 'btn btn-default text-blue',
                 ]),

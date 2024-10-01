@@ -1,3 +1,5 @@
+<?php use App\Helpers\MenuHelper; ?>
+
 <aside class="main-sidebar elevation-4 sidebar-light-info">
     <a href="{{ route('dashboard') }}" class="brand-link">
         <img src="{{ asset('adminlte/dist/img/favicons.png') }}" alt="AdminLTE Logo"
@@ -30,7 +32,7 @@
 
                 @if (auth()->user()->hasPermission('read', 'dashboard'))
                     <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}" class="nav-link {{ MenuHelper::isActiveMenu('dashboard*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>Dashboard</p>
                         </a>
@@ -41,7 +43,7 @@
 
                 @if (auth()->user()->hasPermission('read', 'users'))
                     <li class="nav-item">
-                        <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}" class="nav-link {{ MenuHelper::isActiveMenu('users*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-fw fa-users"></i>
                             <p>User</p>
                         </a>
@@ -52,7 +54,7 @@
 
                 @if (auth()->user()->hasPermission('read', 'units'))
                     <li class="nav-item">
-                        <a href="{{ route('units.index') }}" class="nav-link {{ Request::is('units*') ? 'active' : '' }}">
+                        <a href="{{ route('units.index') }}" class="nav-link {{ MenuHelper::isActiveMenu('units*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-fw fa-building"></i>
                             <p>Unit</p>
                         </a>
@@ -63,7 +65,7 @@
 
                 @if (auth()->user()->hasPermission('read', 'work-instructions'))
                     <li class="nav-item">
-                        <a href="{{ route('work-instructions.index') }}" class="nav-link {{ Request::is('work-instructions*') ? 'active' : '' }}">
+                        <a href="{{ route('work-instructions.index') }}" class="nav-link {{ MenuHelper::isActiveMenu('work-instructions*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-fw fa-calendar-alt"></i>
                             <p>Work Instructions</p>
                         </a>
@@ -72,7 +74,7 @@
 
                 @if (auth()->user()->hasPermission('read', 'daily-reports'))
                     <li class="nav-item">
-                        <a href="{{ route('daily-report.index') }}" class="nav-link {{ Request::is('daily-report*') ? 'active' : '' }}">
+                        <a href="{{ route('daily-report.index') }}" class="nav-link {{ MenuHelper::isActiveMenu('daily-report*', 'daily-report') ? 'active' : '' }}">
                             <i class="nav-icon far fa-fw fa-calendar-alt"></i>
                             <p>Daily Report</p>
                         </a>
@@ -83,7 +85,7 @@
 
                 @if (auth()->user()->hasPermission('read', 'monthly-reports'))
                     <li class="nav-item">
-                        <a href="{{ route('monthly-report.index') }}" class="nav-link {{ Request::is('monthly-report*') ? 'active' : '' }}">
+                        <a href="{{ route('monthly-report.index') }}" class="nav-link {{ MenuHelper::isActiveMenu('monthly-report*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-fw fa-copy"></i>
                             <p>Your Report</p>
                         </a>

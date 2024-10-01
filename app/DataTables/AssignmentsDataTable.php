@@ -64,6 +64,7 @@ class AssignmentsDataTable extends DataTable {
      */
     public function html(): HtmlBuilder {
         $workInstructionId = request()->route('work_instruction') ? request()->route('work_instruction')->id : null;
+        $menuPrefix = request()->query('menu-prefix');
 
         return $this->builder()
             ->setTableId('assignments-table')
@@ -77,7 +78,7 @@ class AssignmentsDataTable extends DataTable {
                 Button::make([
                     'text' => '<i class="fas fa-plus"></i> Add Assignment',
                     'action' => 'function() {
-                        window.location.href = "' . route('work-instructions.assignments.create', $workInstructionId) . '";
+                        window.location.href = "' . route('work-instructions.assignments.create', array_merge([$workInstructionId], $menuPrefix ? ['menu-prefix' => $menuPrefix]: [])) . '";
                     }',
                     'className' => 'btn btn-default text-blue',
                 ]),
