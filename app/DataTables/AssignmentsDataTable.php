@@ -27,6 +27,7 @@ class AssignmentsDataTable extends DataTable {
             ->addColumn('action', function (Assignment $assignment) {
                 return view('assignments.action', [
                     'workInstruction' => $assignment->workInstruction,
+                    'assignment' => $assignment,
                     'id' => $assignment->id,
                 ]);
             })
