@@ -16,6 +16,5 @@ class UserSeeder extends Seeder {
             'email' => 'test@example.com',
             'password' => bcrypt('password'),
         ]);
-        User::factory()->count(20)->create();
     }
 }

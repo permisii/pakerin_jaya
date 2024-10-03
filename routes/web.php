@@ -22,4 +22,4 @@ Route::middleware('auth')->group(function () {
     Route::get('monthly-reports', MonthlyReportController::class)->name('monthly-report.index');
 });
 
-Route::view('/', 'welcome')->name('home');
+Route::view('/', 'auth.login')->name('home');
