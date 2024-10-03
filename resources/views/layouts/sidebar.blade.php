@@ -30,7 +30,8 @@
 
                 @if (auth()->user()->hasPermission('read', 'dashboard'))
                     <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
+                        <a href="{{ route('dashboard') }}"
+                           class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>Dashboard</p>
                         </a>
@@ -41,7 +42,8 @@
 
                 @if (auth()->user()->hasPermission('read', 'users'))
                     <li class="nav-item">
-                        <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
+                        <a href="{{ route('users.index') }}"
+                           class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-fw fa-users"></i>
                             <p>User</p>
                         </a>
@@ -52,7 +54,8 @@
 
                 @if (auth()->user()->hasPermission('read', 'units'))
                     <li class="nav-item">
-                        <a href="{{ route('units.index') }}" class="nav-link {{ Request::is('units*') ? 'active' : '' }}">
+                        <a href="{{ route('units.index') }}"
+                           class="nav-link {{ Request::is('units*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-fw fa-building"></i>
                             <p>Unit</p>
                         </a>
@@ -63,7 +66,8 @@
 
                 @if (auth()->user()->hasPermission('read', 'work-instructions'))
                     <li class="nav-item">
-                        <a href="{{ route('work-instructions.index') }}" class="nav-link {{ Request::is('work-instructions*') ? 'active' : '' }}">
+                        <a href="{{ route('work-instructions.index') }}"
+                           class="nav-link {{ Request::is('work-instructions*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-fw fa-calendar-alt"></i>
                             <p>Work Instructions</p>
                         </a>
@@ -72,7 +76,9 @@
 
                 @if (auth()->user()->hasPermission('read', 'daily-reports'))
                     <li class="nav-item">
-                        <a href="{{ route('daily-report.index') }}" class="nav-link {{ Request::is('daily-report*') ? 'active' : '' }}">
+                        <a href="{{ route('daily-report.index') }}"
+                           class="nav-link {{ Request::is('daily-report*') ? 'active' : '' }}"
+                           data-menu-prefix="daily-report">
                             <i class="nav-icon far fa-fw fa-calendar-alt"></i>
                             <p>Daily Report</p>
                         </a>
@@ -83,7 +89,8 @@
 
                 @if (auth()->user()->hasPermission('read', 'monthly-reports'))
                     <li class="nav-item">
-                        <a href="{{ route('monthly-report.index') }}" class="nav-link {{ Request::is('monthly-report*') ? 'active' : '' }}">
+                        <a href="{{ route('monthly-report.index') }}"
+                           class="nav-link {{ Request::is('monthly-report*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-fw fa-copy"></i>
                             <p>Your Report</p>
                         </a>
@@ -93,3 +100,42 @@
         </nav>
     </div>
 </aside>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuItems = document.querySelectorAll('.sidebar .nav-link');
+        const currentMenuPrefix = localStorage.getItem('menu-prefix');
+
+        if (currentMenuPrefix) {
+
+            // Remove active class from all menu items
+            menuItems.forEach(item => item.classList.remove('active'));
+
+            // Set active class based on localStorage
+            menuItems.forEach(item => {
+                const menuPrefix = item.getAttribute('data-menu-prefix');
+                if (menuPrefix === currentMenuPrefix) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Update localStorage and active class on menu item click
+        menuItems.forEach(item => {
+            item.addEventListener('click', function(event) {
+                const menuPrefix = event.currentTarget.getAttribute('data-menu-prefix');
+                if (menuPrefix) {
+                    localStorage.setItem('menu-prefix', menuPrefix);
+                } else {
+                    localStorage.removeItem('menu-prefix');
+                }
+
+                // Remove active class from all menu items
+                menuItems.forEach(item => item.classList.remove('active'));
+
+                // Add active class to the clicked item
+                event.currentTarget.classList.add('active');
+            });
+        });
+    });
+</script>

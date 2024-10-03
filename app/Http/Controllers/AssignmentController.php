@@ -9,6 +9,7 @@ use App\Http\Resources\AssignmentResource;
 use App\Models\Assignment;
 use App\Models\WorkInstruction;
 use App\Support\Enums\AssignmentStatusEnum;
+use App\Support\Enums\WorkInstructionStatusEnum;
 
 class AssignmentController extends Controller {
     public function index(AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
@@ -60,10 +61,11 @@ class AssignmentController extends Controller {
         $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
         $workInstruction->assignments()->create($data);
 
+        $this->updateWorkInstructionStatus($workInstruction);
+
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)
             ->with('success', 'Assignment created.');
     }
-
 
     public function show(WorkInstruction $workInstruction, Assignment $assignment) {
         $this->checkPermission('read', 'assignments');
@@ -116,6 +118,8 @@ class AssignmentController extends Controller {
         $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
         $assignment->update($data);
 
+        $this->updateWorkInstructionStatus($workInstruction);
+
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)->with('success', 'Assignment updated.');
     }
 
@@ -124,5 +128,16 @@ class AssignmentController extends Controller {
         $assignment->delete();
 
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)->with('success', 'Assignment deleted.');
+    }
+
+    /**
+     * if all assignments are done, update the work instruction status to submitted, otherwise set it to draft
+     */
+    private function updateWorkInstructionStatus(WorkInstruction $workInstruction): void {
+        $workInstruction->update([
+            'status' => $workInstruction->assignments()->where('status', AssignmentStatusEnum::Done)->count() === $workInstruction->assignments()->count()
+                ? WorkInstructionStatusEnum::Submitted
+                : WorkInstructionStatusEnum::Draft,
+        ]);
     }
 }

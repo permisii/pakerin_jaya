@@ -1,4 +1,7 @@
-@php use App\Support\Enums\WorkInstructionStatusEnum; @endphp
+@php use App\Support\Enums\WorkInstructionStatusEnum;
+ $isSuperAdmin = auth()->user()->id === 1;
+ @endphp
+
 <tr>
     <th>
         <div class="btn-group">
@@ -7,7 +10,7 @@
                 <i class="fas fa-info-circle"></i>
                 Detail
             </a>
-            @if($workInstruction->status !== WorkInstructionStatusEnum::Submitted->value)
+            @if(!$isSuperAdmin && $workInstruction->user_id === auth()->user()->id)
                 <form action="{{ route('work-instructions.assignments.destroy', [$workInstruction->id, $id]) }}"
                       method="post"
                       id="delete-form-{{ $id }}">
@@ -23,11 +26,15 @@
                     </button>
                 </form>
             @endif
-            <a href="{{ route('work-instructions.assignments.edit', [$workInstruction->id, $id]) }}"
-               class="btn btn-sm btn-default text-blue action-btn">
-                <i class="fas fa-edit"></i>
-                Edit
-            </a>
+
+            @if($assignment->status !== \App\Support\Enums\AssignmentStatusEnum::Done->value)
+                <a href="{{ route('work-instructions.assignments.edit', [$workInstruction->id, $id]) }}"
+                   class="btn btn-sm btn-default text-blue action-btn">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </a>
+            @endif
+
         </div>
     </th>
 </tr>

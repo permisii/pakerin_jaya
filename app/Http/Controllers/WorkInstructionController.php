@@ -93,6 +93,7 @@ class WorkInstructionController extends Controller {
 
     public function destroy(WorkInstruction $workInstruction) {
         $this->checkPermission('delete', 'work-instructions');
+        $workInstruction->assignments()->delete();
         $workInstruction->delete();
 
         return redirect()->route('work-instructions.index')->with('success', 'WorkInstruction deleted.');

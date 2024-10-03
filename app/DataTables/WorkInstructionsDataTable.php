@@ -34,7 +34,12 @@ class WorkInstructionsDataTable extends DataTable {
                 };
             })
             ->rawColumns(['status', 'action'])
-            ->addColumn('action', 'work-instructions.action')
+            ->addColumn('action', function (WorkInstruction $workInstruction) {
+                return view('work-instructions.action', [
+                    'workInstruction' => $workInstruction,
+                    'id' => $workInstruction->id,
+                ]);
+            })
             ->setRowId('id');
     }
 
