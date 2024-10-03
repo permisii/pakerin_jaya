@@ -19,7 +19,10 @@
     }
 
     function confirmDelete(userId) {
-        document.getElementById('delete-form-' + userId).submit();
+        if(confirm('Are you sure?')) {
+            document.getElementById('delete-form-' + userId).submit();
+        }
+        // document.getElementById('delete-form-' + userId).submit();
         // showConfirmationDialog(
         //     'Are you sure?',
         //     'You won\'t be able to revert this!',
