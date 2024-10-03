@@ -103,7 +103,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const menuItems = document.querySelectorAll('.nav-link');
+        const menuItems = document.querySelectorAll('.sidebar .nav-link');
         const currentMenuPrefix = localStorage.getItem('menu-prefix');
 
         if (currentMenuPrefix) {
