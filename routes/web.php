@@ -15,6 +15,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
     Route::resource('users', UserController::class);
     Route::put('users/{user}/update-access', [UserController::class, 'updateAccess'])->name('users.update-access');
+    Route::put('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
     Route::resource('units', UnitController::class);
     Route::resource('work-instructions', WorkInstructionController::class);
     Route::resource('work-instructions.assignments', AssignmentController::class);

@@ -14,11 +14,14 @@ use App\Models\User;
 use App\Support\Enums\IntentEnum;
 use App\Traits\Controllers\Searchable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
     use Searchable;
 
-    public function index(Request $request, UsersDataTable $dataTable) {
+    public function index(Request $request, UsersDataTable $dataTable)
+    {
         $this->checkPermission('read', 'users');
         $intent = $request->get('intent');
 
@@ -44,7 +47,8 @@ class UserController extends Controller {
         return $dataTable->render('users.index', ['units' => $units, 'params' => $this->getParams(), 'breadcrumbs' => $this->getBreadcrumbs()]);
     }
 
-    public function create() {
+    public function create()
+    {
         $this->checkPermission('create', 'users');
         $units = UnitResource::collection(Unit::all());
 
@@ -62,14 +66,17 @@ class UserController extends Controller {
         return $this->renderView('users.create', ['units' => $units]);
     }
 
-    public function store(StoreUserRequest $request) {
+    public function store(StoreUserRequest $request)
+    {
         $this->checkPermission('create', 'users');
-        User::create($request->validated());
-
+        $validated = $request->validated();
+        $validated['password'] = Hash::make($validated['password']);
+        User::create($validated);
         return redirect()->route('users.index')->with('success', 'User created.');
     }
 
-    public function show(User $user) {
+    public function show(User $user)
+    {
         $this->checkPermission('read', 'users');
         $units = UnitResource::collection(Unit::all());
         $user = new UserResource($user->load('unit', 'updatedBy', 'createdBy'));
@@ -88,7 +95,8 @@ class UserController extends Controller {
         return $this->renderView('users.show', ['user' => $user, 'units' => $units]);
     }
 
-    public function edit(User $user) {
+    public function edit(User $user)
+    {
         $this->checkPermission('update', 'users');
         $user = new UserResource($user->load('unit', 'updatedBy', 'createdBy'));
         $menus = MenuResource::collection(Menu::all());
@@ -109,22 +117,33 @@ class UserController extends Controller {
         return $this->renderView('users.edit', ['user' => $user, 'menus' => $menus, 'userPermissions' => $userPermissions]);
     }
 
-    public function update(UpdateUserRequest $request, User $user) {
+    public function update(UpdateUserRequest $request, User $user)
+    {
         $this->checkPermission('update', 'users');
 
-        $user->update($request->validated());
+        $validated = $request->validated();
+
+        if (!empty($validated['password'])) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
+
+        $user->update($validated);
 
         return redirect()->route('users.index')->with('success', 'User updated.');
     }
 
-    public function destroy(User $user) {
+    public function destroy(User $user)
+    {
         $this->checkPermission('delete', 'users');
         $user->delete();
 
         return redirect()->route('users.index')->with('success', 'User deleted.');
     }
 
-    public function updateAccess(Request $request, User $user) {
+    public function updateAccess(Request $request, User $user)
+    {
         $permissions = $request->permissions;
 
         logger($permissions);
@@ -189,5 +208,14 @@ class UserController extends Controller {
         }
 
         return redirect()->route('users.index')->with('success', 'Permissions updated successfully.');
+    }
+
+    public function resetPassword(Request $request, User $user) {
+        $this->checkPermission('update', 'users');
+
+        $user->password = Hash::make('Pakerin999');
+        $user->save();
+
+        return response()->json(['message' => 'Password has been reset to "Pakerin999".'], 200);
     }
 }
