@@ -56,6 +56,17 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-2">
+                                <div class="form-check">
+                                    <input type="hidden" name="technician" value="0">
+                                    <input type="checkbox" class="form-check-input" id="active-checkbox" name="technician"
+                                           value="1" >
+                                    <label class="form-check-label" for="active-checkbox">Juru Teknisi</label>
+                                </div>
+                            </div>
+                        </div>
+
                         <h6 class="text-divider mb-4"><span>Security</span></h6>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Password</label>

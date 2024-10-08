@@ -24,7 +24,10 @@ class UsersDataTable extends DataTable {
             ->addColumn('active', function (User $user) {
                 return $user->active ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>';
             })
-            ->rawColumns(['active', 'action'])
+            ->addColumn('technician', function (User $user) {
+                return $user->technician ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>';
+            })
+            ->rawColumns(['active', 'technician', 'action'])
             ->addColumn('action', 'users.action')
             ->setRowId('id');
     }
@@ -84,6 +87,9 @@ class UsersDataTable extends DataTable {
                 ->addClass('text-left'),
             Column::make('active')
                 ->title('Active')
+                ->addClass('text-center'),
+            Column::make('technician')
+                ->title('Juru Teknisi')
                 ->addClass('text-center'),
         ];
     }

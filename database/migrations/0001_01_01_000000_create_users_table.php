@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('active')->default(true);
+            $table->boolean('technician')->default(false);
             $table->foreignId('updated_by')->nullable()->index();
             $table->foreignId('created_by')->nullable()->index();
             $table->rememberToken();

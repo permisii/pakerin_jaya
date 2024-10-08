@@ -111,13 +111,8 @@ class UserController extends Controller {
 
     public function update(UpdateUserRequest $request, User $user) {
         $this->checkPermission('update', 'users');
-        $data = $request->only(['name', 'email', 'nip', 'unit_id', 'active']);
 
-        if ($request->filled('password')) {
-            $data['password'] = bcrypt($request->password);
-        }
-
-        $user->update($data);
+        $user->update($request->validated());
 
         return redirect()->route('users.index')->with('success', 'User updated.');
     }

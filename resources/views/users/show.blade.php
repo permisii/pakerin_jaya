@@ -59,6 +59,17 @@
                             </div>
                         </div>
 
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-2">
+                                <div class="form-check">
+                                    <input type="hidden" name="technician" value="0">
+                                    <input type="checkbox" class="form-check-input" id="technician-checkbox" name="technician"
+                                           value="1" {{ $user->technician ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="technician-checkbox">Juru Teknisi</label>
+                                </div>
+                            </div>
+                        </div>
+
                         @if(auth()->user()->id == $user->id)
                             <h6 class="text-divider mb-4"><span>Security</span></h6>
                             <div class="form-group row">

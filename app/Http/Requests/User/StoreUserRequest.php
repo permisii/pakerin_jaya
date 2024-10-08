@@ -26,6 +26,7 @@ class StoreUserRequest extends FormRequest {
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8'],
             'active' => ['required', 'boolean'],
+            'technician' => ['required', 'boolean'],
             //            'updated_by' => ['required', 'integer', 'exists:users,id'],
             //            'created_by' => ['required', 'integer', 'exists:users,id'],
         ];
