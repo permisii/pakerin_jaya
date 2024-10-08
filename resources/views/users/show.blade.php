@@ -25,7 +25,6 @@
                             <label class="col-sm-2 col-form-label text-right">Email</label>
                             <div class="col-sm-4">
                                 <input class="form-control form-control form-control-sm" name="email" data-inputmask="'alias': 'email'" placeholder="Enter email"  value="{{ $user->email }}" required>
-
                             </div>
                         </div>
 
@@ -61,7 +60,6 @@
                         </div>
 
                         @if(auth()->user()->id == $user->id)
-
                             <h6 class="text-divider mb-4"><span>Security</span></h6>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">Password</label>
@@ -70,15 +68,6 @@
                                            autocomplete="new-password">
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label text-right">Retype Password</label>
-                                <div class="col-sm-4">
-                                    <input type="password" class="form-control form-control-sm"
-                                           name="password_confirmation">
-                                </div>
-                            </div>
-
                         @endif
                     </div>
 

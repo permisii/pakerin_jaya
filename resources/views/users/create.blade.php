@@ -64,15 +64,6 @@
                                        autocomplete="new-password" required>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Retype Password</label>
-                            <div class="col-sm-4">
-                                <input type="password" class="form-control form-control form-control-sm"
-                                       name="password_confirmation" required>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div class="card-footer">
