@@ -23,8 +23,11 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Date</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control form-control form-control-sm" id="work_date"
-                                       name="work_date" required>
+                                <input type="date"
+                                    class="form-control form-control form-control-sm"
+                                    id="work_date"
+                                    value="{{ date('d/m/Y') }}"
+                                    name="work_date" required>
                             </div>
                         </div>
                     </div>
@@ -57,8 +60,8 @@
     <script>
         $(document).ready(function() {
             // Set default current date
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('work_date').value = today;
+            // const = new Date().toISOString().split('T')[0];
+            // document.getElementById('work_date');
 
             $('.select2').select2({
                 placeholder: '-- Pilih Worker --',

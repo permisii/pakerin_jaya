@@ -23,9 +23,10 @@ class StoreWorkInstructionRequest extends FormRequest {
     public function rules(): array {
         return [
             'user_id' => ['required', 'integer', 'exists:users,id'],
-            'work_date' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today',
-                new StoreWorkInstructionRequestUniqueDate($this->user_id),
-            ],
+            'work_date' => ['required', 'date'],
+            // 'work_date' => ['required', 'date', 'date_format:Y-m-d', 'before_or_equal:today',
+            //     new StoreWorkInstructionRequestUniqueDate($this->user_id),
+            // ],
             'status' => ['nullable', 'string', 'in:' . implode(',', WorkInstructionStatusEnum::toArray())],
         ];
     }

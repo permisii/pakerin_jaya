@@ -32,8 +32,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">NIP</label>
                             <div class="col-sm-4">
-                                <input type="number" class="form-control form-control-sm" name="nip"
-                                       value="{{ $user->nip }}" autocomplete="off">
+                                <input type="text" class="form-control form-control-sm" name="nip"
+                                       value="{{ $user->nip }}">
                             </div>
                         </div>
 

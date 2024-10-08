@@ -74,6 +74,8 @@ class AssignmentsDataTable extends DataTable {
             ->selectStyleSingle()
             ->dom('<"d-block mb-2"B><"d-flex justify-content-between"lf>rtip')
             ->addTableClass('w-100')
+            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
+            ->lengthChange(false)
             ->buttons([
                 Button::make([
                     'text' => '<i class="fas fa-plus"></i> Add Assignment',
@@ -82,20 +84,13 @@ class AssignmentsDataTable extends DataTable {
                     }',
                     'className' => 'btn btn-default text-blue',
                 ]),
-                Button::make([
-                    'text' => '<i class="fas fa-file"></i> Draft',
-                    'action' => 'function() {
-                        document.getElementById("draft-form").submit();
-                    }',
-                    'className' => 'btn btn-default text-primary',
-                ]),
-//                Button::make([
-//                    'text' => '<i class="fas fa-check"></i> Finish',
-//                    'action' => 'function() {
-//                        document.getElementById("submit-form").submit();
-//                    }',
-//                    'className' => 'btn btn-default text-success',
-//                ]),
+                //                Button::make([
+                //                    'text' => '<i class="fas fa-check"></i> Fini  ',
+                //                    'action' => 'function() {
+                //                        document.getElementById("submit-form").submit();
+                //                    }',
+                //                    'className' => 'btn btn-default text-success',
+                //                ]),
             ]);
     }
 
@@ -110,9 +105,12 @@ class AssignmentsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('assignment_number'),
-            Column::make('problem'),
-            Column::make('status'),
+            Column::make('assignment_number')
+                ->addClass('text-left'),
+            Column::make('problem')
+                ->addClass('text-left'),
+            Column::make('status')
+                ->addClass('text-center'),
         ];
     }
 

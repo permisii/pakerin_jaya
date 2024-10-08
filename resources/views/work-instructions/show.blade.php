@@ -76,9 +76,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="card-footer">
+                {{-- <div class="card-footer">
                     <a href="{{ route('work-instructions.index') }}" class="btn btn-default">Back to WorkInstructions</a>
-                </div>
+                </div> --}}
             </div>
         </div>
 

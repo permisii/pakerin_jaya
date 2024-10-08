@@ -88,10 +88,14 @@ class WorkInstructionsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('work_date')->title('Work Date'),
-            Column::make('user.nip')->title('NIP'),
-            Column::make('user.name')->title('Name'),
-            Column::make('status'),
+            Column::make('work_date')->title('Work Date')
+                ->addClass('text-left'),
+            Column::make('user.nip')->title('NIP')
+                ->addClass('text-left'),
+            Column::make('user.name')->title('Name')
+                ->addClass('text-left'),
+            Column::make('status')
+                ->addClass('text-center'),
         ];
     }
 

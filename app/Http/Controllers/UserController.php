@@ -94,7 +94,6 @@ class UserController extends Controller {
         $menus = MenuResource::collection(Menu::all());
         $userPermissions = $user->accessMenus->keyBy('menu_id');
 
-
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Users' => route('users.index'),
@@ -137,6 +136,7 @@ class UserController extends Controller {
 
         if ($permissions == null) {
             $user->accessMenus()->delete();
+
             return redirect()->route('users.index')->with('success', 'Permissions updated successfully.');
         }
 

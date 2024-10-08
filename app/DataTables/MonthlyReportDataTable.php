@@ -28,7 +28,7 @@ class MonthlyReportDataTable extends DataTable {
                     return '<span class="badge badge-success">Approved</span>';
                 }
 
-//                return '<span class="badge badge-danger">Rejected</span>';
+                //                return '<span class="badge badge-danger">Rejected</span>';
 
             })
             ->rawColumns(['action', 'status'])

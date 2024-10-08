@@ -3,24 +3,23 @@
 @section('template-content')
 
     <body class="sidebar-mini control-sidebar-slide-open text-md layout-navbar-fixed layout-fixed">
-    <div class="wrapper">
+        <div class="wrapper">
 
-        @include('layouts.navbar')
+            @include('layouts.navbar')
 
-        @include('layouts.sidebar')
+            @include('layouts.sidebar')
 
-        <div class="content-wrapper">
-            @include('layouts.breadcrumb')
+            <div class="content-wrapper">
+                @include('layouts.breadcrumb')
 
-            <div class="content">
-                <div class="container-fluid">
-                    @yield('content')
+                <div class="content">
+                    <div class="container-fluid">
+                        @yield('content')
+                    </div>
                 </div>
             </div>
-        </div>
 
-        @include('layouts.footer')
-    </div>
+            @include('layouts.footer')
+        </div>
     </body>
 @endsection
-

@@ -6,8 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Menu extends Model
-{
+class Menu extends Model {
     use HasFactory;
 
     protected $fillable = [
@@ -21,8 +20,7 @@ class Menu extends Model
         'updated_by',
     ];
 
-    public function accessMenus(): HasMany
-    {
+    public function accessMenus(): HasMany {
         return $this->hasMany(AccessMenu::class);
     }
 }

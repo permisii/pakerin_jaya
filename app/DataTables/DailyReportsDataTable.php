@@ -21,6 +21,9 @@ class DailyReportsDataTable extends DataTable {
             ->addColumn('action', function (WorkInstruction $workInstruction) {
                 return view('daily-report.action', ['workInstruction' => $workInstruction]);
             })
+            ->addColumn('worker', function (WorkInstruction $workInstruction) {
+                return $workInstruction->user->name;
+            })
             ->addColumn('status', function (WorkInstruction $workInstruction) {
                 if ($workInstruction->status == WorkInstructionStatusEnum::Draft->value) {
                     return '<span class="badge badge-warning">Pending</span>';
@@ -28,7 +31,7 @@ class DailyReportsDataTable extends DataTable {
                     return '<span class="badge badge-success">Approved</span>';
                 }
 
-//                return '<span class="badge badge-danger">Rejected</span>';
+                //                return '<span class="badge badge-danger">Rejected</span>';
 
             })
             ->rawColumns(['action', 'status'])
@@ -64,8 +67,13 @@ class DailyReportsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('work_date'),
-            Column::make('status'),
+            Column::make('work_date')
+                ->addClass('text-left'),
+            Column::make('worker')
+                ->addClass('text-center'),
+            Column::make('status')
+                ->width(80)
+                ->addClass('text-center'),
         ];
     }
 

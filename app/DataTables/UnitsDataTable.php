@@ -61,9 +61,10 @@ class UnitsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('name'),
-            Column::make('unit_code'),
+            Column::make('name')
+                ->addClass('text-left'),
+            Column::make('unit_code')
+                ->addClass('text-center'),
         ];
     }
 
