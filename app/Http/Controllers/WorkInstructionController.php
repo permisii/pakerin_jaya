@@ -13,12 +13,12 @@ class WorkInstructionController extends Controller {
         $this->checkPermission('read', 'work-instructions');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => '',
+            'Instruksi Kerja' => '',
         ]);
 
         $this->setParams([
-            'title' => 'Work Instructions',
-            'subtitle' => 'List of work instructions',
+            'title' => 'Instruksi Kerja',
+            'subtitle' => 'Data Instruksi Kerja',
         ]);
 
         return $dataTable->render('work-instructions.index', ['params' => $this->getParams(), 'breadcrumbs' => $this->getBreadcrumbs()]);
@@ -28,13 +28,13 @@ class WorkInstructionController extends Controller {
         $this->checkPermission('create', 'work-instructions');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => route('work-instructions.index'),
+            'Instruksi Kerja' => route('work-instructions.index'),
             'Create' => '',
         ]);
 
         $this->setParams([
-            'title' => 'Create Work Instruction',
-            'subtitle' => 'Create a new work instruction',
+            'title' => 'Instruksi Kerja',
+            'subtitle' => 'Tambah Instruksi Kerja',
         ]);
 
         return $this->renderView('work-instructions.create');
@@ -53,13 +53,13 @@ class WorkInstructionController extends Controller {
 
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => route('work-instructions.index'),
+            'Instruksi Kerja' => route('work-instructions.index'),
             $workInstruction->id => '',
         ]);
 
         $this->setParams([
-            'title' => 'Work Instruction',
-            'subtitle' => 'Work instruction details',
+            'title' => 'Instruksi Kerja',
+            'subtitle' => 'Detail Instruksi Kerja',
         ]);
 
         return $this->renderView('work-instructions.show', ['workInstruction' => $workInstruction]);
@@ -71,14 +71,14 @@ class WorkInstructionController extends Controller {
 
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => route('work-instructions.index'),
+            'Instruksi Kerja' => route('work-instructions.index'),
             $workInstruction->name => route('work-instructions.show', $workInstruction->id),
             'Edit' => '',
         ]);
 
         $this->setParams([
-            'title' => 'Edit Work Instruction',
-            'subtitle' => 'Edit work instruction details',
+            'title' => 'Edit Instruksi Kerja',
+            'subtitle' => 'Edit Detail Instruksi Kerja',
         ]);
 
         return $this->renderView('work-instructions.edit', ['workInstruction' => $workInstruction]);

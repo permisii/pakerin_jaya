@@ -61,7 +61,7 @@ class UnitController extends Controller {
 
         $this->setParams([
             'title' => 'Unit',
-            'subtitle' => 'Unit details',
+            'subtitle' => 'Detail Unit',
         ]);
 
         return $this->renderView('units.show', ['unit' => $unit]);

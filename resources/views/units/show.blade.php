@@ -12,9 +12,9 @@
                 <div class="card card-info card-outline card-outline-tabs">
 
                     <div class="card-body">
-                        <h6 class="text-divider mb-4"><span>Identity</span></h6>
+                        <h6 class="text-divider mb-4"><span>Data</span></h6>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Name</label>
+                            <label class="col-sm-2 col-form-label text-right">Nama</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control-sm" name="name"
                                        value="{{ $unit->name }}">
@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Code</label>
+                            <label class="col-sm-2 col-form-label text-right">Kode</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control-sm" name="unit_code"
                                        value="{{ $unit->unit_code }}">
@@ -33,7 +33,7 @@
                     <div class="card-footer">
                         <a href="{{ route('units.index') }}" class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
-                            Kembali Ke Daftar Unit
+                            Kembali
                         </a>
 
                         <div class="btn-group float-right">

@@ -5,7 +5,7 @@
     <div class="login-box">
         <div class="login-logo">
             <a href="#">
-                <span class="text-bold">Daily</span><span style="font-weight: 100">Operation</span>
+                <span class="text-bold">Laporan</span><span style="font-weight: 100">Harian</span>
             </a>
         </div>
         <div class="card rounded rounded-lg">

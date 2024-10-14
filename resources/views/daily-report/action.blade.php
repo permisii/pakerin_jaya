@@ -5,12 +5,12 @@
         <div class="btn-group">
             @if($workInstruction->assignments()->count() === 0)
                 <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}"  class="btn btn-sm btn-default text-red action-btn">
-                    Create Assignment
+                    Buat Laporan
                 </a>
 
             @elseif($workInstruction->status === WorkInstructionStatusEnum::Draft->value)
                 <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}"  class="btn btn-sm btn-default text-blue action-btn">
-                    Continue Assignment
+                    Lanjutkan Laporan
                 </a>
 
                 <form action="{{route('work-instructions.update', $workInstruction->id)}}" method="post" id="submit-form">
@@ -23,7 +23,7 @@
             @elseif($workInstruction->status === WorkInstructionStatusEnum::Submitted->value)
                 <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}" class="btn btn-sm btn-default text-blue action-btn">
                     <i class="fas fa-info-circle"></i>
-                    Details
+                    Detail Laporan
                 </a>
             @endif
         </div>

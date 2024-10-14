@@ -8,44 +8,44 @@
         <div class="col-12">
             <div class="card card-info card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Assignment Details</h3>
+                    <h3 class="card-title">Detail Pekerjaan</h3>
                 </div>
 
                 <div class="card-body">
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-right">Assignment Number</label>
+                        <label class="col-sm-2 col-form-label text-right">Nomor PK</label>
                         <div class="col-sm-4">
-                            <input type="text" class="form-control form-control form-control-sm" placeholder="MATERIAL"
+                            <input type="text" class="form-control form-control form-control-sm" placeholder="NOMOR PK"
                                 value="{{ $assignment->assignment_number }}" autocomplete="off" readonly>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-right">Problem</label>
+                        <label class="col-sm-2 col-form-label text-right">Masalah</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" rows="3" placeholder="PROBLEM" readonly>{{ $assignment->problem }}</textarea>
+                            <textarea class="form-control" rows="3" placeholder="MASALAH" readonly>{{ $assignment->problem }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-right">Resolution</label>
+                        <label class="col-sm-2 col-form-label text-right">Penanganan</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" rows="3" placeholder="PROBLEM" readonly>{{ $assignment->resolution }}</textarea>
+                            <textarea class="form-control" rows="3" placeholder="PENANGANAN" readonly>{{ $assignment->resolution }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
                         <label class="col-sm-2 col-form-label text-right">Material</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" rows="3" placeholder="PROBLEM" readonly>{{ $assignment->material }}</textarea>
+                            <textarea class="form-control" rows="3" placeholder="MATERIAL" readonly>{{ $assignment->material }}</textarea>
                         </div>
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-right">Description</label>
+                        <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                         <div class="col-sm-4">
-                            <textarea class="form-control" rows="3" placeholder="PROBLEM" readonly>{{ $assignment->description }}</textarea>
+                            <textarea class="form-control" rows="3" placeholder="DESKRIPSI" readonly>{{ $assignment->description }}</textarea>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@
                         </p> --}}
 
                     <div class="form-group row">
-                        <label class="col-sm-2 col-form-label text-right">Created By</label>
+                        <label class="col-sm-2 col-form-label text-right">Dibuat oleh</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control form-control form-control-sm"
                                 value="{{ $assignment->createdBy->name }}" autocomplete="off" readonly>
@@ -83,7 +83,7 @@
                     <a href="{{ route('work-instructions.index', $assignment->workInstruction->id) }}"
                         class="btn btn-default">
                         <i class="fa fa-fw fa-arrow-left"></i>
-                        Back to Assignments</a>
+                        Kembali ke Pekerjaan</a>
                 </div>
 
                 {{-- <div class="card-footer">

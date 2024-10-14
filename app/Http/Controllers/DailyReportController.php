@@ -17,8 +17,8 @@ class DailyReportController extends Controller {
         ]);
 
         $this->setParams([
-            'title' => 'Daily Report',
-            'subtitle' => 'List of daily reports',
+            'title' => 'Laporan Harian',
+            'subtitle' => 'Daftar Laporan Harian',
         ]);
 
         return $dataTable->render('daily-report.index', ['params' => $this->getParams(), 'breadcrumbs' => $this->getBreadcrumbs()]);

@@ -23,11 +23,11 @@ class StoreAssignmentRequest extends FormRequest {
             //            'work_instruction_id' => 'required|exists:work_instructions,id',
             'assignment_number' => 'required|string',
             'problem' => 'required|string',
-            'resolution' => 'required|string',
-            'material' => 'required|string',
-            'description' => 'required|string',
-            'status' => 'required|string',
-            'percentage' => 'required|integer',
+            'resolution' => 'nullable|string',
+            'material' => 'nullable|string',
+            'description' => 'nullable|string',
+            // 'status' => 'nullable|string', // automatically handled by percentage
+            'percentage' => 'nullable|integer|min:0|max:100',
             'created_by' => 'nullable|exists:users,id',
             'updated_by' => 'nullable|exists:users,id',
         ];

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', "Work Instructions $workInstruction->name")
+@section('title', "Instruksi Kerja $workInstruction->name")
 
 @section('content')
     <div class="col-12">
@@ -21,7 +21,7 @@
             </div>
 
             <div class="card-header">
-                <h3 class="card-title">WorkInstruction Details</h3>
+                <h3 class="card-title">Detail Instruksi Kerja</h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -32,7 +32,7 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a href="{{ route('work-instructions.index') }}" class="btn btn-default">Back to WorkInstructions</a>
+                <a href="{{ route('work-instructions.index') }}" class="btn btn-default">Kembali</a>
             </div>
         </div>
     </div>

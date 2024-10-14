@@ -21,12 +21,13 @@ class UpdateAssignmentRequest extends FormRequest {
     public function rules(): array {
         return [
             'work_instruction_id' => 'nullable|exists:work_instructions,id',
-            'assignment_number' => 'nullable|string',
-            'problem' => 'nullable|string',
+            // 'assignment_number' => 'nullable|string', // disabled because only admin can insert this i.e readonly
+            // 'problem' => 'nullable|string', // disabled because only admin can insert this i.e readonly
             'resolution' => 'nullable|string',
             'material' => 'nullable|string',
             'description' => 'nullable|string',
-            'status' => 'nullable|string',
+            'percentage' => 'nullable|integer|min:0|max:100',
+            // 'status' => 'nullable|string', // automatically handled by percentage
             'created_by' => 'nullable|exists:users,id',
             'updated_by' => 'nullable|exists:users,id',
         ];

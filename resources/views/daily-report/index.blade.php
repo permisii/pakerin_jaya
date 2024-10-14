@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Work Instructions')
+@section('title', 'Instruksi Kerja')
 
 @section('content')
     <div class="col-12">
@@ -8,7 +8,7 @@
             <div class="card-body">
                 <form method="GET" action="{{ route('monthly-report.index') }}">
                     <div class="form-group d-flex">
-                        <label class="col-form-label text-right mr-4">Month</label>
+                        <label class="col-form-label text-right mr-4">Bulan</label>
                         <div class="d-flex flex-column">
                             <input type="month" name="date_filter" id="date_filter"
                                    class="form-control form-control-sm" value="{{ request('date_filter') }}">

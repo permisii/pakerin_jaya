@@ -11,18 +11,20 @@ use App\Models\WorkInstruction;
 use App\Support\Enums\AssignmentStatusEnum;
 use App\Support\Enums\WorkInstructionStatusEnum;
 
-class AssignmentController extends Controller {
-    public function index(AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
+class AssignmentController extends Controller
+{
+    public function index(AssignmentsDataTable $dataTable, WorkInstruction $workInstruction)
+    {
         $this->checkPermission('read', 'assignments');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => route('work-instructions.index'),
+            'Instruksi Kerja' => route('work-instructions.index'),
             $workInstruction->id => route('work-instructions.show', $workInstruction->id),
             'Assignments' => '',
         ]);
 
         $this->setParams([
-            'title' => 'Assignments',
+            'title' => 'Pekerjaan',
             'subtitle' => $workInstruction->id,
         ]);
 
@@ -33,19 +35,20 @@ class AssignmentController extends Controller {
         ]);
     }
 
-    public function create(WorkInstruction $workInstruction) {
+    public function create(WorkInstruction $workInstruction)
+    {
         $this->checkPermission('create', 'assignments');
         $assignments = AssignmentResource::collection($workInstruction->assignments()->get());
 
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => route('work-instructions.index'),
+            'Instruksi Kerja' => route('work-instructions.index'),
             $workInstruction->id => route('work-instructions.show', $workInstruction->id),
-            'Create Assignment' => '',
+            'Tambah Pekerjaan' => '',
         ]);
 
         $this->setParams([
-            'title' => 'Create Assignment',
+            'title' => 'Pekerjaaan',
             'subtitle' => $workInstruction->work_date,
         ]);
 
@@ -55,10 +58,17 @@ class AssignmentController extends Controller {
         ]);
     }
 
-    public function store(StoreAssignmentRequest $request, WorkInstruction $workInstruction) {
+    public function store(StoreAssignmentRequest $request, WorkInstruction $workInstruction)
+    {
         $this->checkPermission('create', 'assignments');
         $data = $request->validated();
-        $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
+        // $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
+        if ($data['percentage'] < 100) {
+            $data['status'] = AssignmentStatusEnum::Draft->value;
+        } else {
+            $data['status'] = AssignmentStatusEnum::Done->value;
+        }
+
         $workInstruction->assignments()->create($data);
 
         $this->updateWorkInstructionStatus($workInstruction);
@@ -67,13 +77,14 @@ class AssignmentController extends Controller {
             ->with('success', 'Assignment created.');
     }
 
-    public function show(WorkInstruction $workInstruction, Assignment $assignment) {
+    public function show(WorkInstruction $workInstruction, Assignment $assignment)
+    {
         $this->checkPermission('read', 'assignments');
         $assignment = new AssignmentResource($assignment->load('workInstruction', 'updatedBy', 'createdBy'));
 
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => route('work-instructions.index'),
+            'Instruksi Kerja' => route('work-instructions.index'),
             $workInstruction->id => route('work-instructions.show', $workInstruction->id),
             $assignment->name => '',
         ]);
@@ -89,13 +100,14 @@ class AssignmentController extends Controller {
         ]);
     }
 
-    public function edit(WorkInstruction $workInstruction, Assignment $assignment) {
+    public function edit(WorkInstruction $workInstruction, Assignment $assignment)
+    {
         $this->checkPermission('update', 'assignments');
         $assignment = new AssignmentResource($assignment);
 
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
-            'Work Instructions' => route('work-instructions.index'),
+            'Instruksi Kerja' => route('work-instructions.index'),
             $workInstruction->id => route('work-instructions.show', $workInstruction->id),
             $assignment->name => route('work-instructions.assignments.show', [$workInstruction->id, $assignment->id]),
             'Edit' => '',
@@ -112,10 +124,16 @@ class AssignmentController extends Controller {
         ]);
     }
 
-    public function update(UpdateAssignmentRequest $request, WorkInstruction $workInstruction, Assignment $assignment) {
+    public function update(UpdateAssignmentRequest $request, WorkInstruction $workInstruction, Assignment $assignment)
+    {
         $this->checkPermission('update', 'assignments');
         $data = $request->validated();
-        $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
+        // $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
+        if ($data['percentage'] < 100) {
+            $data['status'] = AssignmentStatusEnum::Draft->value;
+        } else {
+            $data['status'] = AssignmentStatusEnum::Done->value;
+        }
         $assignment->update($data);
 
         $this->updateWorkInstructionStatus($workInstruction);
@@ -123,7 +141,8 @@ class AssignmentController extends Controller {
         return redirect()->route('work-instructions.assignments.index', $workInstruction->id)->with('success', 'Assignment updated.');
     }
 
-    public function destroy(WorkInstruction $workInstruction, Assignment $assignment) {
+    public function destroy(WorkInstruction $workInstruction, Assignment $assignment)
+    {
         $this->checkPermission('delete', 'assignments');
         $assignment->delete();
 
@@ -133,7 +152,8 @@ class AssignmentController extends Controller {
     /**
      * if all assignments are done, update the work instruction status to submitted, otherwise set it to draft
      */
-    private function updateWorkInstructionStatus(WorkInstruction $workInstruction): void {
+    private function updateWorkInstructionStatus(WorkInstruction $workInstruction): void
+    {
         $workInstruction->update([
             'status' => $workInstruction->assignments()->where('status', AssignmentStatusEnum::Done)->count() === $workInstruction->assignments()->count()
                 ? WorkInstructionStatusEnum::Submitted

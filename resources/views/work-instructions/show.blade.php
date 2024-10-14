@@ -1,7 +1,7 @@
 @php use App\Support\Enums\IntentEnum; @endphp
 @extends('layouts.app')
 
-@section('title', "Work Instructions $workInstruction->name")
+@section('title', "Instruksi Kerja $workInstruction->name")
 
     @section('content')
         <div class="col-12">
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="card-header">
-                    <h3 class="card-title">WorkInstruction Details</h3>
+                    <h3 class="card-title">Detail Instruksi Kerja</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('work-instructions.update', $workInstruction->id) }}" method="post"
@@ -34,9 +34,9 @@
                             <div class="col-12">
                                 <div class="card card-info card-outline card-outline-tabs">
                                     <div class="card-body">
-                                        <h6 class="text-divider mb-4"><span>Edit Work Instructions</span></h6>
+                                        <h6 class="text-divider mb-4"><span>Edit Instruksi Kerja</span></h6>
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label text-right">Worker</label>
+                                            <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                                             <div class="col-sm-4">
                                                 <select class="form-control form-control-sm select2" name="user_id" disabled>
                                                     <option value="{{$workInstruction->user->id}}" selected>{{$workInstruction->user->name}}</option>
@@ -45,7 +45,7 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label class="col-sm-2 col-form-label text-right">Date</label>
+                                            <label class="col-sm-2 col-form-label text-right">Tanggal</label>
                                             <div class="col-sm-4">
                                                 <input type="date" class="form-control form-control-sm" name="work_date"
                                                        value="{{ $workInstruction->work_date }}">
@@ -56,7 +56,7 @@
                                     <div class="card-footer">
                                         <a href="{{ route('work-instructions.index') }}" class="btn btn-default">
                                             <i class="fa fa-fw fa-arrow-left"></i>
-                                            Kembali Ke Daftar WorkInstruction
+                                            Kembali
                                         </a>
 
                                         <div class="btn-group float-right">

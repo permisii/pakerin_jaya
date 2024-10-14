@@ -5,17 +5,17 @@
         <div class="btn-group">
             @if($workInstruction->assignments()->count() === 0)
                 <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}">
-                    Create Assignment
+                    Tambah Laporan
                 </a>
 
             @elseif($workInstruction->status === WorkInstructionStatusEnum::Draft)
                 <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}">
-                    Continue Assignment
+                    Lanjutkan Laporan
                 </a>
 
             @elseif($workInstruction->status === WorkInstructionStatusEnum::Submitted)
                 <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}">
-                    Assignment Details
+                    Detail Laporan
                 </a>
             @endif
         </div>

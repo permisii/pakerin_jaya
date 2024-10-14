@@ -2,7 +2,7 @@
     <a href="{{ route('dashboard') }}" class="brand-link">
         <img src="{{ asset('adminlte/dist/img/favicons.png') }}" alt="AdminLTE Logo"
              class="brand-image img-circle" style="opacity: .8">
-        <span class="brand-text"><b>Daily</b>Operation</span>
+        <span class="brand-text"><b>Laporan</b>Harian</span>
     </a>
 
     <div class="sidebar">
@@ -18,7 +18,7 @@
 
         <div class="btn-group btn-block border-bottom pb-3">
             <a href="{{ route('users.show', auth()->user()->id) }}" class="btn btn-default btn-sm">
-                <i class="fas fa-user"></i> User Profile
+                <i class="fas fa-user"></i> Profil Pengguna
             </a>
             <a href="{{ route('login') }}" class="btn btn-default btn-sm">
                 <i class="fas fa-sign-out-alt"></i> Logout
@@ -33,10 +33,12 @@
                         <a href="{{ route('dashboard') }}"
                            class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
-                            <p>Dashboard</p>
+                            <p>DASHBOARD</p>
                         </a>
                     </li>
                 @endif
+
+                <li class="nav-header bg-warning">INSTRUKSI KERJA</li>
 
                 <li class="nav-header">ADMINISTRATION</li>
 
@@ -45,7 +47,7 @@
                         <a href="{{ route('users.index') }}"
                            class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-fw fa-users"></i>
-                            <p>User</p>
+                            <p>USER</p>
                         </a>
                     </li>
                 @endif
@@ -57,19 +59,19 @@
                         <a href="{{ route('units.index') }}"
                            class="nav-link {{ Request::is('units*') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-fw fa-building"></i>
-                            <p>Unit</p>
+                            <p>UNIT</p>
                         </a>
                     </li>
                 @endif
 
-                <li class="nav-header">OPERATIONAL</li>
+                <li class="nav-header">OPERASIONAL</li>
 
                 @if (auth()->user()->hasPermission('read', 'work-instructions'))
                     <li class="nav-item">
                         <a href="{{ route('work-instructions.index') }}"
                            class="nav-link {{ Request::is('work-instructions*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-fw fa-calendar-alt"></i>
-                            <p>Work Instructions</p>
+                            <p>INSTRUKSI KERJA</p>
                         </a>
                     </li>
                 @endif
@@ -80,19 +82,19 @@
                            class="nav-link {{ Request::is('daily-report*') ? 'active' : '' }}"
                            data-menu-prefix="daily-report">
                             <i class="nav-icon far fa-fw fa-calendar-alt"></i>
-                            <p>Daily Report</p>
+                            <p>LAPORAN HARIAN</p>
                         </a>
                     </li>
                 @endif
 
-                <li class="nav-header">REPORT</li>
+                <li class="nav-header">LAPORAN</li>
 
                 @if (auth()->user()->hasPermission('read', 'monthly-reports'))
                     <li class="nav-item">
                         <a href="{{ route('monthly-report.index') }}"
                            class="nav-link {{ Request::is('monthly-report*') ? 'active' : '' }}">
                             <i class="nav-icon far fa-fw fa-copy"></i>
-                            <p>Your Report</p>
+                            <p>LAPORAN KARYAWAN</p>
                         </a>
                     </li>
                 @endif

@@ -37,12 +37,13 @@ class UnitsDataTable extends DataTable {
             ->setTableId('units-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->dom('<"d-block mb-2"B><"d-flex justify-content-between"lf>rtip')
+            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
+            ->lengthChange(false)
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
                 Button::make([
-                    'text' => '<i class="fas fa-plus"></i> Add Unit',
+                    'text' => '<i class="fas fa-plus"></i> Tambah Unit',
                     'action' => 'function() {
                         window.location.href = "' . route('units.create') . '";
                     }',

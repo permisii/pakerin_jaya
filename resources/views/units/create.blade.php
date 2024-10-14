@@ -28,7 +28,7 @@
                     <div class="card-footer">
                         <a href="{{ route('units.index') }}" class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
-                            Kembali Ke Daftar Unit
+                            Kembali
                         </a>
 
                         <div class="btn-group float-right">
@@ -63,12 +63,12 @@
                 }
             }, {
                 name: {
-                    required: "Please enter a name",
-                    minlength: "Name must be at least 3 characters long"
+                    required: "Masukkan Nama",
+                    minlength: "minimal 3 karakter"
                 },
                 unit_code: {
-                    required: "Please enter a unit code",
-                    minlength: "Unit code must be at least 3 characters long"
+                    required: "Masukkan Kode Unit",
+                    minlength: "minimal 3 karakter "
                 }
             });
         });

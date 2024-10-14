@@ -54,11 +54,12 @@ class UsersDataTable extends DataTable {
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->selectStyleSingle()
-            ->dom('<"d-block mb-2"B><"d-flex justify-content-between"lf>rtip')
+            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
+            ->lengthChange(false)
             ->addTableClass('w-100')
             ->buttons([
                 Button::make([
-                    'text' => '<i class="fas fa-plus"></i> Add User',
+                    'text' => '<i class="fas fa-plus"></i> Tambah User',
                     'action' => 'function() {
                         window.location.href = "' . route('users.create') . '";
                     }',

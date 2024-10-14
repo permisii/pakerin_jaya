@@ -31,7 +31,7 @@
                     <div class="card-footer">
                         <a href="{{ route('units.index') }}" class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
-                            Kembali Ke Daftar Unit
+                            Kembali
                         </a>
 
                         <div class="btn-group float-right">

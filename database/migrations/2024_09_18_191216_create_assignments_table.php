@@ -15,9 +15,9 @@ return new class extends Migration {
             $table->foreignId('work_instruction_id')->constrained();
             $table->string('assignment_number');
             $table->text('problem');
-            $table->text('resolution');
-            $table->text('material');
-            $table->text('description');
+            $table->text('resolution')->nullable();
+            $table->text('material')->nullable();
+            $table->text('description')->nullable();
             $table->tinyInteger('status')->default(AssignmentStatusEnum::Draft);
             $table->tinyInteger('percentage')->default(0);
             $table->foreignId('created_by')->constrained('users');

@@ -12,18 +12,18 @@
                 <div class="card card-info card-outline card-outline-tabs">
 
                     <div class="card-body">
-                        <h6 class="text-divider mb-4"><span>Edit Work Instructions</span></h6>
+                        <h6 class="text-divider mb-4"><span>Edit Instruksi Kerja</span></h6>
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Worker</label>
+                            <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="user_id">
-                                    <option value="">-- Pilih Worker --</option>
+                                    <option value="">-- Pilih Pekerja --</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Date</label>
+                            <label class="col-sm-2 col-form-label text-right">Tanggal</label>
                             <div class="col-sm-4">
                                 <input type="date" class="form-control form-control-sm" name="work_date"
                                        value="{{ $workInstruction->work_date }}">
@@ -34,7 +34,7 @@
                     <div class="card-footer">
                         <a href="{{ route('work-instructions.index') }}" class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
-                            Kembali Ke Daftar WorkInstruction
+                            Kembali
                         </a>
 
                         <div class="btn-group float-right">
@@ -64,7 +64,7 @@
             };
 
             $('.select2').select2({
-                placeholder: '-- Pilih Worker --',
+                placeholder: '-- Pilih Pekerja --',
                 allowClear: true,
                 ajax: {
                     url: '{{ route('users.index') }}',
