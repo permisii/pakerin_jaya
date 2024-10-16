@@ -20,7 +20,6 @@ class ServiceCard extends Model {
         'created_by',
         'updated_by',
     ];
-
     protected $casts = [
         'date' => 'datetime',
     ];

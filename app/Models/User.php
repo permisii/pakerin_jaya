@@ -26,7 +26,7 @@ class User extends Authenticatable {
         'active',
         'updated_by',
         'created_by',
-        'technician'
+        'technician',
     ];
 
     /**

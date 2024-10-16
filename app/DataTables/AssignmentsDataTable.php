@@ -13,15 +13,13 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class AssignmentsDataTable extends DataTable
-{
+class AssignmentsDataTable extends DataTable {
     /**
      * Build the DataTable class.
      *
      * @param  QueryBuilder  $query  Results from query() method.
      */
-    public function dataTable(QueryBuilder $query): EloquentDataTable
-    {
+    public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('work_instruction_id', function (Assignment $assignment) {
                 return $assignment->work_instruction_id;
@@ -52,8 +50,7 @@ class AssignmentsDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Assignment $model): QueryBuilder
-    {
+    public function query(Assignment $model): QueryBuilder {
         // Retrieve the work_instruction_id from the route parameters
         $workInstruction = request()->route('work_instruction');
         Log::info($workInstruction);
@@ -66,8 +63,7 @@ class AssignmentsDataTable extends DataTable
     /**
      * Optional method if you want to use the html builder.
      */
-    public function html(): HtmlBuilder
-    {
+    public function html(): HtmlBuilder {
         $workInstructionId = request()->route('work_instruction') ? request()->route('work_instruction')->id : null;
 
         return $this->builder()
@@ -102,8 +98,7 @@ class AssignmentsDataTable extends DataTable
      * Get the dataTable columns definition.
      * $this->workInstruction = $workInstruction;
      */
-    public function getColumns(): array
-    {
+    public function getColumns(): array {
         return [
             Column::make('id')
                 ->tile('Aksi')
@@ -125,8 +120,7 @@ class AssignmentsDataTable extends DataTable
     /**
      * Get the filename for export.
      */
-    protected function filename(): string
-    {
+    protected function filename(): string {
         return 'Assignments_' . date('YmdHis');
     }
 }
