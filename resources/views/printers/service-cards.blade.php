@@ -3,7 +3,7 @@
  @endphp
 @extends('layouts.app')
 
-@section('title', "PC $pc->name")
+@section('title', "Printer $printer->name")
 
 @section('content')
     <div class="col-12">
@@ -12,12 +12,12 @@
                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                     <li class="nav-item active">
                         <a class="nav-link text-gray "
-                           href="{{ route('pcs.show', $pc->id) }}"
+                           href="{{ route('printers.show', $printer->id) }}"
                            role="tab">General</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-gray active"
-                           href="{{ route('pcs.service-cards.index', $pc->id) }}"
+                           href="{{ route('printers.service-cards.index', $printer->id) }}"
                            role="tab">Kartu Servis</a>
                     </li>
                 </ul>
@@ -25,7 +25,7 @@
 
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title">Kartu Service</h3>
-                <a href="{{ route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => $pc->name]) }}"
+                <a href="{{ route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => $printer->name]) }}"
                    class="btn btn-sm btn-default text-blue ml-2">
                     <i class="fas fa-plus"></i>
                     Tambah Uraian Pekerjaan
@@ -36,24 +36,18 @@
                 <div class="col-md-6 mx-auto">
                     <div class="card">
                         <div class="card-header bg-info">
-                            <h3 class="card-title">{{$pc->name}}</h3>
+                            <h3 class="card-title">{{$printer->name}}</h3>
                         </div>
                         <div class="card-body">
                             <dl class="row">
-                                <dt class="col-sm-4">Processor:</dt>
-                                <dd class="col-sm-8">{{$pc->processor}}</dd>
-                                <dt class="col-sm-4">RAM:</dt>
-                                <dd class="col-sm-8">{{$pc->ram}}</dd>
-                                <dt class="col-sm-4">HD:</dt>
-                                <dd class="col-sm-8">{{$pc->hdd}}</dd>
-                                <dt class="col-sm-4">Monitor:</dt>
-                                <dd class="col-sm-8">{{$pc->monitor}}</dd>
-                                <dt class="col-sm-4">VGA:</dt>
-                                <dd class="col-sm-8">{{$pc->vga}}</dd>
-                                <dt class="col-sm-4">Bagian:</dt>
-                                <dd class="col-sm-8">{{$pc->section}}</dd>
-                                <dt class="col-sm-4">User:</dt>
-                                <dd class="col-sm-8">{{$pc->user->name}}</dd>
+                                <dt class="col-sm-4">User</dt>
+                                <dd class="col-sm-8">{{ $printer->user->name }}</dd>
+                                <dt class="col-sm-4">Merk</dt>
+                                <dd class="col-sm-8">{{ $printer->brand }}</dd>
+                                <dt class="col-sm-4">Index</dt>
+                                <dd class="col-sm-8">{{ $printer->index }}</dd>
+                                <dt class="col-sm-4">Tipe</dt>
+                                <dd class="col-sm-8">{{ $printer->type }}</dd>
                             </dl>
                             <table class="table table-bordered">
                                 <thead>
@@ -95,7 +89,7 @@
                 </div>
             </div>
             {{-- <div class="card-footer">
-                <a href="{{ route('pcs.index') }}" class="btn btn-default">Back to WorkInstructions</a>
+                <a href="{{ route('printers.index') }}" class="btn btn-default">Back to WorkInstructions</a>
             </div> --}}
         </div>
     </div>
@@ -107,8 +101,8 @@
     {{--    <script>--}}
     {{--        $(document).ready(function() {--}}
     {{--            const loggedInUser = {--}}
-    {{--                id: '{{ $pc->user_id }}',--}}
-    {{--                text: '{{ $pc->user->name }}',--}}
+    {{--                id: '{{ $printer->user_id }}',--}}
+    {{--                text: '{{ $printer->user->name }}',--}}
     {{--            };--}}
 
     {{--            $('.select2').select2({--}}

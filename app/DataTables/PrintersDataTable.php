@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\ServiceCard;
+use App\Models\Printer;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ServiceCardDataTable extends DataTable {
+class PrintersDataTable extends DataTable {
     /**
      * Build the DataTable class.
      *
@@ -18,14 +18,14 @@ class ServiceCardDataTable extends DataTable {
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'servicecards.action')
+            ->addColumn('action', 'printers.action')
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(ServiceCard $model): QueryBuilder {
+    public function query(Printer $model): QueryBuilder {
         return $model->newQuery();
     }
 
@@ -34,18 +34,21 @@ class ServiceCardDataTable extends DataTable {
      */
     public function html(): HtmlBuilder {
         return $this->builder()
-            ->setTableId('servicecard-table')
+            ->setTableId('printers-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->orderBy(1)
             ->selectStyleSingle()
+            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
+            ->lengthChange(false)
+            ->addTableClass('w-100')
             ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
+                Button::make([
+                    'text' => '<i class="fas fa-plus"></i> Tambah Printer',
+                    'action' => 'function() {
+                        window.location.href = "' . route('printers.create') . '";
+                    }',
+                    'className' => 'btn btn-default text-blue',
+                ]),
             ]);
     }
 
@@ -59,10 +62,9 @@ class ServiceCardDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('description'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('brand')->title('Merek'),
+            Column::make('type')->title('Tipe'),
+            Column::make('date_of_initial_use')->title('Tanggal Penggunaan Awal'),
         ];
     }
 
@@ -70,6 +72,6 @@ class ServiceCardDataTable extends DataTable {
      * Get the filename for export.
      */
     protected function filename(): string {
-        return 'ServiceCard_' . date('YmdHis');
+        return 'Printers_' . date('YmdHis');
     }
 }

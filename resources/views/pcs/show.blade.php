@@ -16,7 +16,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-gray "
                            href="{{ route('pcs.service-cards.index', $pc->id) }}"
-                           role="tab">Service Cards</a>
+                           role="tab">Kartu Servis</a>
                     </li>
                 </ul>
             </div>
@@ -172,45 +172,45 @@
 
 
 @section('scripts')
-    {{--    <script>--}}
-    {{--        $(document).ready(function() {--}}
-    {{--            const loggedInUser = {--}}
-    {{--                id: '{{ $pc->user_id }}',--}}
-    {{--                text: '{{ $pc->user->name }}',--}}
-    {{--            };--}}
+        <script>
+            $(document).ready(function() {
+                const initialUser = {
+                    id: '{{ $pc->user->id }}',
+                    text: '{{ $pc->user->name }}',
+                };
 
-    {{--            $('.select2').select2({--}}
-    {{--                placeholder: '-- Pilih Worker --',--}}
-    {{--                allowClear: true,--}}
-    {{--                ajax: {--}}
-    {{--                    url: '{{ route('users.index') }}',--}}
-    {{--                    dataType: 'json',--}}
-    {{--                    delay: 250,--}}
-    {{--                    data: function(params) {--}}
-    {{--                        return {--}}
-    {{--                            q: params.term, // search term--}}
-    {{--                            intent: '{{ IntentEnum::USER_SEARCH_USERS->value }}', // intent parameter--}}
-    {{--                        };--}}
-    {{--                    },--}}
-    {{--                    processResults: function(data) {--}}
-    {{--                        return {--}}
-    {{--                            results: data.map(function(user) {--}}
-    {{--                                return {--}}
-    {{--                                    id: user.id,--}}
-    {{--                                    text: `${user.nip} - ${user.name}`,--}}
-    {{--                                };--}}
-    {{--                            }),--}}
-    {{--                        };--}}
-    {{--                    },--}}
-    {{--                    cache: true,--}}
-    {{--                },--}}
-    {{--                initSelection: function(element, callback) {--}}
-    {{--                    callback(loggedInUser);--}}
-    {{--                },--}}
-    {{--            });--}}
+                $('.select2').select2({
+                    placeholder: '-- Select User --',
+                    allowClear: true,
+                    ajax: {
+                        url: '{{ route('users.index') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term,
+                                intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}'
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: data.map(function(user) {
+                                    return {
+                                        id: user.id,
+                                        text: `${user.nip} - ${user.name}`,
+                                    };
+                                }),
+                            };
+                        },
+                        cache: true,
+                    },
+                    initSelection: function(element, callback) {
+                        callback(initialUser);
+                    },
+                });
 
-    {{--            // Set the value and trigger change to select the logged-in user--}}
-    {{--            $('.select2').val(loggedInUser.id).trigger('change');--}}
-    {{--        });--}}
-    {{--    </script>--}}
+                // Set the initial value and trigger change to select the initial user
+                $('.select2').val(initialUser.id).trigger('change');
+            });
+        </script>
 @endsection

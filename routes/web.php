@@ -28,6 +28,7 @@ Route::middleware('auth')->group(function () {
     Route::get('monthly-reports', MonthlyReportController::class)->name('monthly-report.index');
     Route::resource('pcs', PCController::class);
     Route::get('pcs/{pc}/service-cards', [PCController::class, 'serviceCards'])->name('pcs.service-cards.index');
+    Route::get('printers/{printer}/service-cards', [PrinterController::class, 'serviceCards'])->name('printers.service-cards.index');
     Route::resource('printers', PrinterController::class);
     Route::resource('service-cards', ServiceCardController::class);
     Route::resource('work-processes', WorkProcessController::class);
