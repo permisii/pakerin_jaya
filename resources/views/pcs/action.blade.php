@@ -1,14 +1,14 @@
 <tr>
     <th>
         <div class="btn-group">
-            <a href="{{ route('work-instructions.show', $id) }}"
+            <a href="{{ route('pcs.show', $id) }}"
                class="btn btn-sm btn-default text-blue action-btn">
                 <i class="fas fa-info-circle"></i>
                 Detail
             </a>
 
-            @if($workInstruction->user_id === auth()->user()->id)
-                <form action="{{route('work-instructions.destroy', $id)}}" method="post"
+{{--            @if($workInstruction->user_id === auth()->user()->id)--}}
+                <form action="{{route('pcs.destroy', $id)}}" method="post"
                       id="delete-form-{{$id}}">
                     @csrf
                     @method('DELETE')
@@ -17,7 +17,7 @@
                             class="fas fa-trash"></i> Delete
                     </button>
                 </form>
-            @endif
+{{--            @endif--}}
 
         </div>
     </th>

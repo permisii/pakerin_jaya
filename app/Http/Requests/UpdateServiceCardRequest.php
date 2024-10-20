@@ -9,7 +9,7 @@ class UpdateServiceCardRequest extends FormRequest {
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool {
-        return false;
+        return true;
     }
 
     /**
@@ -19,7 +19,14 @@ class UpdateServiceCardRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            //
+            'assignment_id' => 'nullable|integer|exists:assignments,id',
+            'date' => 'nullable|date',
+            'worker_id' => 'nullable|integer|exists:users,id',
+            'description' => 'nullable|string',
+            'device_type' => 'nullable|string',
+            'device_id' => 'nullable|integer',
+            'created_by' => 'nullable|integer|exists:users,id',
+            'updated_by' => 'nullable|integer|exists:users,id',
         ];
     }
 }

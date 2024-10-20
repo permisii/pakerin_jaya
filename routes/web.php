@@ -23,9 +23,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('units', UnitController::class);
     Route::resource('work-instructions', WorkInstructionController::class);
     Route::resource('work-instructions.assignments', AssignmentController::class);
+    Route::resource('assignments', AssignmentController::class); // Might conflict with the above route
     Route::get('daily-reports', DailyReportController::class)->name('daily-report.index');
     Route::get('monthly-reports', MonthlyReportController::class)->name('monthly-report.index');
     Route::resource('pcs', PCController::class);
+    Route::get('pcs/{pc}/service-cards', [PCController::class, 'serviceCards'])->name('pcs.service-cards.index');
     Route::resource('printers', PrinterController::class);
     Route::resource('service-cards', ServiceCardController::class);
     Route::resource('work-processes', WorkProcessController::class);

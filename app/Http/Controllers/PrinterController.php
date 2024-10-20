@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePrinterRequest;
 use App\Http\Requests\UpdatePrinterRequest;
 use App\Models\Printer;
+use App\Support\Enums\IntentEnum;
+use Illuminate\Http\Request;
 
 class PrinterController extends Controller {
     /**
      * Display a listing of the resource.
      */
-    public function index() {
-        //
+    public function index(Request $request) {
+        $intent = $request->get('intent');
+
+        switch ($intent) {
+            case IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value:
+                return Printer::where('brand', 'like', '%' . $request->get('q') . '%')
+                    ->get();
+        }
     }
 
     /**

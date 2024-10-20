@@ -26,8 +26,13 @@ class UserController extends Controller {
         switch ($intent) {
             case IntentEnum::USER_SEARCH_USERS->value:
                 $users = $this->search($request, User::class, ['name', 'email']);
-
                 return UserResource::collection($users);
+
+            case IntentEnum::USER_SELECT2_SEARCH_USERS->value:
+                $users = User::where('name', 'like', '%' . $request->get('q') . '%')
+                    ->orWhere('email', 'like', '%' . $request->get('q') . '%')
+                    ->get();
+                return response()->json($users);
         }
 
         $units = Unit::all();

@@ -9,10 +9,20 @@ use App\Http\Resources\AssignmentResource;
 use App\Models\Assignment;
 use App\Models\WorkInstruction;
 use App\Support\Enums\AssignmentStatusEnum;
+use App\Support\Enums\IntentEnum;
 use App\Support\Enums\WorkInstructionStatusEnum;
+use Illuminate\Http\Request;
 
 class AssignmentController extends Controller {
-    public function index(AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
+    public function index(Request $request, AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
+        $intent = $request->get('intent');
+
+        switch ($intent) {
+            case IntentEnum::ASSIGNMENT_SELECT2_SEARCH_ASSIGNMENTS->value:
+                return Assignment::where('assignment_number', 'like', '%' . $request->get('q') . '%')
+                    ->orWhere('problem', 'like', '%' . $request->get('q') . '%')
+                    ->get();
+        }
         $this->checkPermission('read', 'assignments');
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
