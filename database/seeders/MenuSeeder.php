@@ -18,6 +18,9 @@ class MenuSeeder extends Seeder {
             ['name' => 'Assignments', 'code' => 'assignments', 'description' => 'Assignments', 'url' => 'work-instructions.assignments.index', 'icon' => 'fas fa-tasks', 'created_by' => 1, 'updated_by' => 1],
             ['name' => 'Daily Reports', 'code' => 'daily-reports', 'description' => 'Daily Report Management', 'url' => 'daily-report.index', 'icon' => 'fas fa-calendar-day', 'created_by' => 1, 'updated_by' => 1],
             ['name' => 'Monthly Reports', 'code' => 'monthly-reports', 'description' => 'Monthly Report Management', 'url' => 'monthly-report.index', 'icon' => 'fas fa-calendar-alt', 'created_by' => 1, 'updated_by' => 1],
+            ['name' => 'PCs', 'code' => 'pcs', 'description' => 'PC Management', 'url' => 'pc.index', 'icon' => 'fas fa-desktop', 'created_by' => 1, 'updated_by' => 1],
+            ['name' => 'Printers', 'code' => 'printers', 'description' => 'Printer Management', 'url' => 'printer.index', 'icon' => 'fas fa-print', 'created_by' => 1, 'updated_by' => 1],
+            ['name' => 'Service Cards', 'code' => 'service-cards', 'description' => 'Service Card Management', 'url' => 'service-card.index', 'icon' => 'fas fa-clipboard-list', 'created_by' => 1, 'updated_by' => 1],
         ];
 
         foreach ($menus as $menu) {

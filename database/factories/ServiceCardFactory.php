@@ -26,7 +26,7 @@ class ServiceCardFactory extends Factory {
             'date' => $this->faker->date(),
             'worker_id' => User::inRandomOrder()->first()->id,
             'description' => $this->faker->text,
-            'device_type' => 'PC',
+            'device_type' => $device,
             'device_id' => $deviceInstance->id,
             'created_by' => 1,
             'updated_by' => 1,
