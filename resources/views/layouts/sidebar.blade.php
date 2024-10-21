@@ -98,6 +98,28 @@
                         </a>
                     </li>
                 @endif
+
+                <li class="nav-header">KARTU SERVICE</li>
+
+                @if (auth()->user()->hasPermission('read', 'monthly-reports'))
+                <li class="nav-item">
+                    <a href="{{ route('printer.index') }}"
+                       class="nav-link {{ Request::is('monthly-report*') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-fw fa-copy"></i>
+                        <p>PRINTER</p>
+                    </a>
+                </li>
+                 @endif
+
+                 @if (auth()->user()->hasPermission('read', 'monthly-reports'))
+                <li class="nav-item">
+                    <a href="{{ route('printer.index') }}"
+                       class="nav-link {{ Request::is('monthly-report*') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-fw fa-copy"></i>
+                        <p>PC</p>
+                    </a>
+                </li>
+                 @endif
             </ul>
         </nav>
     </div>
