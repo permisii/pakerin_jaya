@@ -40,14 +40,18 @@
                         </div>
                         <div class="card-body">
                             <dl class="row">
-                                <dt class="col-sm-4">User</dt>
-                                <dd class="col-sm-8">{{$printer->user_name}}</dd>
-                                <dt class="col-sm-4">Merk</dt>
-                                <dd class="col-sm-8">{{ $printer->brand }}</dd>
-                                <dt class="col-sm-4">Index</dt>
-                                <dd class="col-sm-8">{{ $printer->index }}</dd>
-                                <dt class="col-sm-4">Tipe</dt>
-                                <dd class="col-sm-8">{{ $printer->type }}</dd>
+                                <dt class="col-sm-1">User</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{$printer->user_name}}</dd>
+                                <dt class="col-sm-1">Merk</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->brand }}</dd>
+                                <dt class="col-sm-1">Index</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->index }}</dd>
+                                <dt class="col-sm-1">Tipe</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->type }}</dd>
                             </dl>
                             <table class="table table-bordered">
                                 <thead>
