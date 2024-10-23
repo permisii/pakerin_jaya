@@ -13,10 +13,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">User</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" name="user_id" required>
-                                    <option value="">-- Select User --</option>
-                                    <option value="{{ $pc->user_id }}" selected>{{ $pc->user->name }}</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" name="user_name" value="{{ $pc->user_name }}" required>
                             </div>
                         </div>
 
@@ -121,40 +118,4 @@
             </div>
         </div>
     </form>
-@endsection
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('.select2').select2({
-                placeholder: '-- Select User --',
-                allowClear: true,
-                ajax: {
-                    url: '{{ route('users.index') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            search: params.term,
-                            intent: '{{\App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value}}'
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: data.data.map(function(user) {
-                                return {
-                                    id: user.id,
-                                    text: `${user.nip} - ${user.name}`,
-                                };
-                            }),
-                        };
-                    },
-                    cache: true,
-                },
-            });
-
-            // Set the value and trigger change to select the current user
-            $('.select2').val('{{ $pc->user_id }}').trigger('change');
-        });
-    </script>
 @endsection

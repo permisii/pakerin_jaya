@@ -12,7 +12,8 @@ class PC extends Model {
 
     protected $table = 'pcs';
     protected $fillable = [
-        'user_id',
+        //        'user_id',
+        'user_name',
         'name',
         'date_of_initial_use',
         'index',

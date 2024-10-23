@@ -12,9 +12,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Pemakai</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" name="user_id" required>
-                                    <option value="">-- Select User --</option>
-                                </select>
+                                <input type="text" class="form-control form-control-sm" name="user_name" required>
                             </div>
                         </div>
 
@@ -97,23 +95,23 @@
                         </div>
                         <input type="hidden" name="created_by" value="{{auth()->user()->id}}">
                         <input type="hidden" name="updated_by" value="{{auth()->user()->id}}">
-{{--                        <div class="form-group row">--}}
-{{--                            <label class="col-sm-2 col-form-label text-right">Created By</label>--}}
-{{--                            <div class="col-sm-4">--}}
-{{--                                <select class="form-control form-control-sm select2" name="created_by" required>--}}
-{{--                                    <option value="">-- Select User --</option>--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="form-group row">--}}
+                        {{--                            <label class="col-sm-2 col-form-label text-right">Created By</label>--}}
+                        {{--                            <div class="col-sm-4">--}}
+                        {{--                                <select class="form-control form-control-sm select2" name="created_by" required>--}}
+                        {{--                                    <option value="">-- Select User --</option>--}}
+                        {{--                                </select>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
 
-{{--                        <div class="form-group row">--}}
-{{--                            <label class="col-sm-2 col-form-label text-right">Updated By</label>--}}
-{{--                            <div class="col-sm-4">--}}
-{{--                                <select class="form-control form-control-sm select2" name="updated_by" required>--}}
-{{--                                    <option value="">-- Select User --</option>--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="form-group row">--}}
+                        {{--                            <label class="col-sm-2 col-form-label text-right">Updated By</label>--}}
+                        {{--                            <div class="col-sm-4">--}}
+                        {{--                                <select class="form-control form-control-sm select2" name="updated_by" required>--}}
+                        {{--                                    <option value="">-- Select User --</option>--}}
+                        {{--                                </select>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
                     </div>
 
                     <div class="card-footer">
@@ -153,7 +151,7 @@
                     data: function(params) {
                         return {
                             search: params.term,
-                            intent: '{{\App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value}}'
+                            intent: '{{\App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value}}',
                         };
                     },
                     processResults: function(data) {

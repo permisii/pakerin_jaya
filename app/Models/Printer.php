@@ -11,7 +11,8 @@ class Printer extends Model {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        //        'user_id',
+        'user_name',
         'brand',
         'date_of_initial_use',
         'index',

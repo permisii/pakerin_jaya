@@ -15,7 +15,8 @@ class PrinterFactory extends Factory {
      */
     public function definition(): array {
         return [
-            'user_id' => 1,
+//            'user_id' => 1,
+            'user_name' => $this->faker->name,
             'brand' => $this->faker->word,
             'date_of_initial_use' => $this->faker->date(),
             'index' => $this->faker->word,

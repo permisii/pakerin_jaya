@@ -20,6 +20,7 @@ class UpdatePrinterRequest extends FormRequest {
     public function rules(): array {
         return [
             'user_id' => 'nullable|integer|exists:users,id',
+            'user_name' => 'nullable|string|max:255',
             'brand' => 'nullable|string|max:255',
             'date_of_initial_use' => 'nullable|date',
             'index' => 'nullable|string|max:255',

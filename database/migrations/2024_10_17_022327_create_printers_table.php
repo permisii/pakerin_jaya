@@ -11,7 +11,8 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('printers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
+//            $table->foreignId('user_id')->constrained();
+            $table->string('user_name');
             $table->string('brand');
             $table->date('date_of_initial_use');
             $table->string('index');

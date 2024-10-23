@@ -53,7 +53,7 @@
                                 <dt class="col-sm-4">Bagian:</dt>
                                 <dd class="col-sm-8">{{$pc->section}}</dd>
                                 <dt class="col-sm-4">User:</dt>
-                                <dd class="col-sm-8">{{$pc->user->name}}</dd>
+                                <dd class="col-sm-8">{{$pc->user_name}}</dd>
                             </dl>
                             <table class="table table-bordered">
                                 <thead>
