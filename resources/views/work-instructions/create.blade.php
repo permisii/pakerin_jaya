@@ -3,7 +3,7 @@
 
 @section('content')
     <form action="{{route('work-instructions.store')}}" method="post" id="create-form">
-{{--    <form action="{{route('work-instructions.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
+        {{--    <form action="{{route('work-instructions.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
         @csrf
         <div class="row">
             <div class="col-12">
@@ -24,10 +24,10 @@
                             <label class="col-sm-2 col-form-label text-right">Date</label>
                             <div class="col-sm-4">
                                 <input type="date"
-                                    class="form-control form-control form-control-sm"
-                                    id="work_date"
-                                    value="{{ date('d/m/Y') }}"
-                                    name="work_date" required>
+                                       class="form-control form-control form-control-sm"
+                                       id="work_date"
+                                       value="{{ date('d/m/Y') }}"
+                                       name="work_date" required>
                             </div>
                         </div>
                     </div>
@@ -72,13 +72,16 @@
                     delay: 250,
                     data: function(params) {
                         return {
-                            q: params.term, // search term
-                            intent: '{{ IntentEnum::USER_SEARCH_USERS->value }}', // intent parameter
+                            search: params.term,
+                            intent: '{{ IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
+                            column_filters: {
+                                technician: 1,
+                            },
                         };
                     },
                     processResults: function(data) {
                         return {
-                            results: data.map(function(user) {
+                            results: data.data.map(function(user) {
                                 return {
                                     id: user.id,
                                     text: `${user.nip} - ${user.name}`,
@@ -105,10 +108,10 @@
                 },
             }, {
                 user_id: {
-                    required: "Pilih pekerja",
+                    required: 'Pilih pekerja',
                 },
                 work_date: {
-                    required: "Masukkan tanggal",
+                    required: 'Masukkan tanggal',
                 },
             });
         });

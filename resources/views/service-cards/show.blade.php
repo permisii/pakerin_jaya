@@ -108,7 +108,7 @@
 {{--                    },--}}
 {{--                    processResults: function(data) {--}}
 {{--                        return {--}}
-{{--                            results: data.map(function(user) {--}}
+{{--                            results: data.data.map(function(user) {--}}
 {{--                                return {--}}
 {{--                                    id: user.id,--}}
 {{--                                    text: `${user.nip} - ${user.name}`,--}}

@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\DataTables\PrintersDataTable;
 use App\Http\Requests\StorePrinterRequest;
 use App\Http\Requests\UpdatePrinterRequest;
+use App\Http\Resources\PrinterResource;
 use App\Models\Printer;
 use App\Support\Enums\IntentEnum;
+use App\Traits\Controllers\Filterable;
+use App\Traits\Controllers\Searchable;
 use Illuminate\Http\Request;
 
 class PrinterController extends Controller {
+    use Filterable, Searchable;
+
     /**
      * Display a listing of the resource.
      */
@@ -18,8 +23,10 @@ class PrinterController extends Controller {
 
         switch ($intent) {
             case IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value:
-                return Printer::where('brand', 'like', '%' . $request->get('q') . '%')
-                    ->get();
+                $printers = $this->search($request, Printer::class, ['name', 'index']);
+                $printers = $this->applyColumnFilters($printers, $request, ['name']);
+
+                return PrinterResource::collection($printers->paginate(5));
         }
 
         $this->checkPermission('read', 'printers');
@@ -76,7 +83,7 @@ class PrinterController extends Controller {
         $printer->update($request->validated());
 
         return back()->with('success', 'Printer updated successfully.');
-//        return redirect(route('printers.show', $printer))->with('success', 'Printer updated successfully.');
+        //        return redirect(route('printers.show', $printer))->with('success', 'Printer updated successfully.');
     }
 
     /**

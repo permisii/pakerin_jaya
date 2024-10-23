@@ -111,13 +111,13 @@
                     delay: 250,
                     data: function(params) {
                         return {
-                            q: params.term, // search term
+                            search: params.term, // search term
                             intent: '{{ \App\Support\Enums\IntentEnum::ASSIGNMENT_SELECT2_SEARCH_ASSIGNMENTS->value }}', // custom parameter to identify Select2 requests
                         };
                     },
                     processResults: function(data) {
                         return {
-                            results: data.map(function(assignment) {
+                            results: data.data.map(function(assignment) {
                                 return {
                                     id: assignment.id,
                                     text: `${assignment.assignment_number} - ${assignment.problem}`,
@@ -138,13 +138,13 @@
                     delay: 250,
                     data: function(params) {
                         return {
-                            q: params.term, // search term
+                            search: params.term, // search term
                             intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}', // custom parameter to identify Select2 requests
                         };
                     },
                     processResults: function(data) {
                         return {
-                            results: data.map(function(user) {
+                            results: data.data.map(function(user) {
                                 return {
                                     id: user.id,
                                     text: `${user.nip} - ${user.name}`,
@@ -168,7 +168,7 @@
                             intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                         },
                         success: function(data) {
-                            var options = data.map(function(device) {
+                            var options = data.data.map(function(device) {
                                 if (deviceType === 'App\\Models\\PC') {
                                     return {
                                         id: device.id,
@@ -208,7 +208,7 @@
                         intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                     },
                     success: function(data) {
-                        var options = data.map(function(device) {
+                        var options = data.data.map(function(device) {
                             return {
                                 id: device.id,
                                 text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
@@ -239,7 +239,7 @@
                             intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                         },
                         success: function(data) {
-                            var options = data.map(function(device) {
+                            var options = data.data.map(function(device) {
                                 return {
                                     id: device.id,
                                     text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,

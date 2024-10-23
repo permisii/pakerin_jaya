@@ -19,9 +19,9 @@ class UserResource extends JsonResource {
             'name' => $this->name,
             'email' => $this->email,
             'email_verified_at' => $this->email_verified_at,
+            'technician' => $this->technician,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-
             'unit' => new UnitResource($this->whenLoaded('unit')),
             'updated_by' => new UserResource($this->whenLoaded('updatedBy')),
             'created_by' => new UserResource($this->whenLoaded('createdBy')),

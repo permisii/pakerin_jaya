@@ -12,27 +12,24 @@ use App\Models\Menu;
 use App\Models\Unit;
 use App\Models\User;
 use App\Support\Enums\IntentEnum;
+use App\Traits\Controllers\Filterable;
 use App\Traits\Controllers\Searchable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller {
-    use Searchable;
+    use Filterable, Searchable;
 
     public function index(Request $request, UsersDataTable $dataTable) {
         $this->checkPermission('read', 'users');
         $intent = $request->get('intent');
 
         switch ($intent) {
-            case IntentEnum::USER_SEARCH_USERS->value:
-                $users = $this->search($request, User::class, ['name', 'email']);
-                return UserResource::collection($users);
-
             case IntentEnum::USER_SELECT2_SEARCH_USERS->value:
-                $users = User::where('name', 'like', '%' . $request->get('q') . '%')
-                    ->orWhere('email', 'like', '%' . $request->get('q') . '%')
-                    ->get();
-                return response()->json($users);
+                $users = $this->search($request, User::class, ['name', 'email']);
+                $users = $this->applyColumnFilters($users, $request, ['technician']);
+
+                return UserResource::collection($users->paginate(5));
         }
 
         $units = Unit::all();

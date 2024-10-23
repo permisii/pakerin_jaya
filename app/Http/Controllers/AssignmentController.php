@@ -11,17 +11,22 @@ use App\Models\WorkInstruction;
 use App\Support\Enums\AssignmentStatusEnum;
 use App\Support\Enums\IntentEnum;
 use App\Support\Enums\WorkInstructionStatusEnum;
+use App\Traits\Controllers\Filterable;
+use App\Traits\Controllers\Searchable;
 use Illuminate\Http\Request;
 
 class AssignmentController extends Controller {
+    use Filterable, Searchable;
+
     public function index(Request $request, AssignmentsDataTable $dataTable, WorkInstruction $workInstruction) {
         $intent = $request->get('intent');
 
         switch ($intent) {
             case IntentEnum::ASSIGNMENT_SELECT2_SEARCH_ASSIGNMENTS->value:
-                return Assignment::where('assignment_number', 'like', '%' . $request->get('q') . '%')
-                    ->orWhere('problem', 'like', '%' . $request->get('q') . '%')
-                    ->get();
+                $assignments = $this->search($request, Assignment::class, ['assignment_number', 'problem']);
+                $assignments = $this->applyColumnFilters($assignments, $request, ['assignment_number']);
+
+                return AssignmentResource::collection($assignments->paginate(5));
         }
         $this->checkPermission('read', 'assignments');
         $this->setBreadcrumbs([

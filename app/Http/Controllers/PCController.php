@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\DataTables\PCsDataTable;
 use App\Http\Requests\StorePCRequest;
 use App\Http\Requests\UpdatePCRequest;
+use App\Http\Resources\PCResource;
 use App\Models\PC;
 use App\Support\Enums\IntentEnum;
+use App\Traits\Controllers\Filterable;
+use App\Traits\Controllers\Searchable;
 use Illuminate\Http\Request;
 
 class PCController extends Controller {
+    use Searchable, Filterable;
     /**
      * Display a listing of the resource.
      */
@@ -18,9 +22,10 @@ class PCController extends Controller {
 
         switch ($intent) {
             case IntentEnum::PC_SELECT2_SEARCH_PCS->value:
-                // TODO: optimize select2 backend by using limit?
-                return PC::where('name', 'like', '%' . $request->get('q') . '%')
-                    ->get();
+                $pcs = $this->search($request, PC::class, ['name', 'index', 'section']);
+                $pcs = $this->applyColumnFilters($pcs, $request, ['name']);
+
+                return PCResource::collection($pcs->paginate(5));
         }
 
         $this->checkPermission('read', 'pcs');
