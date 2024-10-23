@@ -140,6 +140,9 @@
                         return {
                             search: params.term, // search term
                             intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}', // custom parameter to identify Select2 requests
+                            column_filters: {
+                                technician: 1
+                            }
                         };
                     },
                     processResults: function(data) {
