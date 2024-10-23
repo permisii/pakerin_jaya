@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Support\Enums\AssignmentStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Assignment extends Model {
     use HasFactory;
@@ -26,6 +27,10 @@ class Assignment extends Model {
         return [
             'status' => AssignmentStatusEnum::class,
         ];
+    }
+
+    public function serviceCards(): HasMany {
+        return $this->hasMany(ServiceCard::class);
     }
 
     //    public function workInstruction() {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreServiceCardRequest;
 use App\Http\Requests\UpdateServiceCardRequest;
+use App\Models\Assignment;
 use App\Models\ServiceCard;
 
 class ServiceCardController extends Controller {
@@ -31,13 +32,17 @@ class ServiceCardController extends Controller {
      * Store a newly created resource in storage.
      */
     public function store(StoreServiceCardRequest $request) {
-        $serviceCard = ServiceCard::create($request->validated());
-
-        $serviceCard->assignment()->create([
+        $assignment = Assignment::create([
             'assignment_number' => $request->validated()['assignment_number'],
             'created_by' => auth()->id(),
             'updated_by' => auth()->id(),
         ]);
+
+        $serviceCard = ServiceCard::create(array_merge($request->validated(), [
+            'assignment_id' => $assignment->id,
+            'created_by' => auth()->id(),
+            'updated_by' => auth()->id(),
+        ]));
 
         if ($serviceCard->device_type === 'App\Models\PC') {
             return redirect()->route('pcs.service-cards.index', ['pc' => $serviceCard->device_id]);

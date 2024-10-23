@@ -13,7 +13,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control-sm" name="assignment_number" disabled>{{ $serviceCard->assignment->assignment_number ?? '' }}</input>
+                                <input class="form-control form-control-sm" name="assignment_number" disabled value="{{ $serviceCard->assignment->assignment_number ?? '' }}"/>
                             </div>
                         </div>
 
@@ -46,7 +46,7 @@
                             <label class="col-sm-2 col-form-label text-right">Device Type</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="device_type" id="device_type"
-                                        required>
+                                        required disabled>
                                     <option value="">-- Select Device Type --</option>
                                     <option value="App\Models\PC" {{ $serviceCard->device_type == 'App\Models\PC' ? 'selected' : '' }}>PC</option>
                                     <option value="App\Models\Printer" {{ $serviceCard->device_type == 'App\Models\Printer' ? 'selected' : '' }}>Printer</option>
@@ -58,7 +58,7 @@
                             <label class="col-sm-2 col-form-label text-right">Device ID</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="device_id" id="device_id"
-                                        required>
+                                        required disabled>
                                     <option value="">-- Select Device ID --</option>
                                     <!-- Dynamically populate based on device type -->
                                 </select>
@@ -113,6 +113,7 @@
                 });
             }
 
+
             $('#worker_id').select2({
                 placeholder: '-- Select --',
                 allowClear: true,
@@ -122,11 +123,8 @@
                     delay: 250,
                     data: function(params) {
                         return {
-                            search: params.term, // search term
-                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}', // custom parameter to identify Select2 requests
-                            column_filters: {
-                                technician: 1
-                            }
+                            search: params.term,
+                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
                         };
                     },
                     processResults: function(data) {
@@ -143,44 +141,108 @@
                 },
             });
 
+            // Set initial values for select2 fields
+            fetchAndSetSelect2Value('#worker_id', '{{ route('users.index') }}', '{{ $serviceCard->worker_id }}', '{{ $serviceCard->worker->nip }} - {{ $serviceCard->worker->name }}', '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}');
+
+
             $('#device_type').change(function() {
                 var deviceType = $(this).val();
                 $('#device_id').empty().trigger('change');
 
                 if (deviceType) {
                     var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
-                    $('#device_id').select2({
-                        placeholder: '-- Select Device ID --',
-                        allowClear: true,
-                        ajax: {
-                            url: url,
-                            dataType: 'json',
-                            delay: 250,
-                            data: function(params) {
-                                return {
-                                    search: params.term, // Capture the user's input
-                                    intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
-                                };
-                            },
-                            processResults: function(data) {
-                                return {
-                                    results: data.data.map(function(device) {
-                                        return {
-                                            id: device.id,
-                                            text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
-                                        };
-                                    }),
-                                };
-                            },
-                            cache: true,
+                    $.ajax({
+                        url: url,
+                        data: {
+                            intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                        },
+                        success: function(data) {
+                            var options = data.data.map(function(device) {
+                                if (deviceType === 'App\\Models\\PC') {
+                                    return {
+                                        id: device.id,
+                                        text: `${device.name} - ${device.date_of_initial_use}`,
+                                    };
+                                } else {
+                                    return {
+                                        id: device.id,
+                                        text: `${device.brand} - ${device.date_of_initial_use}`,
+                                    };
+                                }
+                            });
+                            $('#device_id').select2({
+                                data: options,
+                                placeholder: '-- Select Device ID --',
+                                allowClear: true,
+                            });
                         },
                     });
                 }
             });
 
-            // Set initial values for select2 fields
-            fetchAndSetSelect2Value('#worker_id', '{{ route('users.index') }}', '{{ $serviceCard->worker_id }}', '{{ $serviceCard->worker->nip }} - {{ $serviceCard->worker->name }}', '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}');
-            $('#device_type').val('{{ addslashes($serviceCard->device_type) }}').trigger('change');
+            // TODO: experimental - might be buggy
+            var urlParams = new URLSearchParams(window.location.search);
+            var deviceType = urlParams.get('device_type');
+            var deviceNameOrBrand = urlParams.get(deviceType === 'App\\Models\\PC' ? 'device_name' : 'device_brand');
+            var deviceIdField = $('#device_id');
+
+            if (deviceType) {
+                $('#device_type').val(deviceType).trigger('change');
+
+                var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
+                $.ajax({
+                    url: url,
+                    data: {
+                        q: deviceNameOrBrand,
+                        intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                    },
+                    success: function(data) {
+                        var options = data.data.map(function(device) {
+                            return {
+                                id: device.id,
+                                text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
+                            };
+                        });
+                        deviceIdField.select2({
+                            data: options,
+                            placeholder: '-- Select Device ID --',
+                            allowClear: true,
+                        });
+
+                        if (options.length > 0) {
+                            deviceIdField.val(options[0].id).trigger('change');
+                        }
+                    },
+                });
+            }
+
+            $('#device_type').change(function() {
+                var deviceType = $(this).val();
+                deviceIdField.empty().trigger('change');
+
+                if (deviceType) {
+                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
+                    $.ajax({
+                        url: url,
+                        data: {
+                            intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                        },
+                        success: function(data) {
+                            var options = data.data.map(function(device) {
+                                return {
+                                    id: device.id,
+                                    text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
+                                };
+                            });
+                            deviceIdField.select2({
+                                data: options,
+                                placeholder: '-- Select Device ID --',
+                                allowClear: true,
+                            });
+                        },
+                    });
+                }
+            });
         });
     </script>
 @endsection

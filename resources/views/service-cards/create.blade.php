@@ -44,8 +44,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Device Type</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" name="device_type" id="device_type"
-                                        required>
+                                <select class="form-control form-control-sm select2 disabled" name="device_type" id="device_type"
+                                        required readonly>
                                     <option value="">-- Select Device Type --</option>
                                     <option value="App\Models\PC">PC</option>
                                     <option value="App\Models\Printer">Printer</option>
@@ -57,7 +57,7 @@
                             <label class="col-sm-2 col-form-label text-right">Device ID</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="device_id" id="device_id"
-                                        required>
+                                        required readonly>
                                     <option value="">-- Select Device ID --</option>
                                     <!-- Dynamically populate based on device type -->
                                 </select>
@@ -97,33 +97,6 @@
     <script>
         $(document).ready(function() {
             document.getElementById('date').valueAsDate = new Date();
-
-            $('#assignment_id').select2({
-                placeholder: '-- Select --',
-                allowClear: true,
-                ajax: {
-                    url: '{{ route('assignments.index') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            search: params.term, // search term
-                            intent: '{{ \App\Support\Enums\IntentEnum::ASSIGNMENT_SELECT2_SEARCH_ASSIGNMENTS->value }}', // custom parameter to identify Select2 requests
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: data.data.map(function(assignment) {
-                                return {
-                                    id: assignment.id,
-                                    text: `${assignment.assignment_number} - ${assignment.problem}`,
-                                };
-                            }),
-                        };
-                    },
-                    cache: true,
-                },
-            });
 
             $('#worker_id').select2({
                 placeholder: '-- Select --',
