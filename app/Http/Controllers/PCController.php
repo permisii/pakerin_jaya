@@ -13,7 +13,8 @@ use App\Traits\Controllers\Searchable;
 use Illuminate\Http\Request;
 
 class PCController extends Controller {
-    use Searchable, Filterable;
+    use Filterable, Searchable;
+
     /**
      * Display a listing of the resource.
      */
@@ -55,7 +56,9 @@ class PCController extends Controller {
     public function store(StorePCRequest $request) {
         $pc = PC::create($request->validated());
 
-        return redirect(route('pcs.show', $pc))->with('success', 'PC created successfully.');
+        return redirect(route('pcs.service-cards.index', $pc))->with('success', 'PC created successfully.');
+
+        //        return redirect(route('pcs.show', $pc))->with('success', 'PC created successfully.');
     }
 
     /**
@@ -78,8 +81,10 @@ class PCController extends Controller {
     public function update(UpdatePCRequest $request, PC $pc) {
         $pc->update($request->validated());
 
-        return back()->with('success', 'PC updated successfully.');
-//        return redirect(route('pcs.show', $pc))->with('success', 'PC updated successfully.');
+        return redirect(route('pcs.service-cards.index', $pc))->with('success', 'PC created successfully.');
+
+        //        return back()->with('success', 'PC updated successfully.');
+        //        return redirect(route('pcs.show', $pc))->with('success', 'PC updated successfully.');
     }
 
     /**
@@ -87,6 +92,7 @@ class PCController extends Controller {
      */
     public function destroy(PC $pc) {
         $pc->delete();
+
         return back();
     }
 
@@ -94,8 +100,9 @@ class PCController extends Controller {
         $serviceCards = $pc->serviceCards->load([
             'device',
             'worker',
-            'assignment'
+            'assignment',
         ]);
+
         return view('pcs.service-cards', compact('pc', 'serviceCards'));
     }
 }

@@ -21,11 +21,11 @@ class UpdatePrinterRequest extends FormRequest {
         return [
             'user_id' => 'nullable|integer|exists:users,id',
             'brand' => 'nullable|string|max:255',
-            'date_of_initial_use ' => 'nullable|date',
-            'index ' => 'nullable|string|max:255',
-            'type ' => 'nullable|string|max:255',
-            'created_by ' => 'nullable|integer|exists:users,id',
-            'updated_by ' => 'nullable|integer|exists:users,id',
+            'date_of_initial_use' => 'nullable|date',
+            'index' => 'nullable|string|max:255',
+            'type' => 'nullable|string|max:255',
+            'created_by' => 'nullable|integer|exists:users,id',
+            'updated_by' => 'nullable|integer|exists:users,id',
         ];
     }
 }

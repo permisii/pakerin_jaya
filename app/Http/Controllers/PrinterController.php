@@ -59,7 +59,9 @@ class PrinterController extends Controller {
     public function store(StorePrinterRequest $request) {
         $printer = Printer::create($request->validated());
 
-        return redirect(route('printers.show', $printer))->with('success', 'Printer created successfully.');
+        return redirect(route('printers.service-cards.index', $printer))->with('success', 'Printer created successfully.');
+
+        //        return redirect(route('printers.show', $printer))->with('success', 'Printer created successfully.');
     }
 
     /**
@@ -82,7 +84,9 @@ class PrinterController extends Controller {
     public function update(UpdatePrinterRequest $request, Printer $printer) {
         $printer->update($request->validated());
 
-        return back()->with('success', 'Printer updated successfully.');
+        return redirect(route('printers.service-cards.index', $printer))->with('success', 'Printer created successfully.');
+
+        //        return back()->with('success', 'Printer updated successfully.');
         //        return redirect(route('printers.show', $printer))->with('success', 'Printer updated successfully.');
     }
 
