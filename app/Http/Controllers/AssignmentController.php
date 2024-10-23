@@ -74,10 +74,12 @@ class AssignmentController extends Controller {
         $this->checkPermission('create', 'assignments');
         $data = $request->validated();
         // $data['status'] = $request->has('status_checkbox') ? AssignmentStatusEnum::Done : AssignmentStatusEnum::Draft;
-        if ($data['percentage'] < 100) {
-            $data['status'] = AssignmentStatusEnum::Draft->value;
-        } else {
-            $data['status'] = AssignmentStatusEnum::Done->value;
+        if (isset($data['percentage'])) {
+            if ($data['percentage'] < 100) {
+                $data['status'] = AssignmentStatusEnum::Draft->value;
+            } else {
+                $data['status'] = AssignmentStatusEnum::Done->value;
+            }
         }
 
         $workInstruction->assignments()->create($data);
