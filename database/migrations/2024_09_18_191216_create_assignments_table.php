@@ -12,9 +12,9 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('assignments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('work_instruction_id')->constrained();
+            $table->foreignId('work_instruction_id')->nullable()->constrained();
             $table->string('assignment_number');
-            $table->text('problem');
+            $table->text('problem')->nullable();
             $table->text('resolution')->nullable();
             $table->text('material')->nullable();
             $table->text('description')->nullable();

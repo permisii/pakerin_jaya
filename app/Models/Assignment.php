@@ -10,7 +10,7 @@ class Assignment extends Model {
     use HasFactory;
 
     protected $fillable = [
-        'work_instruction_id',
+        //        'work_instruction_id',
         'assignment_number',
         'problem',
         'resolution',
@@ -28,9 +28,9 @@ class Assignment extends Model {
         ];
     }
 
-    public function workInstruction() {
-        return $this->belongsTo(WorkInstruction::class);
-    }
+    //    public function workInstruction() {
+    //        return $this->belongsTo(WorkInstruction::class);
+    //    }
 
     public function createdBy() {
         return $this->belongsTo(User::class, 'created_by');

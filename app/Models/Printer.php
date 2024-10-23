@@ -11,7 +11,6 @@ class Printer extends Model {
     use HasFactory;
 
     protected $fillable = [
-        //        'user_id',
         'user_name',
         'brand',
         'date_of_initial_use',
@@ -20,10 +19,6 @@ class Printer extends Model {
         'created_by',
         'updated_by',
     ];
-
-    public function user(): BelongsTo {
-        return $this->belongsTo(User::class);
-    }
 
     public function createdBy(): BelongsTo {
         return $this->belongsTo(User::class, 'created_by');

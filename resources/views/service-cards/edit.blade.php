@@ -11,13 +11,9 @@
                         <h6 class="text-divider mb-4"><span>Service Card Details</span></h6>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Assignment</label>
+                            <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" id="assignment_id"
-                                        name="assignment_id" required>
-                                    <option value="">-- Select Assignment --</option>
-                                    <!-- Populate with assignments -->
-                                </select>
+                                <input class="form-control form-control-sm" name="assignment_number" disabled>{{ $serviceCard->assignment->assignment_number ?? '' }}</input>
                             </div>
                         </div>
 
@@ -95,8 +91,6 @@
             </div>
         </div>
     </form>
-
-    {{$serviceCard->device_type}}
 @endsection
 
 @section('scripts')
@@ -119,33 +113,6 @@
                 });
             }
 
-            $('#assignment_id').select2({
-                placeholder: '-- Select --',
-                allowClear: true,
-                ajax: {
-                    url: '{{ route('assignments.index') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            search: params.term,
-                            intent: '{{ \App\Support\Enums\IntentEnum::ASSIGNMENT_SELECT2_SEARCH_ASSIGNMENTS->value }}',
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: data.data.map(function(assignment) {
-                                return {
-                                    id: assignment.id,
-                                    text: `${assignment.assignment_number} - ${assignment.problem}`,
-                                };
-                            }),
-                        };
-                    },
-                    cache: true,
-                },
-            });
-
             $('#worker_id').select2({
                 placeholder: '-- Select --',
                 allowClear: true,
@@ -155,8 +122,11 @@
                     delay: 250,
                     data: function(params) {
                         return {
-                            search: params.term,
-                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
+                            search: params.term, // search term
+                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}', // custom parameter to identify Select2 requests
+                            column_filters: {
+                                technician: 1
+                            }
                         };
                     },
                     processResults: function(data) {
@@ -179,33 +149,36 @@
 
                 if (deviceType) {
                     var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
-                    $.ajax({
-                        url: url,
-                        data: {
-                            intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
-                        },
-                        success: function(data) {
-                            var options = data.map(function(device) {
+                    $('#device_id').select2({
+                        placeholder: '-- Select Device ID --',
+                        allowClear: true,
+                        ajax: {
+                            url: url,
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
                                 return {
-                                    id: device.id,
-                                    text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
+                                    search: params.term, // Capture the user's input
+                                    intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                                 };
-                            });
-                            $('#device_id').select2({
-                                data: options,
-                                placeholder: '-- Select Device ID --',
-                                allowClear: true,
-                            });
-
-                            // Set the initial value for device_id
-                            $('#device_id').val('{{ $serviceCard->device_id }}').trigger('change');
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: data.data.map(function(device) {
+                                        return {
+                                            id: device.id,
+                                            text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
+                                        };
+                                    }),
+                                };
+                            },
+                            cache: true,
                         },
                     });
                 }
             });
 
             // Set initial values for select2 fields
-            fetchAndSetSelect2Value('#assignment_id', '{{ route('assignments.index') }}', '{{ $serviceCard->assignment_id }}', '{{ $serviceCard->assignment->assignment_number }} - {{ $serviceCard->assignment->problem }}', '{{ \App\Support\Enums\IntentEnum::ASSIGNMENT_SELECT2_SEARCH_ASSIGNMENTS->value }}');
             fetchAndSetSelect2Value('#worker_id', '{{ route('users.index') }}', '{{ $serviceCard->worker_id }}', '{{ $serviceCard->worker->nip }} - {{ $serviceCard->worker->name }}', '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}');
             $('#device_type').val('{{ addslashes($serviceCard->device_type) }}').trigger('change');
         });

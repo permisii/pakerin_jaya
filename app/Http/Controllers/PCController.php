@@ -100,7 +100,6 @@ class PCController extends Controller {
         $serviceCards = $pc->serviceCards->load([
             'device',
             'worker',
-            'assignment',
         ]);
 
         return view('pcs.service-cards', compact('pc', 'serviceCards'));

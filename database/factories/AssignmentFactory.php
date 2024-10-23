@@ -30,4 +30,16 @@ class AssignmentFactory extends Factory {
             'updated_by' => 1,
         ];
     }
+
+    public function serviceCardAssignment(): AssignmentFactory {
+        return $this->state([
+            'work_instruction_id' => null,
+            'problem' => null,
+            'resolution' => null,
+            'material' => null,
+            'description' => null,
+            'created_by' => 1,
+            'updated_by' => 1,
+        ]);
+    }
 }

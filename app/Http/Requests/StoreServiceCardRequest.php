@@ -19,7 +19,8 @@ class StoreServiceCardRequest extends FormRequest {
      */
     public function rules(): array {
         return [
-            'assignment_id' => 'required|integer|exists:assignments,id',
+            //            'assignment_id' => 'required|integer|exists:assignments,id',
+            'assignment_number' => 'required|string', // Required for creating a new assignment
             'date' => 'required|date',
             'worker_id' => 'required|integer|exists:users,id',
             'description' => 'required|string',

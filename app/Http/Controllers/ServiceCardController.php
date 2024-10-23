@@ -33,6 +33,12 @@ class ServiceCardController extends Controller {
     public function store(StoreServiceCardRequest $request) {
         $serviceCard = ServiceCard::create($request->validated());
 
+        $serviceCard->assignment()->create([
+            'assignment_number' => $request->validated()['assignment_number'],
+            'created_by' => auth()->id(),
+            'updated_by' => auth()->id(),
+        ]);
+
         if ($serviceCard->device_type === 'App\Models\PC') {
             return redirect()->route('pcs.service-cards.index', ['pc' => $serviceCard->device_id]);
         } elseif ($serviceCard->device_type === 'App\Models\Printer') {

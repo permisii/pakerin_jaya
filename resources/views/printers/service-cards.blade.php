@@ -33,7 +33,7 @@
             </div>
             <div class="card-body">
 
-                <div class="col-md-6 mx-auto">
+                <div class="col">
                     <div class="card">
                         <div class="card-header bg-info">
                             <h3 class="card-title">{{$printer->name}}</h3>

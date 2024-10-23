@@ -32,28 +32,42 @@
                 </a>
             </div>
             <div class="card-body">
-
-                <div class="col-md-6 mx-auto">
+                <div class="col">
                     <div class="card">
                         <div class="card-header bg-info">
                             <h3 class="card-title">{{$pc->name}}</h3>
                         </div>
                         <div class="card-body">
                             <dl class="row">
-                                <dt class="col-sm-4">Processor:</dt>
-                                <dd class="col-sm-8">{{$pc->processor}}</dd>
-                                <dt class="col-sm-4">RAM:</dt>
-                                <dd class="col-sm-8">{{$pc->ram}}</dd>
-                                <dt class="col-sm-4">HD:</dt>
-                                <dd class="col-sm-8">{{$pc->hdd}}</dd>
-                                <dt class="col-sm-4">Monitor:</dt>
-                                <dd class="col-sm-8">{{$pc->monitor}}</dd>
-                                <dt class="col-sm-4">VGA:</dt>
-                                <dd class="col-sm-8">{{$pc->vga}}</dd>
-                                <dt class="col-sm-4">Bagian:</dt>
-                                <dd class="col-sm-8">{{$pc->section}}</dd>
-                                <dt class="col-sm-4">User:</dt>
-                                <dd class="col-sm-8">{{$pc->user_name}}</dd>
+                                <div class="col">
+                                    <div class="row">
+                                        <dt class="col-sm-2">Processor</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->processor}}</dd>
+                                        <dt class="col-sm-2">RAM</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->ram}}</dd>
+                                        <dt class="col-sm-2">HD</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->hdd}}</dd>
+                                        <dt class="col-sm-2">Monitor</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->monitor}}</dd>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <dt class="col-sm-2">VGA</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->vga}}</dd>
+                                        <dt class="col-sm-2">Bagian</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->section}}</dd>
+                                        <dt class="col-sm-2">User</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->user_name}}</dd>
+                                    </div>
+                                </div>
                             </dl>
                             <table class="table table-bordered">
                                 <thead>
@@ -71,20 +85,22 @@
                                         <td>{{ $serviceCard->description }}</td>
                                         <td>{{ $serviceCard->worker->name }}</td>
                                         <td>
-                                            <a href="{{ route('service-cards.edit', $serviceCard->id) }}"
-                                               class="btn btn-sm btn-primary">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <form action="{{ route('service-cards.destroy', $serviceCard->id) }}"
-                                                  method="post"
-                                                  class="d-inline"
-                                                  onsubmit="return confirm('Are you sure?')">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" class="btn btn-sm btn-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </form>
+                                            <div class="d-flex">
+                                                <a href="{{ route('service-cards.edit', ['service_card' => $serviceCard->id, 'device_type' => \App\Models\PC::class, 'device_name' => $pc->name]) }}"
+                                                   class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('service-cards.destroy', $serviceCard->id) }}"
+                                                      method="post"
+                                                      class="ml-2 d-inline"
+                                                      onsubmit="return confirm('Are you sure?')">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

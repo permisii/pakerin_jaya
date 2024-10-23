@@ -10,13 +10,9 @@
                         <h6 class="text-divider mb-4"><span>Service Card Details</span></h6>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Assignment</label>
+                            <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" id="assignment_id"
-                                        name="assignment_id" required>
-                                    <option value="">-- Select Assignment --</option>
-                                    <!-- Populate with assignments -->
-                                </select>
+                                <input class="form-control form-control-sm" name="assignment_number" required/>
                             </div>
                         </div>
 

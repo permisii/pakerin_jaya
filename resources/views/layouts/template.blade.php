@@ -66,7 +66,7 @@
 <script src="{{ asset('select2/select2.min.js') }}"></script>
 @yield('scripts')
 
-{{--@include('layouts.validation_alert')--}}
+@include('layouts.validation_alert')
 @include('layouts.validation_form')
 
 </html>
