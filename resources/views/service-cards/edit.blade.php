@@ -193,7 +193,7 @@
                 $.ajax({
                     url: url,
                     data: {
-                        q: deviceNameOrBrand,
+                        search: deviceNameOrBrand,
                         intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                     },
                     success: function(data) {
