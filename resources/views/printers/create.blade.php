@@ -10,7 +10,7 @@
                         <h6 class="text-divider mb-4"><span>Printer Details</span></h6>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">User</label>
+                            <label class="col-sm-2 col-form-label text-right">Pemakai</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="user_id" required>
                                     <option value="">-- Select User --</option>
@@ -26,7 +26,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Date of Initial Use</label>
+                            <label class="col-sm-2 col-form-label text-right">Tanggal Penggunaan Awal</label>
                             <div class="col-sm-4">
                                 <input type="date" class="form-control form-control-sm" name="date_of_initial_use"  required>
                             </div>
