@@ -38,10 +38,8 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label text-right">User</label>
                                         <div class="col-sm-4">
-                                            <select class="form-control form-control-sm select2" name="user_id"
-                                                    required>
-                                                <option value="{{$pc->user->id}}" selected>{{$pc->user->name}}</option>
-                                            </select>
+                                            <input type="text" class="form-control form-control-sm" name="name"
+                                                   required value="{{ $pc->user_name }}">
                                         </div>
                                     </div>
 
@@ -167,50 +165,4 @@
             </div> --}}
         </div>
     </div>
-
-@endsection
-
-
-@section('scripts')
-        <script>
-            $(document).ready(function() {
-                const initialUser = {
-                    id: '{{ $pc->user->id }}',
-                    text: '{{ $pc->user->name }}',
-                };
-
-                $('.select2').select2({
-                    placeholder: '-- Select User --',
-                    allowClear: true,
-                    ajax: {
-                        url: '{{ route('users.index') }}',
-                        dataType: 'json',
-                        delay: 250,
-                        data: function(params) {
-                            return {
-                                search: params.term,
-                                intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}'
-                            };
-                        },
-                        processResults: function(data) {
-                            return {
-                                results: data.data.map(function(user) {
-                                    return {
-                                        id: user.id,
-                                        text: `${user.nip} - ${user.name}`,
-                                    };
-                                }),
-                            };
-                        },
-                        cache: true,
-                    },
-                    initSelection: function(element, callback) {
-                        callback(initialUser);
-                    },
-                });
-
-                // Set the initial value and trigger change to select the initial user
-                $('.select2').val(initialUser.id).trigger('change');
-            });
-        </script>
 @endsection

@@ -1,6 +1,6 @@
 @php use App\Support\Enums\IntentEnum;
  use Carbon\Carbon;
- @endphp
+@endphp
 @extends('layouts.app')
 
 @section('title', "Printer $printer->name")
@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <dl class="row">
                                 <dt class="col-sm-4">User</dt>
-                                <dd class="col-sm-8">{{$pc->user_name}}</dd>
+                                <dd class="col-sm-8">{{$printer->user_name}}</dd>
                                 <dt class="col-sm-4">Merk</dt>
                                 <dd class="col-sm-8">{{ $printer->brand }}</dd>
                                 <dt class="col-sm-4">Index</dt>
