@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class PCServiceCardsDataTable extends DataTable {
+class PrinterServiceCardsDataTable extends DataTable {
     /**
      * Build the DataTable class.
      *
@@ -28,7 +28,7 @@ class PCServiceCardsDataTable extends DataTable {
                 })->implode(', ');
             })
             ->addColumn('action', function (ServiceCard $serviceCard) {
-                $editUrl = route('service-cards.edit', ['service_card' => $serviceCard->id, 'device_type' => \App\Models\PC::class, 'device_name' => $serviceCard->device->name]);
+                $editUrl = route('service-cards.edit', ['service_card' => $serviceCard->id, 'device_type' => \App\Models\Printer::class, 'device_brand' => $serviceCard->device->brand]);
                 $deleteUrl = route('service-cards.destroy', $serviceCard->id);
 
                 return '
@@ -53,9 +53,9 @@ class PCServiceCardsDataTable extends DataTable {
      * Get the query source of dataTable.
      */
     public function query(ServiceCard $model): QueryBuilder {
-        $pc = request()->route('pc');
+        $printer = request()->route('printer');
 
-        return $model->newQuery()->where('device_id', $pc->id)->with('workProcesses.user');
+        return $model->newQuery()->where('device_id', $printer->id)->with('workProcesses.user');
     }
 
     /**
@@ -63,9 +63,10 @@ class PCServiceCardsDataTable extends DataTable {
      */
     public function html(): HtmlBuilder {
         return $this->builder()
-            ->setTableId('pc-service-cards-table')
+            ->setTableId('printer-service-cards-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
+                    // ->dom('Bfrtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
@@ -98,6 +99,6 @@ class PCServiceCardsDataTable extends DataTable {
      * Get the filename for export.
      */
     protected function filename(): string {
-        return 'PCServiceCards_' . date('YmdHis');
+        return 'PrinterServiceCards_' . date('YmdHis');
     }
 }

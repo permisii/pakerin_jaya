@@ -31,71 +31,13 @@
                 </a>
             </div>
             <div class="card-body">
-
                 <div class="col">
                     <div class="card">
                         <div class="card-header bg-info">
                             <h3 class="card-title">{{ $printer->name }}</h3>
                         </div>
                         <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-sm-1">User</dt>
-                                <dt class="col-sm-1 text-right">:</dt>
-                                <dd class="col-sm-10">{{ $printer->user_name }}</dd>
-                                <dt class="col-sm-1">Merk</dt>
-                                <dt class="col-sm-1 text-right">:</dt>
-                                <dd class="col-sm-10">{{ $printer->brand }}</dd>
-                                <dt class="col-sm-1">Index</dt>
-                                <dt class="col-sm-1 text-right">:</dt>
-                                <dd class="col-sm-10">{{ $printer->index }}</dd>
-                                <dt class="col-sm-1">Tipe</dt>
-                                <dt class="col-sm-1 text-right">:</dt>
-                                <dd class="col-sm-10">{{ $printer->type }}</dd>
-                            </dl>
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Tanggal</th>
-                                        <th>Uraian</th>
-                                        <th>Pekerja</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($serviceCards as $serviceCard)
-                                        <tr>
-                                            <td>{{ Carbon::parse($serviceCard->date)->format('Y-m-d') }}</td>
-                                            <td>{{ $serviceCard->description }}</td>
-                                            <td>@foreach($serviceCard->workProcesses as $workProcess)
-                                                    {{ $workProcess->user->name }}
-                                                    @if(!$loop->last)
-                                                        ,
-                                                    @endif
-                                                @endforeach</td>
-                                            <td>
-                                                <a href="{{ route('service-cards.edit', [
-                                                    'service_card' => $serviceCard->id,
-                                                    'device_type' => \App\Models\Printer::class,
-                                                    'device_name' => $printer->name,
-                                                    'device_id' => $printer->id,
-                                                ]) }}"
-                                                    class="btn btn-sm btn-primary">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <form action="{{ route('service-cards.destroy', $serviceCard->id) }}"
-                                                    method="post" class="d-inline"
-                                                    onsubmit="return confirm('Are you sure?')">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                            {!! $dataTable->table(['class' => 'table table-bordered']) !!}
                         </div>
                     </div>
                 </div>
@@ -113,45 +55,26 @@
 
 
 @section('scripts')
-    {{--    <script> --}}
-    {{--        $(document).ready(function() { --}}
-    {{--            const loggedInUser = { --}}
-    {{--                id: '{{ $printer->user_id }}', --}}
-    {{--                text: '{{ $printer->user->name }}', --}}
-    {{--            }; --}}
-
-    {{--            $('.select2').select2({ --}}
-    {{--                placeholder: '-- Pilih Worker --', --}}
-    {{--                allowClear: true, --}}
-    {{--                ajax: { --}}
-    {{--                    url: '{{ route('users.index') }}', --}}
-    {{--                    dataType: 'json', --}}
-    {{--                    delay: 250, --}}
-    {{--                    data: function(params) { --}}
-    {{--                        return { --}}
-    {{--                            q: params.term, // search term --}}
-    {{--                            intent: '{{ IntentEnum::USER_SEARCH_USERS->value }}', // intent parameter --}}
-    {{--                        }; --}}
-    {{--                    }, --}}
-    {{--                    processResults: function(data) { --}}
-    {{--                        return { --}}
-    {{--                            results: data.data.map(function(user) { --}}
-    {{--                                return { --}}
-    {{--                                    id: user.id, --}}
-    {{--                                    text: `${user.nip} - ${user.name}`, --}}
-    {{--                                }; --}}
-    {{--                            }), --}}
-    {{--                        }; --}}
-    {{--                    }, --}}
-    {{--                    cache: true, --}}
-    {{--                }, --}}
-    {{--                initSelection: function(element, callback) { --}}
-    {{--                    callback(loggedInUser); --}}
-    {{--                }, --}}
-    {{--            }); --}}
-
-    {{--            // Set the value and trigger change to select the logged-in user --}}
-    {{--            $('.select2').val(loggedInUser.id).trigger('change'); --}}
-    {{--        }); --}}
-    {{--    </script> --}}
+    <script>
+        $(document).ready(function() {
+            $('#printer-service-cards-table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '{{ route('printers.service-cards.index', $printer->id) }}',
+                    type: 'GET',
+                    error: function(xhr, error, code) {
+                        console.log(xhr);
+                        console.log(code);
+                    },
+                },
+                columns: [
+                    { data: 'action', name: 'action', orderable: false, searchable: false },
+                    { data: 'date', name: 'date' },
+                    { data: 'description', name: 'description' },
+                    { data: 'workers', name: 'workers', orderable: false, searchable: false },
+                ],
+            });
+        });
+    </script>
 @endsection

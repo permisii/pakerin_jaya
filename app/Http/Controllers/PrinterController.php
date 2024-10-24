@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PrintersDataTable;
+use App\DataTables\PrinterServiceCardsDataTable;
 use App\Http\Requests\StorePrinterRequest;
 use App\Http\Requests\UpdatePrinterRequest;
 use App\Http\Resources\PrinterResource;
@@ -99,12 +100,9 @@ class PrinterController extends Controller {
         return back();
     }
 
-    public function serviceCards(Printer $printer) {
-        $serviceCards = $printer->serviceCards->load([
-            'workProcesses',
-            'device',
+    public function serviceCards(Printer $printer, PrinterServiceCardsDataTable $dataTable) {
+        return $dataTable->render('printers.service-cards', [
+            'printer' => $printer,
         ]);
-
-        return view('printers.service-cards', compact('printer', 'serviceCards'));
     }
 }

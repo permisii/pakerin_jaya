@@ -20,6 +20,10 @@ class Printer extends Model {
         'updated_by',
     ];
 
+    protected $casts = [
+        'date_of_initial_use' => 'date',
+    ];
+
     public function createdBy(): BelongsTo {
         return $this->belongsTo(User::class, 'created_by');
     }
