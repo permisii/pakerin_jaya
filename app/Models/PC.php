@@ -29,6 +29,10 @@ class PC extends Model {
         'updated_by',
     ];
 
+    protected $casts = [
+        'date_of_initial_use' => 'date',
+    ];
+
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }

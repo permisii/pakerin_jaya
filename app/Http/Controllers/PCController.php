@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PCsDataTable;
+use App\DataTables\PCServiceCardsDataTable;
 use App\Http\Requests\StorePCRequest;
 use App\Http\Requests\UpdatePCRequest;
 use App\Http\Resources\PCResource;
@@ -96,12 +97,7 @@ class PCController extends Controller {
         return back();
     }
 
-    public function serviceCards(PC $pc) {
-        $serviceCards = $pc->serviceCards->load([
-            'device',
-            'workProcesses',
-        ]);
-
-        return view('pcs.service-cards', compact('pc', 'serviceCards'));
+    public function serviceCards(PC $pc, PCServiceCardsDataTable $dataTable) {
+        return $dataTable->render('pcs.service-cards', ['pc' => $pc]);
     }
 }

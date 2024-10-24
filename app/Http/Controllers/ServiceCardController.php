@@ -17,7 +17,7 @@ class ServiceCardController extends Controller {
             'serviceCards' => ServiceCard::with([
                 'device',
                 'assignment',
-                'worker',
+                'workProcesses',
             ]),
         ]);
     }
