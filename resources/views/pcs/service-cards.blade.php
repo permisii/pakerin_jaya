@@ -24,19 +24,16 @@
                 </ul>
             </div>
 
-            <div class="card-header d-flex align-items-center">
-                <h3 class="card-title">Kartu Service</h3>
-            </div>
             <div class="card-body">
+                <a href="{{ route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => $pc->name, 'device_id' => $pc->id]) }}"
+                   class="btn btn-default text-blue ml-2 mb-3">
+                    <i class="fas fa-plus"></i>
+                    Tambah Uraian Pekerjaan
+                </a>
                 <div class="col">
                     <div class="card">
                         <div class="card-header bg-info d-flex align-items-center">
                             <h3 class="card-title">{{$pc->name}}</h3>
-                            <a href="{{ route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => $pc->name, 'device_id' => $pc->id]) }}"
-                               class="btn-link border-0 btn-sm btn-success ml-2">
-                                <i class="fas fa-plus"></i>
-                                Tambah Uraian Pekerjaan
-                            </a>
                         </div>
                         <div class="card-body">
                             <dl class="row">
@@ -110,6 +107,7 @@
                     { data: 'description', name: 'description' },
                     { data: 'workers', name: 'workers', orderable: false, searchable: false },
                 ],
+                paging:false
             });
         });
     </script>

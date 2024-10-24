@@ -18,6 +18,9 @@ class PrintersDataTable extends DataTable {
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
+            ->addColumn('date_of_initial_use', function (Printer $printer) {
+                return $printer->date_of_initial_use->format('d-m-Y');
+            })
             ->addColumn('action', 'printers.action')
             ->setRowId('id');
     }
@@ -64,6 +67,7 @@ class PrintersDataTable extends DataTable {
                 ->addClass('text-center'),
             Column::make('brand')->title('Merek'),
             Column::make('type')->title('Tipe'),
+            Column::make('user_name')->title('Pemakai'),
             Column::make('date_of_initial_use')->title('Tanggal Penggunaan Awal'),
         ];
     }

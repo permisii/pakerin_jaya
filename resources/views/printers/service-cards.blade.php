@@ -13,28 +13,25 @@
                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                     <li class="nav-item active">
                         <a class="nav-link text-gray " href="{{ route('printers.show', $printer->id) }}"
-                            role="tab">General</a>
+                           role="tab">General</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-gray active"
-                            href="{{ route('printers.service-cards.index', $printer->id) }}" role="tab">Kartu Servis</a>
+                           href="{{ route('printers.service-cards.index', $printer->id) }}" role="tab">Kartu Servis</a>
                     </li>
                 </ul>
             </div>
 
-            <div class="card-header d-flex align-items-center">
-                <h3 class="card-title">Kartu Service</h3>
-            </div>
             <div class="card-body">
+                <a href="{{ route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => $printer->name, 'device_id' => $printer->id]) }}"
+                   class="btn btn-default text-blue ml-2 mb-3">
+                    <i class="fas fa-plus"></i>
+                    Tambah Uraian Pekerjaan
+                </a>
                 <div class="col">
                     <div class="card">
                         <div class="card-header bg-info d-flex align-items-center">
                             <h3 class="card-title">{{ $printer->brand }}</h3>
-                            <a href="{{ route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => $printer->name, 'device_id' => $printer->id]) }}"
-                               class="btn-link border-0 btn-sm btn-success ml-2">
-                                <i class="fas fa-plus"></i>
-                                Tambah Uraian Pekerjaan
-                            </a>
                         </div>
                         <div class="card-body">
                             <dl class="row">
@@ -88,6 +85,7 @@
                     { data: 'description', name: 'description' },
                     { data: 'workers', name: 'workers', orderable: false, searchable: false },
                 ],
+                paging: false,
             });
         });
     </script>
