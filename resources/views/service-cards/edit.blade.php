@@ -27,10 +27,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Worker</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" id="worker_id" name="worker_id"
-                                        required>
-                                    <option value="">-- Select Worker --</option>
-                                    <!-- Populate with users -->
+                                <select class="form-control select2" name="worker_ids[]" id="worker_ids" multiple >
+                                    <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
                         </div>
@@ -113,9 +111,8 @@
                 });
             }
 
-
-            $('#worker_id').select2({
-                placeholder: '-- Select --',
+            $('#worker_ids').select2({
+                placeholder: '-- Select Workers --',
                 allowClear: true,
                 ajax: {
                     url: '{{ route('users.index') }}',
@@ -142,8 +139,14 @@
             });
 
             // Set initial values for select2 fields
-            fetchAndSetSelect2Value('#worker_id', '{{ route('users.index') }}', '{{ $serviceCard->worker_id }}', '{{ $serviceCard->worker->nip }} - {{ $serviceCard->worker->name }}', '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}');
+            var initialWorkers = @json($serviceCard->workProcesses->map(function($workProcess) {
+                return ['id' => $workProcess->user->id, 'text' => $workProcess->user->nip . ' - ' . $workProcess->user->name];
+            }));
 
+            initialWorkers.forEach(function(worker) {
+                var option = new Option(worker.text, worker.id, true, true);
+                $('#worker_ids').append(option).trigger('change');
+            });
 
             $('#device_type').change(function() {
                 var deviceType = $(this).val();

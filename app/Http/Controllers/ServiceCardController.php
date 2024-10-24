@@ -6,6 +6,7 @@ use App\Http\Requests\StoreServiceCardRequest;
 use App\Http\Requests\UpdateServiceCardRequest;
 use App\Models\Assignment;
 use App\Models\ServiceCard;
+use App\Models\WorkProcess;
 
 class ServiceCardController extends Controller {
     /**
@@ -44,6 +45,14 @@ class ServiceCardController extends Controller {
             'updated_by' => auth()->id(),
         ]));
 
+        $workerIds = $request->validated()['worker_ids'];
+        foreach ($workerIds as $workerId) {
+            WorkProcess::create([
+                'service_card_id' => $serviceCard->id,
+                'user_id' => $workerId,
+            ]);
+        }
+
         if ($serviceCard->device_type === 'App\Models\PC') {
             return redirect()->route('pcs.service-cards.index', ['pc' => $serviceCard->device_id]);
         } elseif ($serviceCard->device_type === 'App\Models\Printer') {
@@ -72,6 +81,19 @@ class ServiceCardController extends Controller {
      */
     public function update(UpdateServiceCardRequest $request, ServiceCard $serviceCard) {
         $serviceCard->update($request->validated());
+
+        if (isset($request->validated()['worker_ids'])) {
+            $workerIds = $request->validated()['worker_ids'];
+            WorkProcess::where('service_card_id', $serviceCard->id)->delete();
+            foreach ($workerIds as $workerId) {
+                WorkProcess::create([
+                    'service_card_id' => $serviceCard->id,
+                    'user_id' => $workerId,
+                ]);
+            }
+        } else {
+            $serviceCard->workProcesses()->delete();
+        }
 
         if ($serviceCard->device_type === 'App\Models\PC') {
             return redirect()->route('pcs.service-cards.index', ['pc' => $serviceCard->device_id]);

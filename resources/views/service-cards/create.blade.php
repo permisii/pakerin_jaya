@@ -12,7 +12,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control-sm" name="assignment_number" required/>
+                                <input class="form-control form-control-sm" name="assignment_number" required />
                             </div>
                         </div>
 
@@ -26,10 +26,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Worker</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" id="worker_id" name="worker_id"
-                                        required>
-                                    <option value="">-- Select Worker --</option>
-                                    <!-- Populate with users -->
+                                <select class="form-control form-control-sm select2" name="worker_ids[]" id="worker_ids" multiple required>
+                                    <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
                         </div>
@@ -44,7 +42,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Device Type</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2 disabled" name="device_type" id="device_type"
+                                <select class="form-control form-control-sm select2 disabled" name="device_type"
+                                        id="device_type"
                                         required readonly>
                                     <option value="">-- Select Device Type --</option>
                                     <option value="App\Models\PC">PC</option>
@@ -98,8 +97,8 @@
         $(document).ready(function() {
             document.getElementById('date').valueAsDate = new Date();
 
-            $('#worker_id').select2({
-                placeholder: '-- Select --',
+            $('#worker_ids').select2({
+                placeholder: '-- Select Workers --',
                 allowClear: true,
                 ajax: {
                     url: '{{ route('users.index') }}',
@@ -107,11 +106,8 @@
                     delay: 250,
                     data: function(params) {
                         return {
-                            search: params.term, // search term
-                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}', // custom parameter to identify Select2 requests
-                            column_filters: {
-                                technician: 1
-                            }
+                            search: params.term,
+                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
                         };
                     },
                     processResults: function(data) {
@@ -127,6 +123,7 @@
                     cache: true,
                 },
             });
+
 
             $('#device_type').change(function() {
                 var deviceType = $(this).val();

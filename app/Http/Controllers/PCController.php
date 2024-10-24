@@ -99,7 +99,7 @@ class PCController extends Controller {
     public function serviceCards(PC $pc) {
         $serviceCards = $pc->serviceCards->load([
             'device',
-            'worker',
+            'workProcesses',
         ]);
 
         return view('pcs.service-cards', compact('pc', 'serviceCards'));
