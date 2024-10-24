@@ -66,7 +66,12 @@
                                         <tr>
                                             <td>{{ Carbon::parse($serviceCard->date)->format('Y-m-d') }}</td>
                                             <td>{{ $serviceCard->description }}</td>
-                                            <td>{{ $serviceCard->worker->name }}</td>
+                                            <td>@foreach($serviceCard->workProcesses as $workProcess)
+                                                    {{ $workProcess->user->name }}
+                                                    @if(!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach</td>
                                             <td>
                                                 <a href="{{ route('service-cards.edit', [
                                                     'service_card' => $serviceCard->id,

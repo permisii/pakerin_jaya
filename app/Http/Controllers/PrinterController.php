@@ -101,7 +101,7 @@ class PrinterController extends Controller {
 
     public function serviceCards(Printer $printer) {
         $serviceCards = $printer->serviceCards->load([
-            'worker',
+            'workProcesses',
             'device',
         ]);
 
