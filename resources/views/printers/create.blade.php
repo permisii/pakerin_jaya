@@ -67,18 +67,18 @@
                     <div class="card-footer">
                         <a href="{{ route('printers.index') }}" class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
-                            Back
+                            Kembali
                         </a>
 
                         <div class="btn-group float-right">
                             <button class="btn btn-default text-blue">
                                 <i class="fa fa-fw fa-save"></i>
-                                Save
+                                Simpan
                             </button>
 
                             <a class="btn btn-default text-maroon" href="{{ route('printers.index') }}">
                                 <i class="fas fa-ban"></i>
-                                Cancel
+                                Batal
                             </a>
                         </div>
                     </div>

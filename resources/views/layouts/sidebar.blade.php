@@ -38,8 +38,6 @@
                     </li>
                 @endif
 
-                <li class="nav-header bg-warning">INSTRUKSI KERJA</li>
-
                 <li class="nav-header">ADMINISTRATION</li>
 
                 @if (auth()->user()->hasPermission('read', 'users'))
@@ -98,7 +96,7 @@
                         </a>
                     </li>
                 @endif
-
+{{--
                 @if (auth()->user()->hasPermission('read', 'service-cards'))
                     <li class="nav-item">
                         <a href="{{ route('service-cards.index') }}"
@@ -108,7 +106,7 @@
                             <p>KARTU SERVIS</p>
                         </a>
                     </li>
-                @endif
+                @endif --}}
 
                     <li class="nav-header">KARTU SERVIS</li>
 

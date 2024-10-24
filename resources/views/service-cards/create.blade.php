@@ -17,14 +17,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Date</label>
+                            <label class="col-sm-2 col-form-label text-right">Tanggal</label>
                             <div class="col-sm-4">
                                 <input id="date" type="date" class="form-control form-control-sm" name="date" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Worker</label>
+                            <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" id="worker_id" name="worker_id"
                                         required>
@@ -35,14 +35,14 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Description</label>
+                            <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                             <div class="col-sm-4">
                                 <textarea class="form-control form-control-sm" name="description" required></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Device Type</label>
+                            <label class="col-sm-2 col-form-label text-right">Tipe Device</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2 disabled" name="device_type" id="device_type"
                                         required readonly>

@@ -36,7 +36,7 @@
                                 <div class="card-body">
                                     <h6 class="text-divider mb-4"><span>Edit PC</span></h6>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label text-right">User</label>
+                                        <label class="col-sm-2 col-form-label text-right">Pemakai</label>
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control form-control-sm" name="name"
                                                    required value="{{ $pc->user_name }}">
@@ -52,8 +52,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label text-right">Tanggal penggunaan
-                                            awal</label>
+                                        <label class="col-sm-2 col-form-label text-right">Tanggal Penggunaan Awal</label>
                                         <div class="col-sm-4">
                                             <input type="date" class="form-control form-control-sm"
                                                    name="date_of_initial_use"
@@ -95,7 +94,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label text-right">Processor</label>
+                                        <label class="col-sm-2 col-form-label text-right">Prosesor</label>
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control form-control-sm" name="processor"
                                                    required value="{{$pc->processor}}">
@@ -111,7 +110,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label text-right">HDD</label>
+                                        <label class="col-sm-2 col-form-label text-right">Penyimpanan</label>
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control form-control-sm" name="hdd"
                                                    required value="{{$pc->hdd}}">
