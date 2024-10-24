@@ -24,19 +24,33 @@
 
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title">Kartu Service</h3>
-                <a href="{{ route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => $printer->name, 'device_id' => $printer->id]) }}"
-                    class="btn btn-sm btn-default text-blue ml-2">
-                    <i class="fas fa-plus"></i>
-                    Tambah Uraian Pekerjaan
-                </a>
             </div>
             <div class="card-body">
                 <div class="col">
                     <div class="card">
-                        <div class="card-header bg-info">
-                            <h3 class="card-title">{{ $printer->name }}</h3>
+                        <div class="card-header bg-info d-flex align-items-center">
+                            <h3 class="card-title">{{ $printer->brand }}</h3>
+                            <a href="{{ route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => $printer->name, 'device_id' => $printer->id]) }}"
+                               class="btn-link border-0 btn-sm btn-success ml-2">
+                                <i class="fas fa-plus"></i>
+                                Tambah Uraian Pekerjaan
+                            </a>
                         </div>
                         <div class="card-body">
+                            <dl class="row">
+                                <dt class="col-sm-1">User</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->user_name }}</dd>
+                                <dt class="col-sm-1">Merk</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->brand }}</dd>
+                                <dt class="col-sm-1">Index</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->index }}</dd>
+                                <dt class="col-sm-1">Tipe</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->type }}</dd>
+                            </dl>
                             {!! $dataTable->table(['class' => 'table table-bordered']) !!}
                         </div>
                     </div>
