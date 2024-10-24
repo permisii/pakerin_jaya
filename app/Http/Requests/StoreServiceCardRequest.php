@@ -22,7 +22,8 @@ class StoreServiceCardRequest extends FormRequest {
             //            'assignment_id' => 'required|integer|exists:assignments,id',
             'assignment_number' => 'required|string', // Required for creating a new assignment
             'date' => 'required|date',
-            'worker_id' => 'required|integer|exists:users,id',
+            'worker_ids' => 'required|array',
+            'worker_ids.*' => 'required|integer|exists:users,id',
             'description' => 'required|string',
             'device_type' => 'required|string',
             'device_id' => 'required|integer',

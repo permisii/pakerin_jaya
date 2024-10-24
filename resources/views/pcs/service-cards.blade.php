@@ -12,11 +12,14 @@
             <div class="card-header p-0 border-bottom-0">
                 <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                     <li class="nav-item active">
-                        <a class="nav-link text-gray " href="{{ route('pcs.show', $pc->id) }}" role="tab">General</a>
+                        <a class="nav-link text-gray "
+                           href="{{ route('pcs.show', $pc->id) }}"
+                           role="tab">General</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-gray active" href="{{ route('pcs.service-cards.index', $pc->id) }}"
-                            role="tab">Kartu Servis</a>
+                        <a class="nav-link text-gray active"
+                           href="{{ route('pcs.service-cards.index', $pc->id) }}"
+                           role="tab">Kartu Servis</a>
                     </li>
                 </ul>
             </div>
@@ -33,7 +36,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-header bg-info">
-                            <h3 class="card-title">{{ $pc->name }}</h3>
+                            <h3 class="card-title">{{$pc->name}}</h3>
                         </div>
                         <div class="card-body">
                             <dl class="row">
@@ -77,30 +80,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($serviceCards as $serviceCard)
-                                        <tr>
-                                            <td>{{ Carbon::parse($serviceCard->date)->format('Y-m-d') }}</td>
-                                            <td>{{ $serviceCard->description }}</td>
-                                            <td>{{ $serviceCard->worker->name }}</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="{{ route('service-cards.edit', ['service_card' => $serviceCard->id, 'device_type' => \App\Models\PC::class, 'device_name' => $pc->name, 'device_id' => $pc->id]) }}"
-                                                        class="btn btn-sm btn-primary">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <form action="{{ route('service-cards.destroy', $serviceCard->id) }}"
-                                                        method="post" class="ml-2 d-inline"
-                                                        onsubmit="return confirm('Are you sure?')">
-                                                        @csrf
-                                                        @method('delete')
-                                                        <button type="submit" class="btn btn-sm btn-danger">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                @foreach($serviceCards as $serviceCard)
+                                    <tr>
+                                        <td>{{ Carbon::parse($serviceCard->date)->format('Y-m-d') }}</td>
+                                        <td>{{ $serviceCard->description }}</td>
+                                        <td>
+                                            @foreach($serviceCard->workProcesses as $workProcess)
+                                                {{ $workProcess->user->name }}
+                                                @if(!$loop->last)
+                                                    ,
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <div class="d-flex">
+                                                <a href="{{ route('service-cards.edit', ['service_card' => $serviceCard->id, 'device_type' => \App\Models\PC::class, 'device_name' => $pc->name]) }}"
+                                                   class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <form action="{{ route('service-cards.destroy', $serviceCard->id) }}"
+                                                      method="post"
+                                                      class="ml-2 d-inline"
+                                                      onsubmit="return confirm('Are you sure?')">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -121,48 +132,46 @@
 @endsection
 
 
-
-
 @section('scripts')
-    {{--    <script> --}}
-    {{--        $(document).ready(function() { --}}
-    {{--            const loggedInUser = { --}}
-    {{--                id: '{{ $pc->user_id }}', --}}
-    {{--                text: '{{ $pc->user->name }}', --}}
-    {{--            }; --}}
+    {{--    <script>--}}
+    {{--        $(document).ready(function() {--}}
+    {{--            const loggedInUser = {--}}
+    {{--                id: '{{ $pc->user_id }}',--}}
+    {{--                text: '{{ $pc->user->name }}',--}}
+    {{--            };--}}
 
-    {{--            $('.select2').select2({ --}}
-    {{--                placeholder: '-- Pilih Worker --', --}}
-    {{--                allowClear: true, --}}
-    {{--                ajax: { --}}
-    {{--                    url: '{{ route('users.index') }}', --}}
-    {{--                    dataType: 'json', --}}
-    {{--                    delay: 250, --}}
-    {{--                    data: function(params) { --}}
-    {{--                        return { --}}
-    {{--                            q: params.term, // search term --}}
-    {{--                            intent: '{{ IntentEnum::USER_SEARCH_USERS->value }}', // intent parameter --}}
-    {{--                        }; --}}
-    {{--                    }, --}}
-    {{--                    processResults: function(data) { --}}
-    {{--                        return { --}}
-    {{--                            results: data.data.map(function(user) { --}}
-    {{--                                return { --}}
-    {{--                                    id: user.id, --}}
-    {{--                                    text: `${user.nip} - ${user.name}`, --}}
-    {{--                                }; --}}
-    {{--                            }), --}}
-    {{--                        }; --}}
-    {{--                    }, --}}
-    {{--                    cache: true, --}}
-    {{--                }, --}}
-    {{--                initSelection: function(element, callback) { --}}
-    {{--                    callback(loggedInUser); --}}
-    {{--                }, --}}
-    {{--            }); --}}
+    {{--            $('.select2').select2({--}}
+    {{--                placeholder: '-- Pilih Worker --',--}}
+    {{--                allowClear: true,--}}
+    {{--                ajax: {--}}
+    {{--                    url: '{{ route('users.index') }}',--}}
+    {{--                    dataType: 'json',--}}
+    {{--                    delay: 250,--}}
+    {{--                    data: function(params) {--}}
+    {{--                        return {--}}
+    {{--                            q: params.term, // search term--}}
+    {{--                            intent: '{{ IntentEnum::USER_SEARCH_USERS->value }}', // intent parameter--}}
+    {{--                        };--}}
+    {{--                    },--}}
+    {{--                    processResults: function(data) {--}}
+    {{--                        return {--}}
+    {{--                            results: data.data.map(function(user) {--}}
+    {{--                                return {--}}
+    {{--                                    id: user.id,--}}
+    {{--                                    text: `${user.nip} - ${user.name}`,--}}
+    {{--                                };--}}
+    {{--                            }),--}}
+    {{--                        };--}}
+    {{--                    },--}}
+    {{--                    cache: true,--}}
+    {{--                },--}}
+    {{--                initSelection: function(element, callback) {--}}
+    {{--                    callback(loggedInUser);--}}
+    {{--                },--}}
+    {{--            });--}}
 
-    {{--            // Set the value and trigger change to select the logged-in user --}}
-    {{--            $('.select2').val(loggedInUser.id).trigger('change'); --}}
-    {{--        }); --}}
-    {{--    </script> --}}
+    {{--            // Set the value and trigger change to select the logged-in user--}}
+    {{--            $('.select2').val(loggedInUser.id).trigger('change');--}}
+    {{--        });--}}
+    {{--    </script>--}}
 @endsection

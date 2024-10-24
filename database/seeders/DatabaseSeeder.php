@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder {
             AssignmentSeeder::class,
             PCSeeder::class,
             PrinterSeeder::class,
-//            WorkProcessSeeder::class,
             ServiceCardSeeder::class,
+            WorkProcessSeeder::class,
         ]);
     }
 }

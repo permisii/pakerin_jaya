@@ -88,3 +88,28 @@ select[readonly].select2 + .select2-container {
         display: none;
     }
 }
+
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+    display: inline;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+    margin: 3px;
+}
+
+.select2-container--default .select2-search--inline .select2-search__field {
+    margin: 0;
+    max-height: 1em;
+    padding: calc(1em - 2px);
+}
+
+.select2-container {
+    min-width: 100%;
+    max-width: 100%;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple {
+    border: none;
+}

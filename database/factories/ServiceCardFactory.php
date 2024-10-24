@@ -22,9 +22,7 @@ class ServiceCardFactory extends Factory {
         $deviceInstance = $device::inRandomOrder()->first();
 
         return [
-            'assignment_id' => Assignment::factory()->serviceCardAssignment()->create()->id,
             'date' => $this->faker->date(),
-            'worker_id' => User::inRandomOrder()->first()->id,
             'description' => $this->faker->text,
             'device_type' => $device,
             'device_id' => $deviceInstance->id,

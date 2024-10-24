@@ -13,7 +13,6 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('assignment_id')->nullable()->constrained()->cascadeOnDelete();
             $table->date('date');
-            $table->foreignId('worker_id')->constrained('users')->cascadeOnDelete();
             $table->text('description');
             $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
             $table->foreignId('updated_by')->constrained('users')->cascadeOnDelete();

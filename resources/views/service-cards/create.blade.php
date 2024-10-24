@@ -12,25 +12,22 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control-sm" name="assignment_number" required />
+                                <input class="form-control form-control-sm" name="assignment_number" required/>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Tanggal</label>
                             <div class="col-sm-4">
-                                <input id="date" type="date" class="form-control form-control-sm" name="date"
-                                    required>
+                                <input id="date" type="date" class="form-control form-control-sm" name="date" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" id="worker_id" name="worker_id"
-                                    required>
-                                    <option value="">-- Select Worker --</option>
-                                    <!-- Populate with users -->
+                                <select class="form-control form-control-sm select2" name="worker_ids[]" id="worker_ids" multiple required>
+                                    <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
                         </div>
@@ -45,8 +42,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Tipe Device</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2 disabled" name="device_type"
-                                    id="device_type" required readonly>
+                                <select class="form-control form-control-sm select2 disabled" name="device_type" id="device_type"
+                                        required readonly>
                                     <option value="">-- Select Device Type --</option>
                                     <option value="App\Models\PC">PC</option>
                                     <option value="App\Models\Printer">Printer</option>
@@ -102,8 +99,8 @@
         $(document).ready(function() {
             document.getElementById('date').valueAsDate = new Date();
 
-            $('#worker_id').select2({
-                placeholder: '-- Select --',
+            $('#worker_ids').select2({
+                placeholder: '-- Select Workers --',
                 allowClear: true,
                 ajax: {
                     url: '{{ route('users.index') }}',
@@ -111,8 +108,8 @@
                     delay: 250,
                     data: function(params) {
                         return {
-                            search: params.term, // search term
-                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}', // custom parameter to identify Select2 requests
+                            search: params.term,
+                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
                             column_filters: {
                                 technician: 1
                             }
@@ -132,36 +129,25 @@
                 },
             });
 
-            // TODO: might introduce bugs
-            const mutateButtonBackHref = (url) => {
-                $('button-back').attr('href', url)
-            }
-
             $('#device_type').change(function() {
                 var deviceType = $(this).val();
                 $('#device_id').empty().trigger('change');
 
                 if (deviceType) {
-                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' :
-                        '{{ route('printers.index') }}';
+                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
                     $.ajax({
                         url: url,
                         data: {
-                            intent: deviceType === 'App\\Models\\PC' ?
-                                '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' :
-                                '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                            intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                         },
                         success: function(data) {
                             var options = data.data.map(function(device) {
                                 if (deviceType === 'App\\Models\\PC') {
-                                    mutateButtonBackHref("{{ route('pcs.index') }}")
                                     return {
                                         id: device.id,
                                         text: `${device.name} - ${device.date_of_initial_use}`,
                                     };
                                 } else {
-                                    mutateButtonBackHref(
-                                        "{{ route('printers.index') }}")
                                     return {
                                         id: device.id,
                                         text: `${device.brand} - ${device.date_of_initial_use}`,
@@ -181,29 +167,24 @@
             // TODO: experimental - might be buggy
             var urlParams = new URLSearchParams(window.location.search);
             var deviceType = urlParams.get('device_type');
-            var deviceNameOrBrand = urlParams.get(deviceType === 'App\\Models\\PC' ? 'device_name' :
-                'device_brand');
+            var deviceNameOrBrand = urlParams.get(deviceType === 'App\\Models\\PC' ? 'device_name' : 'device_brand');
             var deviceIdField = $('#device_id');
 
             if (deviceType) {
                 $('#device_type').val(deviceType).trigger('change');
 
-                var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' :
-                    '{{ route('printers.index') }}';
+                var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
                 $.ajax({
                     url: url,
                     data: {
                         search: deviceNameOrBrand,
-                        intent: deviceType === 'App\\Models\\PC' ?
-                            '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' :
-                            '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                        intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                     },
                     success: function(data) {
                         var options = data.data.map(function(device) {
                             return {
                                 id: device.id,
-                                text: deviceType === 'App\\Models\\PC' ? device.name : device
-                                    .brand,
+                                text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
                             };
                         });
                         deviceIdField.select2({
@@ -224,21 +205,17 @@
                 deviceIdField.empty().trigger('change');
 
                 if (deviceType) {
-                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' :
-                        '{{ route('printers.index') }}';
+                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
                     $.ajax({
                         url: url,
                         data: {
-                            intent: deviceType === 'App\\Models\\PC' ?
-                                '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' :
-                                '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                            intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                         },
                         success: function(data) {
                             var options = data.data.map(function(device) {
                                 return {
                                     id: device.id,
-                                    text: deviceType === 'App\\Models\\PC' ? device
-                                        .name : device.brand,
+                                    text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
                                 };
                             });
                             deviceIdField.select2({

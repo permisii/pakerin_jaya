@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class ServiceCard extends Model {
@@ -13,7 +14,6 @@ class ServiceCard extends Model {
     protected $fillable = [
         'assignment_id',
         'date',
-        'worker_id', // TODO: might remove this later, since it's already in the WorkProcess model
         'description',
         'device_type',
         'device_id',
@@ -28,8 +28,8 @@ class ServiceCard extends Model {
         return $this->belongsTo(Assignment::class);
     }
 
-    public function worker(): BelongsTo {
-        return $this->belongsTo(User::class, 'worker_id');
+    public function workProcesses(): HasMany {
+        return $this->hasMany(WorkProcess::class);
     }
 
     public function createdBy(): BelongsTo {
