@@ -13,14 +13,16 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control-sm" name="assignment_number" disabled value="{{ $serviceCard->assignment->assignment_number ?? '' }}"/>
+                                <input class="form-control form-control-sm" name="assignment_number" disabled
+                                    value="{{ $serviceCard->assignment->assignment_number ?? '' }}" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Tanggal</label>
                             <div class="col-sm-4">
-                                <input id="date" type="date" class="form-control form-control-sm" name="date" value="{{ $serviceCard->date }}" required>
+                                <input id="date" type="date" class="form-control form-control-sm" name="date"
+                                    value="{{ $serviceCard->date }}" required>
                             </div>
                         </div>
 
@@ -28,7 +30,7 @@
                             <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" id="worker_id" name="worker_id"
-                                        required>
+                                    required>
                                     <option value="">-- Select Worker --</option>
                                     <!-- Populate with users -->
                                 </select>
@@ -46,10 +48,13 @@
                             <label class="col-sm-2 col-form-label text-right">Tipe Perangkat</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="device_type" id="device_type"
-                                        required disabled>
+                                    required disabled>
                                     <option value="">-- Select Device Type --</option>
-                                    <option value="App\Models\PC" {{ $serviceCard->device_type == 'App\Models\PC' ? 'selected' : '' }}>PC</option>
-                                    <option value="App\Models\Printer" {{ $serviceCard->device_type == 'App\Models\Printer' ? 'selected' : '' }}>Printer</option>
+                                    <option value="App\Models\PC"
+                                        {{ $serviceCard->device_type == 'App\Models\PC' ? 'selected' : '' }}>PC</option>
+                                    <option value="App\Models\Printer"
+                                        {{ $serviceCard->device_type == 'App\Models\Printer' ? 'selected' : '' }}>Printer
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -58,19 +63,20 @@
                             <label class="col-sm-2 col-form-label text-right">ID Perangkat</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="device_id" id="device_id"
-                                        required disabled>
+                                    required disabled>
                                     <option value="">-- Select Device ID --</option>
                                     <!-- Dynamically populate based on device type -->
                                 </select>
                             </div>
                         </div>
 
-                        <input type="hidden" name="updated_by" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="updated_by" value="{{ auth()->user()->id }}">
 
                     </div>
 
                     <div class="card-footer">
-                        <a href="{{ route('service-cards.index') }}" class="btn btn-default">
+                        <a href="{{ $serviceCard->device_type == 'App\Models\PC' ? route('pcs.service-cards.index', $serviceCard->device_id) : route('printers.service-cards.index', $serviceCard->device_id) }}"
+                            class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
                             Back
                         </a>
@@ -95,10 +101,10 @@
 
 @section('scripts')
     <script>
-
         // TODO: experimental - might be buggy
         $(document).ready(function() {
             document.getElementById('date').valueAsDate = new Date('{{ $serviceCard->date }}');
+
             function fetchAndSetSelect2Value(selector, url, value, text, intent) {
                 $.ajax({
                     url: url,
@@ -142,7 +148,9 @@
             });
 
             // Set initial values for select2 fields
-            fetchAndSetSelect2Value('#worker_id', '{{ route('users.index') }}', '{{ $serviceCard->worker_id }}', '{{ $serviceCard->worker->nip }} - {{ $serviceCard->worker->name }}', '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}');
+            fetchAndSetSelect2Value('#worker_id', '{{ route('users.index') }}', '{{ $serviceCard->worker_id }}',
+                '{{ $serviceCard->worker->nip }} - {{ $serviceCard->worker->name }}',
+                '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}');
 
 
             $('#device_type').change(function() {
@@ -150,11 +158,14 @@
                 $('#device_id').empty().trigger('change');
 
                 if (deviceType) {
-                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
+                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' :
+                        '{{ route('printers.index') }}';
                     $.ajax({
                         url: url,
                         data: {
-                            intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                            intent: deviceType === 'App\\Models\\PC' ?
+                                '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' :
+                                '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                         },
                         success: function(data) {
                             var options = data.data.map(function(device) {
@@ -183,24 +194,29 @@
             // TODO: experimental - might be buggy
             var urlParams = new URLSearchParams(window.location.search);
             var deviceType = urlParams.get('device_type');
-            var deviceNameOrBrand = urlParams.get(deviceType === 'App\\Models\\PC' ? 'device_name' : 'device_brand');
+            var deviceNameOrBrand = urlParams.get(deviceType === 'App\\Models\\PC' ? 'device_name' :
+                'device_brand');
             var deviceIdField = $('#device_id');
 
             if (deviceType) {
                 $('#device_type').val(deviceType).trigger('change');
 
-                var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
+                var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' :
+                    '{{ route('printers.index') }}';
                 $.ajax({
                     url: url,
                     data: {
                         search: deviceNameOrBrand,
-                        intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                        intent: deviceType === 'App\\Models\\PC' ?
+                            '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' :
+                            '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                     },
                     success: function(data) {
                         var options = data.data.map(function(device) {
                             return {
                                 id: device.id,
-                                text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
+                                text: deviceType === 'App\\Models\\PC' ? device.name : device
+                                    .brand,
                             };
                         });
                         deviceIdField.select2({
@@ -221,17 +237,21 @@
                 deviceIdField.empty().trigger('change');
 
                 if (deviceType) {
-                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' : '{{ route('printers.index') }}';
+                    var url = deviceType === 'App\\Models\\PC' ? '{{ route('pcs.index') }}' :
+                        '{{ route('printers.index') }}';
                     $.ajax({
                         url: url,
                         data: {
-                            intent: deviceType === 'App\\Models\\PC' ? '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' : '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
+                            intent: deviceType === 'App\\Models\\PC' ?
+                                '{{ \App\Support\Enums\IntentEnum::PC_SELECT2_SEARCH_PCS->value }}' :
+                                '{{ \App\Support\Enums\IntentEnum::PRINTER_SELECT2_SEARCH_PRINTERS->value }}',
                         },
                         success: function(data) {
                             var options = data.data.map(function(device) {
                                 return {
                                     id: device.id,
-                                    text: deviceType === 'App\\Models\\PC' ? device.name : device.brand,
+                                    text: deviceType === 'App\\Models\\PC' ? device
+                                        .name : device.brand,
                                 };
                             });
                             deviceIdField.select2({
