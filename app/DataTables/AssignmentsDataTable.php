@@ -101,7 +101,7 @@ class AssignmentsDataTable extends DataTable {
     public function getColumns(): array {
         return [
             Column::make('id')
-                ->tile('Aksi')
+                ->title('Aksi')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)

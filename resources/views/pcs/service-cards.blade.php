@@ -26,19 +26,51 @@
 
             <div class="card-header d-flex align-items-center">
                 <h3 class="card-title">Kartu Service</h3>
-                <a href="{{ route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => $pc->name, 'device_id' => $pc->id]) }}"
-                   class="btn btn-sm btn-default text-blue ml-2">
-                    <i class="fas fa-plus"></i>
-                    Tambah Uraian Pekerjaan
-                </a>
             </div>
             <div class="card-body">
                 <div class="col">
                     <div class="card">
-                        <div class="card-header bg-info">
+                        <div class="card-header bg-info d-flex align-items-center">
                             <h3 class="card-title">{{$pc->name}}</h3>
+                            <a href="{{ route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => $pc->name, 'device_id' => $pc->id]) }}"
+                               class="btn-link border-0 btn-sm btn-success ml-2">
+                                <i class="fas fa-plus"></i>
+                                Tambah Uraian Pekerjaan
+                            </a>
                         </div>
                         <div class="card-body">
+                            <dl class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <dt class="col-sm-2">Processor</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->processor}}</dd>
+                                        <dt class="col-sm-2">RAM</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->ram}}</dd>
+                                        <dt class="col-sm-2">HD</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->hdd}}</dd>
+                                        <dt class="col-sm-2">Monitor</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->monitor}}</dd>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <dt class="col-sm-2">VGA</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->vga}}</dd>
+                                        <dt class="col-sm-2">Bagian</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->section}}</dd>
+                                        <dt class="col-sm-2">User</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{$pc->user_name}}</dd>
+                                    </div>
+                                </div>
+                            </dl>
+
                             {!! $dataTable->table(['class' => 'table table-bordered']) !!}
                         </div>
                     </div>

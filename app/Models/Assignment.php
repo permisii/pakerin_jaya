@@ -33,9 +33,9 @@ class Assignment extends Model {
         return $this->hasMany(ServiceCard::class);
     }
 
-    //    public function workInstruction() {
-    //        return $this->belongsTo(WorkInstruction::class);
-    //    }
+    public function workInstruction() {
+        return $this->belongsTo(WorkInstruction::class);
+    }
 
     public function createdBy() {
         return $this->belongsTo(User::class, 'created_by');
