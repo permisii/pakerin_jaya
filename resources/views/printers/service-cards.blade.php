@@ -92,9 +92,12 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="card-footer">
-                <a href="{{ route('printers.index') }}" class="btn btn-default">Back to WorkInstructions</a>
-            </div> --}}
+            <div class="card-footer">
+                <a href="{{ route('pcs.index') }}" class="btn btn-default">
+                    <i class="fa fa-fw fa-arrow-left"></i>
+                            Kembali
+                </a>
+            </div>
         </div>
     </div>
 

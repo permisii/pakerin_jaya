@@ -41,31 +41,31 @@
                             <dl class="row">
                                 <div class="col">
                                     <div class="row">
-                                        <dt class="col-sm-2">Processor</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->processor}}</dd>
-                                        <dt class="col-sm-2">RAM</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->ram}}</dd>
-                                        <dt class="col-sm-2">HD</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->hdd}}</dd>
-                                        <dt class="col-sm-2">Monitor</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->monitor}}</dd>
+                                        <dt class="col-sm-3">Prosesor</dt>
+                                        <dt class="col-sm-3 text-right">:</dt>
+                                        <dd class="col-sm-6">{{$pc->processor}}</dd>
+                                        <dt class="col-sm-3">RAM</dt>
+                                        <dt class="col-sm-3 text-right">:</dt>
+                                        <dd class="col-sm-6">{{$pc->ram}}</dd>
+                                        <dt class="col-sm-3">Penyimpanan</dt>
+                                        <dt class="col-sm-3 text-right">:</dt>
+                                        <dd class="col-sm-6">{{$pc->hdd}}</dd>
+                                        <dt class="col-sm-3">Monitor</dt>
+                                        <dt class="col-sm-3 text-right">:</dt>
+                                        <dd class="col-sm-6">{{$pc->monitor}}</dd>
                                     </div>
                                 </div>
                                 <div class="col">
                                     <div class="row">
-                                        <dt class="col-sm-2">VGA</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->vga}}</dd>
-                                        <dt class="col-sm-2">Bagian</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->section}}</dd>
-                                        <dt class="col-sm-2">User</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->user_name}}</dd>
+                                        <dt class="col-sm-3">VGA</dt>
+                                        <dt class="col-sm-3 text-right">:</dt>
+                                        <dd class="col-sm-6">{{$pc->vga}}</dd>
+                                        <dt class="col-sm-3">Bagian</dt>
+                                        <dt class="col-sm-3 text-right">:</dt>
+                                        <dd class="col-sm-6">{{$pc->section}}</dd>
+                                        <dt class="col-sm-3">Pemakai</dt>
+                                        <dt class="col-sm-3 text-right">:</dt>
+                                        <dd class="col-sm-6">{{$pc->user_name}}</dd>
                                     </div>
                                 </div>
                             </dl>
@@ -110,13 +110,20 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="card-footer">
-                <a href="{{ route('pcs.index') }}" class="btn btn-default">Back to WorkInstructions</a>
-            </div> --}}
+
+        <div class="card-footer">
+            <a href="{{ route('pcs.index') }}" class="btn btn-default">
+                <i class="fa fa-fw fa-arrow-left"></i>
+                        Kembali
+            </a>
+        </div>
+
         </div>
     </div>
 
 @endsection
+
+
 
 
 @section('scripts')
