@@ -12,19 +12,19 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control-sm" name="assignment_number" required />
+                                <input class="form-control form-control-sm" name="assignment_number" required/>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Date</label>
+                            <label class="col-sm-2 col-form-label text-right">Tanggal</label>
                             <div class="col-sm-4">
                                 <input id="date" type="date" class="form-control form-control-sm" name="date" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Worker</label>
+                            <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="worker_ids[]" id="worker_ids" multiple required>
                                     <!-- Options will be populated dynamically -->
@@ -33,17 +33,16 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Description</label>
+                            <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                             <div class="col-sm-4">
                                 <textarea class="form-control form-control-sm" name="description" required></textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Device Type</label>
+                            <label class="col-sm-2 col-form-label text-right">Tipe Device</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2 disabled" name="device_type"
-                                        id="device_type"
+                                <select class="form-control form-control-sm select2 disabled" name="device_type" id="device_type"
                                         required readonly>
                                     <option value="">-- Select Device Type --</option>
                                     <option value="App\Models\PC">PC</option>
@@ -55,21 +54,24 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Device ID</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" name="device_id" id="device_id"
-                                        required readonly>
+                                <select class="form-control form-control-sm select2" name="fake_device_id" id="device_id"
+                                    required readonly>
                                     <option value="">-- Select Device ID --</option>
                                     <!-- Dynamically populate based on device type -->
                                 </select>
                             </div>
                         </div>
 
-                        <input type="hidden" name="created_by" value="{{auth()->user()->id}}">
-                        <input type="hidden" name="updated_by" value="{{auth()->user()->id}}">
+                        <input type="hidden" name="device_id" value="{{ request()->query('device_id') }}">
+                        <input type="hidden" name="created_by" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="updated_by" value="{{ auth()->user()->id }}">
 
                     </div>
 
                     <div class="card-footer">
-                        <a href="{{ route('service-cards.index') }}" class="btn btn-default">
+                        <a id="button-back"
+                            href="{{ request()->query('device_type') == 'App\Models\PC' ? route('pcs.index') : route('printers.index') }}"
+                            class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
                             Back
                         </a>
@@ -108,6 +110,9 @@
                         return {
                             search: params.term,
                             intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
+                            column_filters: {
+                                technician: 1
+                            }
                         };
                     },
                     processResults: function(data) {
@@ -123,7 +128,6 @@
                     cache: true,
                 },
             });
-
 
             $('#device_type').change(function() {
                 var deviceType = $(this).val();

@@ -10,6 +10,6 @@ class WorkProcessSeeder extends Seeder {
      * Run the database seeds.
      */
     public function run(): void {
-        WorkProcess::factory()->count(10)->create();
+        // WorkProcess::factory()->count(10)->create();
     }
 }

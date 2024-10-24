@@ -36,7 +36,7 @@
                                 <div class="card-body">
                                     <h6 class="text-divider mb-4"><span>Edit Printer</span></h6>
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label text-right">User</label>
+                                        <label class="col-sm-2 col-form-label text-right">Pemakai</label>
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control form-control-sm" name="brand" value="{{ $printer->user_name }}" required>
                                         </div>
@@ -50,7 +50,7 @@
                                     </div>
 
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label text-right">Date of Initial Use</label>
+                                        <label class="col-sm-2 col-form-label text-right">Tanggal Pemakaian Awal</label>
                                         <div class="col-sm-4">
                                             <input type="date" class="form-control form-control-sm" name="date_of_initial_use" value="{{ $printer->date_of_initial_use }}" required>
                                         </div>
