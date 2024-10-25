@@ -20,7 +20,7 @@ class PrinterServiceCardsDataTable extends DataTable {
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('date', function (ServiceCard $serviceCard) {
-                return Carbon::parse($serviceCard->date)->format('d-m-Y');
+                return Carbon::parse($serviceCard->date)->format('d/m/Y');
             })
             ->addColumn('workers', function (ServiceCard $serviceCard) {
                 $workerNames = $serviceCard->workProcesses->map(function ($workProcess) {

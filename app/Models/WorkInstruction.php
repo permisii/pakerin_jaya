@@ -19,6 +19,7 @@ class WorkInstruction extends Model {
 
     protected function casts(): array {
         return [
+            'work_date' => 'date',
             'status' => WorkInstructionStatusEnum::class,
         ];
     }

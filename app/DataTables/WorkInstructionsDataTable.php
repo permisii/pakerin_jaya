@@ -4,6 +4,7 @@ namespace App\DataTables;
 
 use App\Models\WorkInstruction;
 use App\Support\Enums\WorkInstructionStatusEnum;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -24,6 +25,10 @@ class WorkInstructionsDataTable extends DataTable {
             })
             ->addColumn('user.name', function (WorkInstruction $workInstruction) {
                 return $workInstruction->user->name ?? '-';
+            })
+            ->addColumn('work_date', function (WorkInstruction $workInstruction) {
+                $workDate = Carbon::parse($workInstruction->work_date);
+                return $workDate->format('d/m/Y');
             })
             ->addColumn('status', function (WorkInstruction $workInstruction) {
                 return match ($workInstruction->status) {

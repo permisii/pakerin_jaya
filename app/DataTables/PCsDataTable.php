@@ -19,7 +19,7 @@ class PCsDataTable extends DataTable {
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('date_of_initial_use', function (PC $pc) {
-                return $pc->date_of_initial_use->format('d-m-Y');
+                return $pc->date_of_initial_use->format('d/m/Y');
             })
             ->addColumn('action', 'pcs.action')
             ->setRowId('id');

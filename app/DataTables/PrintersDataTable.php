@@ -19,7 +19,7 @@ class PrintersDataTable extends DataTable {
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('date_of_initial_use', function (Printer $printer) {
-                return $printer->date_of_initial_use->format('d-m-Y');
+                return $printer->date_of_initial_use->format('d/m/Y');
             })
             ->addColumn('action', 'printers.action')
             ->setRowId('id');
