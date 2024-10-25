@@ -67,14 +67,16 @@ class PCServiceCardsDataTable extends DataTable {
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->orderBy(1)
+            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
             ->selectStyleSingle()
             ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
+                Button::make([
+                    'text' => 'Tambah Uraian Pekerjaan',
+                    'className' => 'btn btn-default text-blue',
+                    'action' => 'function() {
+                        window.location.href = "' . route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => request()->route('pc')->name, 'device_id' => request()->route('pc')->id]) . '";
+                    }',
+                ]),
             ]);
     }
 

@@ -66,16 +66,17 @@ class PrinterServiceCardsDataTable extends DataTable {
             ->setTableId('printer-service-cards-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-                    // ->dom('Bfrtip')
+            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
+                Button::make([
+                    'text' => 'Tambah Uraian Pekerjaan',
+                    'className' => 'btn btn-default text-blue',
+                    'action' => 'function() {
+                        window.location.href = "' . route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => request()->route('printer')->name, 'device_id' => request()->route('printer')->id]) . '";
+                    }',
+                ]),
             ]);
     }
 
