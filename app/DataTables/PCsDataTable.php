@@ -65,11 +65,11 @@ class PCsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
+            Column::make('section')->title('Bagian'),
+            Column::make('user_name')->title('Pemakai'),
             Column::make('name')->title('Nama'),
             Column::make('date_of_initial_use')->title('Tanggal Penggunaan Awal'),
             Column::make('index'),
-            Column::make('user_name')->title('Pemakai'),
-            Column::make('section')->title('Bagian'),
         ];
     }
 
