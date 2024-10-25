@@ -18,7 +18,7 @@
                                         <i class="fas fa-fw fa-search"></i>
                                         Filter
                                     </button>
-                                    <a href="{{ route('monthly-report.index') }}" class="btn btn-default btn-sm">
+                                    <a href="{{ route('daily-report.index') }}" class="btn btn-default btn-sm">
                                         <i class="fas fa-undo"></i>
                                         Reset Filter
                                     </a>
