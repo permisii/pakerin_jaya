@@ -113,3 +113,11 @@ select[readonly].select2 + .select2-container {
 .select2-container--default.select2-container--focus .select2-selection--multiple, .select2-container--default .select2-selection--multiple {
     border: none;
 }
+
+.select2-container .select2-selection--multiple .select2-selection__choice {
+    color: black !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    color: black !important;
+}

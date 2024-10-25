@@ -20,12 +20,14 @@ class PrinterServiceCardsDataTable extends DataTable {
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('date', function (ServiceCard $serviceCard) {
-                return Carbon::parse($serviceCard->date)->format('d-m-Y');
+                return Carbon::parse($serviceCard->date)->format('d/m/Y');
             })
             ->addColumn('workers', function (ServiceCard $serviceCard) {
-                return $serviceCard->workProcesses->map(function ($workProcess) {
-                    return $workProcess->user->name;
-                })->implode(', ');
+                $workerNames = $serviceCard->workProcesses->map(function ($workProcess) {
+                    return '<li>' . $workProcess->user->name . '</li>';
+                })->implode('');
+
+                return '<ul>' . $workerNames . '</ul>';
             })
             ->addColumn('action', function (ServiceCard $serviceCard) {
                 $editUrl = route('service-cards.edit', ['service_card' => $serviceCard->id, 'device_type' => \App\Models\Printer::class, 'device_brand' => $serviceCard->device->brand]);
@@ -45,7 +47,7 @@ class PrinterServiceCardsDataTable extends DataTable {
                     </div>
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'workers'])
             ->setRowId('id');
     }
 
@@ -66,16 +68,17 @@ class PrinterServiceCardsDataTable extends DataTable {
             ->setTableId('printer-service-cards-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
-                    // ->dom('Bfrtip')
+            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
             ->orderBy(1)
             ->selectStyleSingle()
             ->buttons([
-                Button::make('excel'),
-                Button::make('csv'),
-                Button::make('pdf'),
-                Button::make('print'),
-                Button::make('reset'),
-                Button::make('reload'),
+                Button::make([
+                    'text' => '<i class="fas fa-plus"></i> Tambah Uraian Pekerjaan',
+                    'className' => 'btn btn-default text-blue',
+                    'action' => 'function() {
+                        window.location.href = "' . route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => request()->route('printer')->name, 'device_id' => request()->route('printer')->id]) . '";
+                    }',
+                ]),
             ]);
     }
 

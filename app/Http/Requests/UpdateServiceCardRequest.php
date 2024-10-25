@@ -20,6 +20,7 @@ class UpdateServiceCardRequest extends FormRequest {
     public function rules(): array {
         return [
             //            'assignment_id' => 'nullable|integer|exists:assignments,id',
+            'assignment_number' => 'nullable|string', // for creating a new assignment
             'date' => 'nullable|date',
             'worker_ids' => 'nullable|array',
             'worker_ids.*' => 'nullable|integer|exists:users,id',

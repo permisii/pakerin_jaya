@@ -80,7 +80,19 @@ class ServiceCardController extends Controller {
      * Update the specified resource in storage.
      */
     public function update(UpdateServiceCardRequest $request, ServiceCard $serviceCard) {
-        $serviceCard->update($request->validated());
+        $assignment = Assignment::create([
+            'assignment_number' => $request->validated()['assignment_number'],
+            'created_by' => auth()->id(),
+            'updated_by' => auth()->id(),
+        ]);
+
+        $serviceCard->update(array_merge($request->validated(), [
+            'assignment_id' => $assignment->id,
+            'created_by' => auth()->id(),
+            'updated_by' => auth()->id(),
+        ]));
+
+        $serviceCard = $serviceCard->refresh();
 
         if (isset($request->validated()['worker_ids'])) {
             $workerIds = $request->validated()['worker_ids'];

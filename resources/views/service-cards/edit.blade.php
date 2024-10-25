@@ -13,21 +13,23 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control-sm" name="assignment_number" disabled value="{{ $serviceCard->assignment->assignment_number ?? '' }}"/>
+                                <input class="form-control form-control-sm" name="assignment_number"
+                                       value="{{ $serviceCard->assignment->assignment_number ?? '' }}" />
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Tanggal</label>
                             <div class="col-sm-4">
-                                <input id="date" type="date" class="form-control form-control-sm" name="date" value="{{ $serviceCard->date }}" required>
+                                <input id="date" type="date" class="form-control form-control-sm" name="date"
+                                       value="{{ $serviceCard->date }}" required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                             <div class="col-sm-4">
-                                <select class="form-control select2" name="worker_ids[]" id="worker_ids" multiple >
+                                <select class="form-control select2" name="worker_ids[]" id="worker_ids" multiple>
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
@@ -36,7 +38,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control form-control-sm" name="description" required>{{ $serviceCard->description }}</textarea>
+                                <textarea class="form-control form-control-sm" name="description"
+                                          required>{{ $serviceCard->description }}</textarea>
                             </div>
                         </div>
 
@@ -46,8 +49,14 @@
                                 <select class="form-control form-control-sm select2" name="device_type" id="device_type"
                                         required disabled>
                                     <option value="">-- Select Device Type --</option>
-                                    <option value="App\Models\PC" {{ $serviceCard->device_type == 'App\Models\PC' ? 'selected' : '' }}>PC</option>
-                                    <option value="App\Models\Printer" {{ $serviceCard->device_type == 'App\Models\Printer' ? 'selected' : '' }}>Printer</option>
+                                    <option
+                                        value="App\Models\PC" {{ $serviceCard->device_type == 'App\Models\PC' ? 'selected' : '' }}>
+                                        PC
+                                    </option>
+                                    <option
+                                        value="App\Models\Printer" {{ $serviceCard->device_type == 'App\Models\Printer' ? 'selected' : '' }}>
+                                        Printer
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -69,7 +78,7 @@
 
                     <div class="card-footer">
                         <a href="{{ $serviceCard->device_type == 'App\Models\PC' ? route('pcs.service-cards.index', $serviceCard->device_id) : route('printers.service-cards.index', $serviceCard->device_id) }}"
-                            class="btn btn-default">
+                           class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
                             Back
                         </a>
@@ -98,17 +107,18 @@
         // TODO: experimental - might be buggy
         $(document).ready(function() {
             document.getElementById('date').valueAsDate = new Date('{{ $serviceCard->date }}');
+
             function fetchAndSetSelect2Value(selector, url, value, text, intent) {
                 $.ajax({
                     url: url,
                     data: {
                         id: value,
-                        intent: intent
+                        intent: intent,
                     },
                     success: function(data) {
                         var option = new Option(text, value, true, true);
                         $(selector).append(option).trigger('change');
-                    }
+                    },
                 });
             }
 

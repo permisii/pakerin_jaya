@@ -25,11 +25,6 @@
             </div>
 
             <div class="card-body">
-                <a href="{{ route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => $pc->name, 'device_id' => $pc->id]) }}"
-                   class="btn btn-default text-blue ml-2 mb-3">
-                    <i class="fas fa-plus"></i>
-                    Tambah Uraian Pekerjaan
-                </a>
                 <div class="col">
                     <div class="card">
                         <div class="card-header bg-info d-flex align-items-center">
@@ -88,27 +83,28 @@
 
 
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('#pc-service-cards-table').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: '{{ route('pcs.service-cards.index', $pc->id) }}',
-                    type: 'GET',
-                    error: function(xhr, error, code) {
-                        console.log(xhr);
-                        console.log(code);
-                    },
-                },
-                columns: [
-                    { data: 'action', name: 'action', orderable: false, searchable: false },
-                    { data: 'date', name: 'date' },
-                    { data: 'description', name: 'description' },
-                    { data: 'workers', name: 'workers', orderable: false, searchable: false },
-                ],
-                paging:false
-            });
-        });
-    </script>
+    {!! $dataTable->scripts() !!}
+{{--    <script>--}}
+{{--        $(document).ready(function() {--}}
+{{--            $('#pc-service-cards-table').DataTable({--}}
+{{--                processing: true,--}}
+{{--                serverSide: true,--}}
+{{--                ajax: {--}}
+{{--                    url: '{{ route('pcs.service-cards.index', $pc->id) }}',--}}
+{{--                    type: 'GET',--}}
+{{--                    error: function(xhr, error, code) {--}}
+{{--                        console.log(xhr);--}}
+{{--                        console.log(code);--}}
+{{--                    },--}}
+{{--                },--}}
+{{--                columns: [--}}
+{{--                    { data: 'action', name: 'action', orderable: false, searchable: false },--}}
+{{--                    { data: 'date', name: 'date' },--}}
+{{--                    { data: 'description', name: 'description' },--}}
+{{--                    { data: 'workers', name: 'workers', orderable: false, searchable: false },--}}
+{{--                ],--}}
+{{--                paging:false--}}
+{{--            });--}}
+{{--        });--}}
+{{--    </script>--}}
 @endsection
