@@ -23,9 +23,11 @@ class PrinterServiceCardsDataTable extends DataTable {
                 return Carbon::parse($serviceCard->date)->format('d-m-Y');
             })
             ->addColumn('workers', function (ServiceCard $serviceCard) {
-                return $serviceCard->workProcesses->map(function ($workProcess) {
-                    return $workProcess->user->name;
-                })->implode(', ');
+                $workerNames = $serviceCard->workProcesses->map(function ($workProcess) {
+                    return '<li>' . $workProcess->user->name . '</li>';
+                })->implode('');
+
+                return '<ul>' . $workerNames . '</ul>';
             })
             ->addColumn('action', function (ServiceCard $serviceCard) {
                 $editUrl = route('service-cards.edit', ['service_card' => $serviceCard->id, 'device_type' => \App\Models\Printer::class, 'device_brand' => $serviceCard->device->brand]);
@@ -45,7 +47,7 @@ class PrinterServiceCardsDataTable extends DataTable {
                     </div>
                 ';
             })
-            ->rawColumns(['action'])
+            ->rawColumns(['action', 'workers'])
             ->setRowId('id');
     }
 
