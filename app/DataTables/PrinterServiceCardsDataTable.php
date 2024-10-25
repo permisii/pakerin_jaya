@@ -73,7 +73,7 @@ class PrinterServiceCardsDataTable extends DataTable {
             ->selectStyleSingle()
             ->buttons([
                 Button::make([
-                    'text' => 'Tambah Uraian Pekerjaan',
+                    'text' => '<i class="fas fa-plus"></i> Tambah Uraian Pekerjaan',
                     'className' => 'btn btn-default text-blue',
                     'action' => 'function() {
                         window.location.href = "' . route('service-cards.create', ['device_type' => \App\Models\Printer::class, 'device_name' => request()->route('printer')->name, 'device_id' => request()->route('printer')->id]) . '";
