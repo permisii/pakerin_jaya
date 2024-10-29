@@ -28,6 +28,7 @@ class WorkInstructionsDataTable extends DataTable {
             })
             ->addColumn('work_date', function (WorkInstruction $workInstruction) {
                 $workDate = Carbon::parse($workInstruction->work_date);
+
                 return $workDate->format('d/m/Y');
             })
             ->addColumn('status', function (WorkInstruction $workInstruction) {

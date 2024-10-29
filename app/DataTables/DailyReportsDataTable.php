@@ -48,10 +48,11 @@ class DailyReportsDataTable extends DataTable {
         $date_filter = request('date_filter', date('Y-m'));
 
         $query = $model->newQuery()
-            ->where('work_date', 'like', $date_filter . '%')
-            ->where('status', WorkInstructionStatusEnum::Submitted->value);
+            ->where('work_date', 'like', $date_filter . '%');
 
-        if (!auth()->user()->is_admin) {
+        if (auth()->user()->is_admin) {
+            $query->where('status', WorkInstructionStatusEnum::Submitted->value);
+        } else {
             $query->where('user_id', auth()->id());
         }
 

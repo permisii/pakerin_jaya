@@ -29,6 +29,12 @@ class PCsDataTable extends DataTable {
      * Get the query source of dataTable.
      */
     public function query(PC $model): QueryBuilder {
+        $date_filter = request('date_filter');
+
+        if ($date_filter) {
+            $model = $model->where('date_of_initial_use', 'like', $date_filter . '%');
+        }
+
         return $model->newQuery();
     }
 
