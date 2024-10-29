@@ -24,7 +24,9 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Email</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control form-control-sm" name="email" data-inputmask="'alias': 'email'" placeholder="Enter email"  value="{{ $user->email }}" required>
+                                <input class="form-control form-control form-control-sm" name="email"
+                                       data-inputmask="'alias': 'email'" placeholder="Enter email"
+                                       value="{{ $user->email }}" required>
                             </div>
                         </div>
 
@@ -63,9 +65,22 @@
                             <div class="offset-sm-2 col-sm-2">
                                 <div class="form-check">
                                     <input type="hidden" name="technician" value="0">
-                                    <input type="checkbox" class="form-check-input" id="technician-checkbox" name="technician"
+                                    <input type="checkbox" class="form-check-input" id="technician-checkbox"
+                                           name="technician"
                                            value="1" {{ $user->technician ? 'checked' : '' }}>
                                     <label class="form-check-label" for="technician-checkbox">Juru Teknisi</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-2">
+                                <div class="form-check">
+                                    <input type="hidden" name="is_admin" value="0">
+                                    <input type="checkbox" class="form-check-input" id="is_admin-checkbox"
+                                           name="is_admin"
+                                           value="1" {{ $user->is_admin ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="is_admin-checkbox">Admin</label>
                                 </div>
                             </div>
                         </div>

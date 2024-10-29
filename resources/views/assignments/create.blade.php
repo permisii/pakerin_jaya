@@ -89,7 +89,7 @@
                                 <textarea class="form-control" rows="3" placeholder="MASALAH" name="problem"></textarea>
                             </div>
                         </div>
-                        @if (auth()->id() !== 1)
+                        @if (!auth()->user()->is_admin)
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label text-right">PENANGANAN</label>
                                 <div class="col-sm-4">

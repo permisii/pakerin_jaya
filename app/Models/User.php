@@ -27,6 +27,7 @@ class User extends Authenticatable {
         'updated_by',
         'created_by',
         'technician',
+        'is_admin',
     ];
 
     /**

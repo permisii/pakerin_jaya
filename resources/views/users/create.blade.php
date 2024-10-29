@@ -2,7 +2,7 @@
 
 @section('content')
     <form action="{{route('users.store')}}" method="post" id="create-form">
-{{--        <form action="{{route('users.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
+        {{--        <form action="{{route('users.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
 
         @csrf
         <div class="row">
@@ -14,14 +14,16 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Nama Lengkap</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control form-control form-control-sm" name="name" required>
+                                <input type="text" class="form-control form-control form-control-sm" name="name"
+                                       required>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Email</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control form-control-sm" name="email" data-inputmask="'alias': 'email'" placeholder="Enter email" required>
+                                <input class="form-control form-control form-control-sm" name="email"
+                                       data-inputmask="'alias': 'email'" placeholder="Enter email" required>
                             </div>
                         </div>
 
@@ -30,7 +32,8 @@
                             <div class="col-sm-4">
                                 <input class="form-control form-control form-control-sm"
                                        name="nip"
-                                           autocomplete="off"  data-inputmask="'mask': '**_***_***_*[*]'"  placeholder="K3_20L_003_(P)" required>
+                                       autocomplete="off" data-inputmask="'mask': '**_***_***_*[*]'"
+                                       placeholder="K3_20L_003_(P)" required>
                             </div>
                         </div>
 
@@ -60,9 +63,21 @@
                             <div class="offset-sm-2 col-sm-2">
                                 <div class="form-check">
                                     <input type="hidden" name="technician" value="0">
-                                    <input type="checkbox" class="form-check-input" id="active-checkbox" name="technician"
-                                           value="1" >
+                                    <input type="checkbox" class="form-check-input" id="active-checkbox"
+                                           name="technician"
+                                           value={{old('technician') ? '1' : '0'}}>
                                     <label class="form-check-label" for="active-checkbox">Juru Teknisi</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="offset-sm-2 col-sm-2">
+                                <div class="form-check">
+                                    <input type="hidden" name="is_admin" value="0">
+                                    <input type="checkbox" class="form-check-input" id="active-checkbox" name="is_admin"
+                                           value={{old('is_admin') ? '1' : '0'}}>
+                                    <label class="form-check-label" for="active-checkbox">Admin</label>
                                 </div>
                             </div>
                         </div>
@@ -107,51 +122,51 @@
             initializeValidation('#create-form', {
                 name: {
                     required: true,
-                    minlength: 3
+                    minlength: 3,
                 },
                 email: {
                     required: true,
-                    email: true
+                    email: true,
                 },
                 nip: {
                     required: true,
-                    minlength: 10
+                    minlength: 10,
                 },
                 unit_id: {
-                    required: true
+                    required: true,
                 },
                 password: {
                     required: true,
-                    minlength: 6
+                    minlength: 6,
                 },
                 password_confirmation: {
                     required: true,
-                    equalTo: '[name="password"]'
-                }
+                    equalTo: '[name="password"]',
+                },
             }, {
                 name: {
-                    required: "Please enter your full name",
-                    minlength: "Your name must be at least 3 characters long"
+                    required: 'Please enter your full name',
+                    minlength: 'Your name must be at least 3 characters long',
                 },
                 email: {
-                    required: "Please enter your email address",
-                    email: "Please enter a valid email address"
+                    required: 'Please enter your email address',
+                    email: 'Please enter a valid email address',
                 },
                 nip: {
-                    required: "Please enter your NIP",
-                    minlength: "Your NIP must be at least 10 characters long"
+                    required: 'Please enter your NIP',
+                    minlength: 'Your NIP must be at least 10 characters long',
                 },
                 unit_id: {
-                    required: "Please select a unit"
+                    required: 'Please select a unit',
                 },
                 password: {
-                    required: "Please provide a password",
-                    minlength: "Your password must be at least 6 characters long"
+                    required: 'Please provide a password',
+                    minlength: 'Your password must be at least 6 characters long',
                 },
                 password_confirmation: {
-                    required: "Please confirm your password",
-                    equalTo: "Password confirmation does not match"
-                }
+                    required: 'Please confirm your password',
+                    equalTo: 'Password confirmation does not match',
+                },
             });
         });
     </script>

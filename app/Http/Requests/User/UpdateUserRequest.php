@@ -29,6 +29,7 @@ class UpdateUserRequest extends FormRequest {
             'password' => ['nullable', 'string', 'min:8'],
             'active' => ['nullable', 'boolean'],
             'technician' => ['required', 'boolean'],
+            'is_admin' => ['required', 'boolean'],
             //            'updated_by' => ['nullable', 'integer', 'exists:users,id'],
             //            'created_by' => ['nullable', 'integer', 'exists:users,id'],
         ];
