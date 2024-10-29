@@ -27,13 +27,14 @@ class DailyReportsDataTable extends DataTable {
             })
             ->addColumn('work_date', function (WorkInstruction $workInstruction) {
                 $workDate = Carbon::parse($workInstruction->work_date);
+
                 return $workDate->format('d/m/Y');
             })
             ->addColumn('status', function (WorkInstruction $workInstruction) {
                 if ($workInstruction->status == WorkInstructionStatusEnum::Draft->value) {
                     return '<span class="badge badge-warning">Pending</span>';
                 } elseif ($workInstruction->status == WorkInstructionStatusEnum::Submitted->value) {
-                    return '<span class="badge badge-success">Approved</span>';
+                    return '<span class="badge badge-success">Selesai</span>';
                 }
 
                 //                return '<span class="badge badge-danger">Rejected</span>';
@@ -46,8 +47,15 @@ class DailyReportsDataTable extends DataTable {
     public function query(WorkInstruction $model): QueryBuilder {
         $date_filter = request('date_filter', date('Y-m'));
 
-        return $model->newQuery()
-            ->where('work_date', 'like', $date_filter . '%');
+        $query = $model->newQuery()
+            ->where('work_date', 'like', $date_filter . '%')
+            ->where('status', WorkInstructionStatusEnum::Submitted->value);
+
+        if (!auth()->user()->is_admin) {
+            $query->where('user_id', auth()->id());
+        }
+
+        return $query;
     }
 
     public function html(): HtmlBuilder {

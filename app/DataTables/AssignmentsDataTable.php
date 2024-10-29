@@ -34,11 +34,11 @@ class AssignmentsDataTable extends DataTable {
             ->editColumn('status', function (Assignment $assignment) {
                 switch ($assignment->status) {
                     case AssignmentStatusEnum::Draft->value:
-                        return '<span class="badge badge-primary">Draft</span>';
+                        return '<span class="badge badge-primary">Lanjut</span>';
                     case AssignmentStatusEnum::Process->value:
-                        return '<span class="badge badge-warning">Process</span>';
+                        return '<span class="badge badge-warning">Proses</span>';
                     case AssignmentStatusEnum::Done->value:
-                        return '<span class="badge badge-success">Done</span>';
+                        return '<span class="badge badge-success">Selesai</span>';
                     default:
                         return '<span class="badge badge-secondary">Unknown</span>';
                 }
@@ -84,13 +84,13 @@ class AssignmentsDataTable extends DataTable {
                     }',
                     'className' => 'btn btn-default text-blue',
                 ]),
-                //                Button::make([
-                //                    'text' => '<i class="fas fa-check"></i> Fini  ',
-                //                    'action' => 'function() {
-                //                        document.getElementById("submit-form").submit();
-                //                    }',
-                //                    'className' => 'btn btn-default text-success',
-                //                ]),
+                Button::make([
+                    'text' => '<i class="fas fa-check"></i> Reporting',
+                    'action' => 'function() {
+                                        document.getElementById("submit-form").submit();
+                                    }',
+                    'className' => 'btn btn-default text-success',
+                ]),
             ]);
     }
 
