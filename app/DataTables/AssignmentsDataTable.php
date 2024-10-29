@@ -34,11 +34,11 @@ class AssignmentsDataTable extends DataTable {
             ->editColumn('status', function (Assignment $assignment) {
                 switch ($assignment->status) {
                     case AssignmentStatusEnum::Draft->value:
-                        return '<span class="badge badge-primary">Draft</span>';
+                        return '<span class="badge badge-primary">Lanjut</span>';
                     case AssignmentStatusEnum::Process->value:
-                        return '<span class="badge badge-warning">Process</span>';
+                        return '<span class="badge badge-warning">Proses</span>';
                     case AssignmentStatusEnum::Done->value:
-                        return '<span class="badge badge-success">Done</span>';
+                        return '<span class="badge badge-success">Selesai</span>';
                     default:
                         return '<span class="badge badge-secondary">Unknown</span>';
                 }
@@ -63,36 +63,42 @@ class AssignmentsDataTable extends DataTable {
     /**
      * Optional method if you want to use the html builder.
      */
-    public function html(): HtmlBuilder {
-        $workInstructionId = request()->route('work_instruction') ? request()->route('work_instruction')->id : null;
+   public function html(): HtmlBuilder {
+    $workInstructionId = request()->route('work_instruction') ? request()->route('work_instruction')->id : null;
+    $isAssignedUser = auth()->user()->id === request()->route('work_instruction')->user_id;
 
-        return $this->builder()
-            ->setTableId('assignments-table')
-            ->columns($this->getColumns())
-            ->minifiedAjax()
-            ->orderBy(1)
-            ->selectStyleSingle()
-            ->dom('<"d-block mb-2"B><"d-flex justify-content-between"lf>rtip')
-            ->addTableClass('w-100')
-            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
-            ->lengthChange(false)
-            ->buttons([
-                Button::make([
-                    'text' => '<i class="fas fa-plus"></i> Tambah Pekerjaan',
-                    'action' => 'function() {
-                        window.location.href = "' . route('work-instructions.assignments.create', $workInstructionId) . '";
-                    }',
-                    'className' => 'btn btn-default text-blue',
-                ]),
-                //                Button::make([
-                //                    'text' => '<i class="fas fa-check"></i> Fini  ',
-                //                    'action' => 'function() {
-                //                        document.getElementById("submit-form").submit();
-                //                    }',
-                //                    'className' => 'btn btn-default text-success',
-                //                ]),
-            ]);
+    $buttons = [
+        Button::make([
+            'text' => '<i class="fas fa-plus"></i> Tambah Pekerjaan',
+            'action' => 'function() {
+                window.location.href = "' . route('work-instructions.assignments.create', $workInstructionId) . '";
+            }',
+            'className' => 'btn btn-default text-blue',
+        ]),
+    ];
+
+    if ($isAssignedUser) {
+        $buttons[] = Button::make([
+            'text' => '<i class="fas fa-check"></i> Reporting',
+            'action' => 'function() {
+                document.getElementById("submit-form").submit();
+            }',
+            'className' => 'btn btn-default text-success',
+        ]);
     }
+
+    return $this->builder()
+        ->setTableId('assignments-table')
+        ->columns($this->getColumns())
+        ->minifiedAjax()
+        ->orderBy(1)
+        ->selectStyleSingle()
+        ->dom('<"d-block mb-2"B><"d-flex justify-content-between"lf>rtip')
+        ->addTableClass('w-100')
+        ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
+        ->lengthChange(false)
+        ->buttons($buttons);
+}
 
     /**
      * Get the dataTable columns definition.

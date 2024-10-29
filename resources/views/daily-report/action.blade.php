@@ -4,13 +4,15 @@
     <th>
         <div class="btn-group">
             @if($workInstruction->assignments()->count() === 0)
-                <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}"  class="btn btn-sm btn-default text-red action-btn">
-                    Buat Laporan
+                <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}"  class="btn btn-sm btn-default text-blue action-btn">
+                    <i class="fas fa-info-circle"></i>
+                    Detail Laporan
                 </a>
 
             @elseif($workInstruction->status === WorkInstructionStatusEnum::Draft->value)
                 <a href="{{route('work-instructions.assignments.index', $workInstruction->id)}}"  class="btn btn-sm btn-default text-blue action-btn">
-                    Lanjutkan Laporan
+                    <i class="fas fa-info-circle"></i>
+                    Detail Laporan
                 </a>
 
                 <form action="{{route('work-instructions.update', $workInstruction->id)}}" method="post" id="submit-form">

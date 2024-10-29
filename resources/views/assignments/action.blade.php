@@ -27,7 +27,8 @@
                 </form>
             @endif
 
-            @if($assignment->status !== \App\Support\Enums\AssignmentStatusEnum::Done->value)
+            {{--            @if($assignment->status !== \App\Support\Enums\AssignmentStatusEnum::Done->value)--}}
+            @if($workInstruction->status !== WorkInstructionStatusEnum::Submitted->value)
                 <a href="{{ route('work-instructions.assignments.edit', [$workInstruction->id, $id]) }}"
                    class="btn btn-sm btn-default text-blue action-btn">
                     <i class="fas fa-edit"></i>

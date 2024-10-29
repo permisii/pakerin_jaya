@@ -29,6 +29,7 @@ class AssignmentController extends Controller {
                 return AssignmentResource::collection($assignments->paginate(5));
         }
         $this->checkPermission('read', 'assignments');
+        $this->restrictOtherWorkerExceptAdmin($workInstruction);
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Instruksi Kerja' => route('work-instructions.index'),
@@ -50,6 +51,7 @@ class AssignmentController extends Controller {
 
     public function create(WorkInstruction $workInstruction) {
         $this->checkPermission('create', 'assignments');
+        $this->restrictOtherWorkerExceptAdmin($workInstruction);
         $assignments = AssignmentResource::collection($workInstruction->assignments()->get());
 
         $this->setBreadcrumbs([
@@ -92,6 +94,7 @@ class AssignmentController extends Controller {
 
     public function show(WorkInstruction $workInstruction, Assignment $assignment) {
         $this->checkPermission('read', 'assignments');
+        $this->restrictOtherWorkerExceptAdmin($workInstruction);
         $assignment = new AssignmentResource($assignment->load('workInstruction', 'updatedBy', 'createdBy'));
 
         $this->setBreadcrumbs([
@@ -114,6 +117,7 @@ class AssignmentController extends Controller {
 
     public function edit(WorkInstruction $workInstruction, Assignment $assignment) {
         $this->checkPermission('update', 'assignments');
+        $this->restrictOtherWorkerExceptAdmin($workInstruction);
         $assignment = new AssignmentResource($assignment);
 
         $this->setBreadcrumbs([

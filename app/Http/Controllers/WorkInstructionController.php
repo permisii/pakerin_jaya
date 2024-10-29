@@ -49,6 +49,7 @@ class WorkInstructionController extends Controller {
 
     public function show(WorkInstruction $workInstruction) {
         $this->checkPermission('read', 'work-instructions');
+        $this->restrictOtherWorkerExceptAdmin($workInstruction);
         $workInstruction = new WorkInstructionResource($workInstruction->load('user', 'updatedBy', 'createdBy'));
 
         $this->setBreadcrumbs([
@@ -67,6 +68,7 @@ class WorkInstructionController extends Controller {
 
     public function edit(WorkInstruction $workInstruction) {
         $this->checkPermission('update', 'work-instructions');
+        $this->restrictOtherWorkerExceptAdmin($workInstruction);
         $workInstruction = new WorkInstructionResource($workInstruction);
 
         $this->setBreadcrumbs([

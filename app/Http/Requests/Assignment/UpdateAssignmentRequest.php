@@ -21,8 +21,8 @@ class UpdateAssignmentRequest extends FormRequest {
     public function rules(): array {
         return [
             'work_instruction_id' => 'nullable|exists:work_instructions,id',
-            // 'assignment_number' => 'nullable|string', // disabled because only admin can insert this i.e readonly
-            // 'problem' => 'nullable|string', // disabled because only admin can insert this i.e readonly
+            'assignment_number' => 'nullable|string', // disabled because only admin can insert this i.e readonly
+            'problem' => 'nullable|string', // disabled because only admin can insert this i.e readonly
             'resolution' => 'nullable|string',
             'material' => 'nullable|string',
             'description' => 'nullable|string',
