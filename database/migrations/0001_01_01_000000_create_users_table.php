@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('password');
             $table->boolean('active')->default(true);
             $table->boolean('technician')->default(false);
+            $table->boolean('is_admin')->default(false);
             $table->foreignId('updated_by')->nullable()->index();
             $table->foreignId('created_by')->nullable()->index();
             $table->rememberToken();
