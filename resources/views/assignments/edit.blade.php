@@ -32,38 +32,44 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Penanganan</label>
-                            <div class="col-sm-4">
+                        <div id="conditional-fields" style="display: none;">
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-right">Penanganan</label>
+                                <div class="col-sm-4">
                                 <textarea class="form-control" rows="3" placeholder="Resolution" rows="20"
                                           name="resolution"
                                           @if(auth()->user()->is_admin) readonly @endif>{{ $assignment->resolution }}</textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
-                            <div class="col-sm-4">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
+                                <div class="col-sm-4">
                                 <textarea class="form-control" rows="3" placeholder="Description" rows="20"
                                           name="description"
                                           @if(auth()->user()->is_admin) readonly @endif>{{ $assignment->description }}</textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Material</label>
-                            <div class="col-sm-4">
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-right">Material</label>
+                                <div class="col-sm-4">
                                 <textarea class="form-control" rows="3" placeholder="Material"
-                                          name="material" @if(auth()->user()->is_admin) readonly @endif>{{ $assignment->material }}</textarea>
+                                          name="material"
+                                          @if(auth()->user()->is_admin) readonly @endif>{{ $assignment->material }}</textarea>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Persentase</label>
-                            <div class="col-sm-4">
-                                <input type="number" name="percentage" min="0" max="100" class="form-control"
-                                       value="{{ $assignment->percentage }}" @if(auth()->user()->is_admin) readonly @endif>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label text-right">Persentase</label>
+                                <div class="col-sm-4">
+                                    <input type="number" name="percentage" min="0" max="100" class="form-control"
+                                           value="{{ $assignment->percentage }}"
+                                           @if(auth()->user()->is_admin) readonly @endif>
+                                </div>
                             </div>
+
                         </div>
 
                         {{-- <div class="form-group row">
@@ -112,9 +118,17 @@
     </form>
 @endsection
 
-
 @section('scripts')
     <script>
+
+        // Experimental
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuPrefix = localStorage.getItem('menu-prefix');
+            if (menuPrefix === 'daily-report') {
+                document.getElementById('conditional-fields').style.display = 'block';
+            }
+        });
+
         $(document).ready(function() {
             initializeValidation('#update-form-{{ $assignment->id }}', {
                 assignment_number: {
