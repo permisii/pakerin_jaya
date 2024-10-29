@@ -5,11 +5,11 @@
 <tr>
     <th>
         <div class="btn-group">
-            <a href="{{ route('work-instructions.assignments.show', [$workInstruction->id, $id]) }}"
-               class="btn btn-sm btn-default text-blue action-btn">
-                <i class="fas fa-info-circle"></i>
-                Detail
-            </a>
+            {{--            <a href="{{ route('work-instructions.assignments.show', [$workInstruction->id, $id]) }}"--}}
+            {{--               class="btn btn-sm btn-default text-blue action-btn">--}}
+            {{--                <i class="fas fa-info-circle"></i>--}}
+            {{--                Detail--}}
+            {{--            </a>--}}
             @if(!$isAdmin && $workInstruction->user_id === auth()->user()->id)
                 <form action="{{ route('work-instructions.assignments.destroy', [$workInstruction->id, $id]) }}"
                       method="post"
