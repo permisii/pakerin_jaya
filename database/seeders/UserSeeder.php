@@ -10,14 +10,6 @@ class UserSeeder extends Seeder {
      * Run the database seeds.
      */
     public function run(): void {
-        User::create([
-            'nip' => '1',
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-            'is_admin' => true,
-        ]);
-
         User::factory()->count(10)->create();
     }
 }
