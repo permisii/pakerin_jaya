@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\WorkInstruction;
+
 abstract class Controller {
     protected $breadcrumbs = [];
     protected $params = [];
@@ -51,5 +53,15 @@ abstract class Controller {
         }
 
         return true;
+    }
+
+    /**
+     * Restrict other workers except admin
+     * Used in WorkInstructionController and AssignmentController
+     */
+    protected function restrictOtherWorkerExceptAdmin(WorkInstruction $workInstruction): void {
+        if (!auth()->user()->is_admin && $workInstruction->user_id !== auth()->id()) {
+            abort(403, 'Unauthorized action.');
+        }
     }
 }
