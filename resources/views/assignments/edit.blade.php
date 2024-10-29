@@ -5,8 +5,9 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('work-instructions.assignments.update', [$workInstruction->id, $assignment->id]) }}" method="post"
-        id="update-form-{{ $assignment->id }}" onsubmit="confirmUpdate(event, {{ $assignment->id }})">
+    <form action="{{ route('work-instructions.assignments.update', [$workInstruction->id, $assignment->id]) }}"
+          method="post"
+          id="update-form-{{ $assignment->id }}" onsubmit="confirmUpdate(event, {{ $assignment->id }})">
         @csrf
         @method('PUT')
         <div class="row">
@@ -18,35 +19,42 @@
                             <label class="col-sm-2 col-form-label text-right">Nomor PK</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control form-control-sm"
-                                    placeholder="Assignment Number" autocomplete="off" name="assignment_number"
-                                    value="{{ $assignment->assignment_number }}" readonly>
+                                       placeholder="Assignment Number" autocomplete="off" name="assignment_number"
+                                       value="{{ $assignment->assignment_number }}"
+                                       @if(!auth()->user()->is_admin) readonly @endif>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Masalah</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control" rows="3" placeholder="Problem" name="problem" readonly>{{ $assignment->problem }}</textarea>
+                                <textarea class="form-control" rows="3" placeholder="Problem" name="problem"
+                                          @if(!auth()->user()->is_admin) readonly @endif>{{ $assignment->problem }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Penanganan</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control" rows="3" placeholder="Resolution" rows="20" name="resolution">{{ $assignment->resolution }}</textarea>
+                                <textarea class="form-control" rows="3" placeholder="Resolution" rows="20"
+                                          name="resolution"
+                                          @if(auth()->user()->is_admin) readonly @endif>{{ $assignment->resolution }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control" rows="3" placeholder="Description" rows="20" name="description">{{ $assignment->description }}</textarea>
+                                <textarea class="form-control" rows="3" placeholder="Description" rows="20"
+                                          name="description"
+                                          @if(auth()->user()->is_admin) readonly @endif>{{ $assignment->description }}</textarea>
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Material</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control" rows="3" placeholder="Material" name="material">{{ $assignment->material }}</textarea>
+                                <textarea class="form-control" rows="3" placeholder="Material"
+                                          name="material" @if(auth()->user()->is_admin) readonly @endif>{{ $assignment->material }}</textarea>
                             </div>
                         </div>
 
@@ -54,7 +62,7 @@
                             <label class="col-sm-2 col-form-label text-right">Persentase</label>
                             <div class="col-sm-4">
                                 <input type="number" name="percentage" min="0" max="100" class="form-control"
-                                    value="{{ $assignment->percentage }}">
+                                       value="{{ $assignment->percentage }}" @if(auth()->user()->is_admin) readonly @endif>
                             </div>
                         </div>
 
@@ -75,7 +83,7 @@
 
                     <div class="card-footer">
                         <a href="{{ route('work-instructions.assignments.index', $workInstruction->id) }}"
-                            class="btn btn-default">
+                           class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
                             Back
                         </a>
@@ -92,7 +100,7 @@
                             </button>
 
                             <a class="btn btn-default text-maroon"
-                                href="{{ route('work-instructions.assignments.index', $workInstruction->id) }}">
+                               href="{{ route('work-instructions.assignments.index', $workInstruction->id) }}">
                                 <i class="fas fa-ban"></i>
                                 Batalkan
                             </a>
