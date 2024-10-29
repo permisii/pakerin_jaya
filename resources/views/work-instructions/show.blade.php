@@ -60,15 +60,19 @@
                                         </a>
 
                                         <div class="btn-group float-right">
-                                            <button class="btn btn-default text-blue">
-                                                <i class="fa fa-fw fa-save"></i>
-                                                Simpan
-                                            </button>
 
-                                            <a class="btn btn-default text-maroon" href="{{ route('work-instructions.index') }}">
-                                                <i class="fas fa-ban"></i>
-                                                Batalkan
-                                            </a>
+                                            @if(auth()->user()->is_admin)
+                                                <button class="btn btn-default text-blue">
+                                                    <i class="fa fa-fw fa-save"></i>
+                                                    Simpan
+                                                </button>
+                                                <a class="btn btn-default text-maroon"
+                                                   href="{{ route('work-instructions.index') }}">
+                                                    <i class="fas fa-ban"></i>
+                                                    Batalkan
+                                                </a>
+                                            @endif
+
                                         </div>
                                     </div>
                                 </div>
