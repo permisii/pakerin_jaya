@@ -15,6 +15,7 @@ class Printer extends Model {
         'brand',
         'date_of_initial_use',
         'index',
+        'section',
         'type',
         'created_by',
         'updated_by',

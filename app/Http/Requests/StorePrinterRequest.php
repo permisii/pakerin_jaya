@@ -24,6 +24,7 @@ class StorePrinterRequest extends FormRequest {
             'brand' => 'required|string|max:255',
             'date_of_initial_use' => 'required|date',
             'index' => 'required|string|max:255',
+            'section' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'created_by' => 'required|integer|exists:users,id',
             'updated_by' => 'required|integer|exists:users,id',

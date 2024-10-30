@@ -72,7 +72,8 @@ class PrintersDataTable extends DataTable {
                 ->width(60)
                 ->addClass('text-center'),
             Column::make('index'),
-            Column::make('user_name')->title('Nama Pemakai'),
+            Column::make('user_name')->title('Nama Pemaka   i'),
+            Column::make('section')->title('Bagian'),
             Column::make('brand')->title('Merek'),
             Column::make('type')->title('Tipe'),
             Column::make('date_of_initial_use')->title('Tanggal Penggunaan Awal'),

@@ -20,6 +20,7 @@ class PrinterFactory extends Factory {
             'brand' => $this->faker->word,
             'date_of_initial_use' => $this->faker->date(),
             'index' => $this->faker->word,
+            'section' => $this->faker->word,
             'type' => $this->faker->word,
             'created_by' => 1,
             'updated_by' => 1,

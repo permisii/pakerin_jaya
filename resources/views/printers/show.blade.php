@@ -52,7 +52,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label text-right">Tanggal Pemakaian Awal</label>
                                         <div class="col-sm-4">
-                                            <input type="date" class="form-control form-control-sm" name="date_of_initial_use" value="{{ $printer->date_of_initial_use }}" required>
+                                            <input type="date" class="form-control form-control-sm" name="date_of_initial_use" value="{{ $printer->date_of_initial_use->format('Y-m-d') }}" required>
                                         </div>
                                     </div>
 
@@ -60,6 +60,13 @@
                                         <label class="col-sm-2 col-form-label text-right">Index</label>
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control form-control-sm" name="index" value="{{ $printer->index }}" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-2 col-form-label text-right">Bagian</label>
+                                        <div class="col-sm-4">
+                                            <input type="text" class="form-control form-control-sm" name="section" value="{{ $printer->section }}" required>
                                         </div>
                                     </div>
 
