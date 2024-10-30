@@ -34,6 +34,16 @@
                             <dl class="row">
                                 <div class="col">
                                     <div class="row">
+                                        <dt class="col-sm-2">Nama Pemakai</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{ $pc->user_name }}</dd>
+                                        <dt class="col-sm-2">Bagian</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{ $pc->section }}</dd>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
                                         <dt class="col-sm-2">Processor</dt>
                                         <dt class="col-sm-2 text-right">:</dt>
                                         <dd class="col-sm-8">{{$pc->processor}}</dd>
@@ -46,19 +56,9 @@
                                         <dt class="col-sm-2">Monitor</dt>
                                         <dt class="col-sm-2 text-right">:</dt>
                                         <dd class="col-sm-8">{{$pc->monitor}}</dd>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="row">
                                         <dt class="col-sm-2">VGA</dt>
                                         <dt class="col-sm-2 text-right">:</dt>
                                         <dd class="col-sm-8">{{$pc->vga}}</dd>
-                                        <dt class="col-sm-2">Bagian</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->section}}</dd>
-                                        <dt class="col-sm-2">User</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->user_name}}</dd>
                                     </div>
                                 </div>
                             </dl>

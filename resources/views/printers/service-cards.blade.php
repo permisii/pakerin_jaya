@@ -30,15 +30,15 @@
                         </div>
                         <div class="card-body">
                             <dl class="row">
-                                <dt class="col-sm-1">User</dt>
+                                <dt class="col-sm-1">Nama Pemakai</dt>
                                 <dt class="col-sm-1 text-right">:</dt>
                                 <dd class="col-sm-10">{{ $printer->user_name }}</dd>
+                                <dt class="col-sm-1">Bagian</dt>
+                                <dt class="col-sm-1 text-right">:</dt>
+                                <dd class="col-sm-10">{{ $printer->section }}</dd>
                                 <dt class="col-sm-1">Merk</dt>
                                 <dt class="col-sm-1 text-right">:</dt>
                                 <dd class="col-sm-10">{{ $printer->brand }}</dd>
-                                <dt class="col-sm-1">Index</dt>
-                                <dt class="col-sm-1 text-right">:</dt>
-                                <dd class="col-sm-10">{{ $printer->index }}</dd>
                                 <dt class="col-sm-1">Tipe</dt>
                                 <dt class="col-sm-1 text-right">:</dt>
                                 <dd class="col-sm-10">{{ $printer->type }}</dd>
