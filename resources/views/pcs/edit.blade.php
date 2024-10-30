@@ -17,12 +17,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Name</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control form-control-sm" name="name" value="{{ $pc->name }}" required>
-                            </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label class="col-sm-2 col-form-label text-right">Name</label>--}}
+{{--                            <div class="col-sm-4">--}}
+{{--                                <input type="text" class="form-control form-control-sm" name="name" value="{{ $pc->name }}" required>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Date of Initial Use</label>

@@ -16,12 +16,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Nama</label>
-                            <div class="col-sm-4">
-                                <input type="text" class="form-control form-control-sm" name="name" required>
-                            </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label class="col-sm-2 col-form-label text-right">Nama</label>--}}
+{{--                            <div class="col-sm-4">--}}
+{{--                                <input type="text" class="form-control form-control-sm" name="name" required>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
 
                         <div class="form-group row">
