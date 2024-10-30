@@ -21,7 +21,7 @@ class StorePCRequest extends FormRequest {
         return [
             //            'user_id' => 'required|integer|exists:users,id',
             'user_name' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
+            //            'name' => 'required|string|max:255',
             'date_of_initial_use' => 'required|date',
             'index' => 'required|string|max:255',
             'section' => 'required|string|max:255',

@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void {
         Schema::create('pcs', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+//            $table->string('name');
             $table->string('user_name');
 //            $table->foreignId('user_id')->constrained();
             $table->date('date_of_initial_use');

@@ -86,6 +86,10 @@
     {{--    {!! $dataTable->scripts() !!}--}}
     <script>
         $(document).ready(function() {
+            const deviceName = '{{ $pc->name }}';
+            const deviceType = 'App\\Models\\PC';
+            const deviceId = '{{ $pc->id }}';
+
             $('#pc-service-cards-table').DataTable({
                 processing: true,
                 serverSide: false, // serverSide is not needed because we are using ajax
@@ -97,6 +101,7 @@
                         console.log(code);
                     },
                 },
+                dom: '<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip',
                 columns: [
                     { data: 'action', name: 'action', searchable: false },
                     { data: 'assignment_id', name: 'assignment_id', searchable: true },
@@ -104,8 +109,25 @@
                     { data: 'description', name: 'description', searchable: true },
                     { data: 'workers', name: 'workers', searchable: true },
                 ],
-                paging: false,
+                lengthChange: false,
+                buttons: [
+                    {
+                        text: '<i class="fas fa-plus"></i> Tambah Uraian Pekerjaan',
+                        className: 'btn btn-default text-blue',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "{{ route('service-cards.create') }}"
+                                + '?device_type=' + deviceType + '&device_name='
+                                + deviceName + '&device_id=' + deviceId;
+                        },
+                    },
+                ],
             });
+
+            {{--$('<button id="add-service-card" class="btn btn-default text-blue mb-2"><i class="fas fa-plus"></i> Tambah Uraian Pekerjaan</button>')--}}
+            {{--    .insertBefore('#pc-service-cards-table_filter')--}}
+            {{--    .on('click', function() {--}}
+            {{--        window.location.href = '{{ route('service-cards.create', ['device_type' => \App\Models\PC::class, 'device_name' => $pc->name, 'device_id' => $pc->id]) }}';--}}
+            {{--    });--}}
         });
     </script>
 @endsection

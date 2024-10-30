@@ -18,7 +18,7 @@ class PCFactory extends Factory {
         return [
             //            'user_id' => User::inRandomOrder()->first()->id,
             'user_name' => $this->faker->name,
-            'name' => $this->faker->name,
+            //            'name' => $this->faker->name,
             'date_of_initial_use' => $this->faker->date(),
             'index' => $this->faker->word,
             'section' => $this->faker->word,
