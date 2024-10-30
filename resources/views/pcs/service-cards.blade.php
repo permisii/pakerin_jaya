@@ -28,7 +28,7 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-header bg-info d-flex align-items-center">
-                            <h3 class="card-title">{{$pc->name}}</h3>
+                            <h3 class="card-title">{{$pc->index}}</h3>
                         </div>
                         <div class="card-body">
                             <dl class="row">
