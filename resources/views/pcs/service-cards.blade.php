@@ -83,28 +83,29 @@
 
 
 @section('scripts')
-    {!! $dataTable->scripts() !!}
-{{--    <script>--}}
-{{--        $(document).ready(function() {--}}
-{{--            $('#pc-service-cards-table').DataTable({--}}
-{{--                processing: true,--}}
-{{--                serverSide: true,--}}
-{{--                ajax: {--}}
-{{--                    url: '{{ route('pcs.service-cards.index', $pc->id) }}',--}}
-{{--                    type: 'GET',--}}
-{{--                    error: function(xhr, error, code) {--}}
-{{--                        console.log(xhr);--}}
-{{--                        console.log(code);--}}
-{{--                    },--}}
-{{--                },--}}
-{{--                columns: [--}}
-{{--                    { data: 'action', name: 'action', orderable: false, searchable: false },--}}
-{{--                    { data: 'date', name: 'date' },--}}
-{{--                    { data: 'description', name: 'description' },--}}
-{{--                    { data: 'workers', name: 'workers', orderable: false, searchable: false },--}}
-{{--                ],--}}
-{{--                paging:false--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+    {{--    {!! $dataTable->scripts() !!}--}}
+    <script>
+        $(document).ready(function() {
+            $('#pc-service-cards-table').DataTable({
+                processing: true,
+                serverSide: false, // serverSide is not needed because we are using ajax
+                ajax: {
+                    url: '{{ route('pcs.service-cards.index', $pc->id) }}',
+                    type: 'GET',
+                    error: function(xhr, error, code) {
+                        console.log(xhr);
+                        console.log(code);
+                    },
+                },
+                columns: [
+                    { data: 'action', name: 'action', searchable: false },
+                    { data: 'assignment_id', name: 'assignment_id', searchable: true },
+                    { data: 'date', name: 'date', searchable: true },
+                    { data: 'description', name: 'description', searchable: true },
+                    { data: 'workers', name: 'workers', searchable: true },
+                ],
+                paging: false,
+            });
+        });
+    </script>
 @endsection
