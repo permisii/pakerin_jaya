@@ -142,13 +142,13 @@ class UserController extends Controller {
 
         logger($permissions);
 
-        if ($permissions == null) {
+        if (!$permissions) {
             $user->accessMenus()->delete();
 
             return redirect()->route('users.index')->with('success', 'Permissions updated successfully.');
         }
 
-        foreach ($permissions ?? [] as $menuCode => $perm) {
+        foreach ($permissions as $menuCode => $perm) {
             // Find the menu ID based on the menu code
             $menu = Menu::where('code', $menuCode)->first();
 
