@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
-    private bool $isProduction = true;
+    private bool $isProduction = false;
 
     /**
      * Seed the application's database.
