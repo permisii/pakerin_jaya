@@ -56,7 +56,7 @@
                                         <div class="col-sm-4">
                                             <input type="date" class="form-control form-control-sm"
                                                    name="date_of_initial_use"
-                                                   required value="{{$pc->date_of_initial_use}}">
+                                                   required value="{{$pc->date_of_initial_use->format('Y-m-d')}}">
                                         </div>
                                     </div>
 
