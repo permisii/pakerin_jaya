@@ -51,16 +51,16 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Device ID</label>
-                            <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" name="fake_device_id" id="device_id"
-                                    required readonly>
-                                    <option value="">-- Select Device ID --</option>
-                                    <!-- Dynamically populate based on device type -->
-                                </select>
-                            </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label class="col-sm-2 col-form-label text-right">Device ID</label>--}}
+{{--                            <div class="col-sm-4">--}}
+{{--                                <select class="form-control form-control-sm select2" name="fake_device_id" id="device_id"--}}
+{{--                                    required readonly>--}}
+{{--                                    <option value="">-- Select Device ID --</option>--}}
+{{--                                    <!-- Dynamically populate based on device type -->--}}
+{{--                                </select>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
                         <input type="hidden" name="device_id" value="{{ request()->query('device_id') }}">
                         <input type="hidden" name="created_by" value="{{ auth()->user()->id }}">

@@ -38,6 +38,13 @@
                         </div>
 
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label text-right">Bagian</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm" name="section"  required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Tipe</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control-sm" name="type"  required>

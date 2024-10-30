@@ -28,10 +28,20 @@
                 <div class="col">
                     <div class="card">
                         <div class="card-header bg-info d-flex align-items-center">
-                            <h3 class="card-title">{{$pc->name}}</h3>
+                            <h3 class="card-title">{{$pc->index}}</h3>
                         </div>
                         <div class="card-body">
                             <dl class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <dt class="col-sm-2">Nama Pemakai</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{ $pc->user_name }}</dd>
+                                        <dt class="col-sm-2">Bagian</dt>
+                                        <dt class="col-sm-2 text-right">:</dt>
+                                        <dd class="col-sm-8">{{ $pc->section }}</dd>
+                                    </div>
+                                </div>
                                 <div class="col">
                                     <div class="row">
                                         <dt class="col-sm-2">Processor</dt>
@@ -46,19 +56,9 @@
                                         <dt class="col-sm-2">Monitor</dt>
                                         <dt class="col-sm-2 text-right">:</dt>
                                         <dd class="col-sm-8">{{$pc->monitor}}</dd>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="row">
                                         <dt class="col-sm-2">VGA</dt>
                                         <dt class="col-sm-2 text-right">:</dt>
                                         <dd class="col-sm-8">{{$pc->vga}}</dd>
-                                        <dt class="col-sm-2">Bagian</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->section}}</dd>
-                                        <dt class="col-sm-2">User</dt>
-                                        <dt class="col-sm-2 text-right">:</dt>
-                                        <dd class="col-sm-8">{{$pc->user_name}}</dd>
                                     </div>
                                 </div>
                             </dl>
@@ -83,28 +83,29 @@
 
 
 @section('scripts')
-    {!! $dataTable->scripts() !!}
-{{--    <script>--}}
-{{--        $(document).ready(function() {--}}
-{{--            $('#pc-service-cards-table').DataTable({--}}
-{{--                processing: true,--}}
-{{--                serverSide: true,--}}
-{{--                ajax: {--}}
-{{--                    url: '{{ route('pcs.service-cards.index', $pc->id) }}',--}}
-{{--                    type: 'GET',--}}
-{{--                    error: function(xhr, error, code) {--}}
-{{--                        console.log(xhr);--}}
-{{--                        console.log(code);--}}
-{{--                    },--}}
-{{--                },--}}
-{{--                columns: [--}}
-{{--                    { data: 'action', name: 'action', orderable: false, searchable: false },--}}
-{{--                    { data: 'date', name: 'date' },--}}
-{{--                    { data: 'description', name: 'description' },--}}
-{{--                    { data: 'workers', name: 'workers', orderable: false, searchable: false },--}}
-{{--                ],--}}
-{{--                paging:false--}}
-{{--            });--}}
-{{--        });--}}
-{{--    </script>--}}
+    {{--    {!! $dataTable->scripts() !!}--}}
+    <script>
+        $(document).ready(function() {
+            $('#pc-service-cards-table').DataTable({
+                processing: true,
+                serverSide: false, // serverSide is not needed because we are using ajax
+                ajax: {
+                    url: '{{ route('pcs.service-cards.index', $pc->id) }}',
+                    type: 'GET',
+                    error: function(xhr, error, code) {
+                        console.log(xhr);
+                        console.log(code);
+                    },
+                },
+                columns: [
+                    { data: 'action', name: 'action', searchable: false },
+                    { data: 'assignment_id', name: 'assignment_id', searchable: true },
+                    { data: 'date', name: 'date', searchable: true },
+                    { data: 'description', name: 'description', searchable: true },
+                    { data: 'workers', name: 'workers', searchable: true },
+                ],
+                paging: false,
+            });
+        });
+    </script>
 @endsection

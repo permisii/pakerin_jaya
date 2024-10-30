@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('brand');
             $table->date('date_of_initial_use');
             $table->string('index');
+            $table->string('section');
             $table->string('type');
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users');

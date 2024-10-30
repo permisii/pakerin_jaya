@@ -118,6 +118,9 @@ class AssignmentsDataTable extends DataTable {
             Column::make('problem')
                 ->title('Masalah')
                 ->addClass('text-left'),
+            Column::make('percentage')
+                ->title('Persentase')
+                ->addClass('text-center'),
             Column::make('status')
                 ->addClass('text-center'),
         ];

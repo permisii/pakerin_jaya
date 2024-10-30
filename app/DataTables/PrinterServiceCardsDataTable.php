@@ -56,8 +56,9 @@ class PrinterServiceCardsDataTable extends DataTable {
      */
     public function query(ServiceCard $model): QueryBuilder {
         $printer = request()->route('printer');
+        $deviceType = $printer->getMorphClass();
 
-        return $model->newQuery()->where('device_id', $printer->id)->with('workProcesses.user');
+        return $model->newQuery()->whereDeviceType($deviceType)->whereDeviceId($printer->id)->with('workProcesses.user');
     }
 
     /**
@@ -92,6 +93,7 @@ class PrinterServiceCardsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
+            Column::make('assignment_id')->title('Nomor PK'),
             Column::make('date')->title('Tanggal'),
             Column::make('description')->title('Uraian'),
             Column::make('workers')->title('Pekerja')->orderable(false)->searchable(false),

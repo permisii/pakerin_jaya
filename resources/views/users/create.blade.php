@@ -63,10 +63,9 @@
                             <div class="offset-sm-2 col-sm-2">
                                 <div class="form-check">
                                     <input type="hidden" name="technician" value="0">
-                                    <input type="checkbox" class="form-check-input" id="active-checkbox"
-                                           name="technician"
-                                           value={{old('technician') ? '1' : '0'}}>
-                                    <label class="form-check-label" for="active-checkbox">Juru Teknisi</label>
+                                    <input type="checkbox" class="form-check-input" id="technician-checkbox"
+                                           name="technician" value="1">
+                                    <label class="form-check-label" for="technician-checkbox">Juru Teknisi</label>
                                 </div>
                             </div>
                         </div>
@@ -75,9 +74,9 @@
                             <div class="offset-sm-2 col-sm-2">
                                 <div class="form-check">
                                     <input type="hidden" name="is_admin" value="0">
-                                    <input type="checkbox" class="form-check-input" id="active-checkbox" name="is_admin"
-                                           value={{old('is_admin') ? '1' : '0'}}>
-                                    <label class="form-check-label" for="active-checkbox">Admin</label>
+                                    <input type="checkbox" class="form-check-input" id="is_admin-checkbox"
+                                           name="is_admin" value="1">
+                                    <label class="form-check-label" for="is_admin-checkbox">Admin</label>
                                 </div>
                             </div>
                         </div>

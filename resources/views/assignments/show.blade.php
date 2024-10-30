@@ -71,6 +71,14 @@
                         </p> --}}
 
                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label text-right">Persentase</label>
+                        <div class="col-sm-4">
+                            <input type="number" name="percentage" min="0" max="100" class="form-control"
+                                   value="{{ $assignment->percentage }}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-sm-2 col-form-label text-right">Dibuat oleh</label>
                         <div class="col-sm-4">
                             <input type="text" class="form-control form-control form-control-sm"
@@ -80,7 +88,7 @@
                 </div>
 
                 <div class="card-footer">
-                    <a href="{{ route('work-instructions.index', $assignment->workInstruction->id) }}"
+                    <a href="{{ route('work-instructions.assignments.index', $assignment->workInstruction->id) }}"
                         class="btn btn-default">
                         <i class="fa fa-fw fa-arrow-left"></i>
                         Kembali ke Pekerjaan</a>
