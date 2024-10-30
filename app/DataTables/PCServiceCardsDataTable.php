@@ -56,8 +56,9 @@ class PCServiceCardsDataTable extends DataTable {
      */
     public function query(ServiceCard $model): QueryBuilder {
         $pc = request()->route('pc');
+        $deviceType = $pc->getMorphClass();
 
-        return $model->newQuery()->where('device_id', $pc->id)->with('workProcesses.user');
+        return $model->newQuery()->whereDeviceType($deviceType)->whereDeviceId($pc->id)->with('workProcesses.user');
     }
 
     /**

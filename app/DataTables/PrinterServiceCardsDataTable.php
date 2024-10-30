@@ -56,8 +56,9 @@ class PrinterServiceCardsDataTable extends DataTable {
      */
     public function query(ServiceCard $model): QueryBuilder {
         $printer = request()->route('printer');
+        $deviceType = $printer->getMorphClass();
 
-        return $model->newQuery()->where('device_id', $printer->id)->with('workProcesses.user');
+        return $model->newQuery()->whereDeviceType($deviceType)->whereDeviceId($printer->id)->with('workProcesses.user');
     }
 
     /**
