@@ -92,6 +92,7 @@ class PCServiceCardsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
+            Column::make('assignment_id')->title('Nomor PK'),
             Column::make('date')->title('Tanggal'),
             Column::make('description')->title('Uraian'),
             Column::make('workers')->title('Pekerja')->orderable(false)->searchable(false),
