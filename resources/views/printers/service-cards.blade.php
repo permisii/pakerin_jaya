@@ -64,6 +64,10 @@
     {{--    {!! $dataTable->scripts() !!}--}}
     <script>
         $(document).ready(function() {
+            const deviceBrand = '{{ $printer->brand }}';
+            const deviceType = 'App\\Models\\Printer';
+            const deviceId = '{{ $printer->id }}';
+
             $('#printer-service-cards-table').DataTable({
                 processing: true,
                 serverSide: false, // serverSide is not needed because we are using ajax
@@ -75,6 +79,7 @@
                         console.log(code);
                     },
                 },
+                dom: '<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip',
                 columns: [
                     { data: 'action', name: 'action', searchable: false },
                     { data: 'assignment_id', name: 'assignment_id', searchable: true },
@@ -82,7 +87,18 @@
                     { data: 'description', name: 'description', searchable: true },
                     { data: 'workers', name: 'workers', searchable: true },
                 ],
-                paging: false,
+                lengthChange: false,
+                buttons: [
+                    {
+                        text: '<i class="fas fa-plus"></i> Tambah Uraian Pekerjaan',
+                        className: 'btn btn-default text-blue',
+                        action: function(e, dt, node, config) {
+                            window.location.href = "{{ route('service-cards.create') }}"
+                                + '?device_type=' + deviceType + '&device_brand='
+                                + deviceBrand + '&device_id=' + deviceId;
+                        },
+                    },
+                ],
             });
         });
     </script>
