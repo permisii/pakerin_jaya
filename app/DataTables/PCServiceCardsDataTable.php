@@ -19,6 +19,9 @@ class PCServiceCardsDataTable extends DataTable {
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
+            ->addColumn('assignment_number', function (ServiceCard $serviceCard) {
+                return $serviceCard->assignment ? $serviceCard->assignment->assignment_number : '';
+            })
             ->addColumn('date', function (ServiceCard $serviceCard) {
                 return Carbon::parse($serviceCard->date)->format('d/m/Y');
             })
@@ -58,7 +61,7 @@ class PCServiceCardsDataTable extends DataTable {
         $pc = request()->route('pc');
         $deviceType = $pc->getMorphClass();
 
-        return $model->newQuery()->whereDeviceType($deviceType)->whereDeviceId($pc->id)->with('workProcesses.user');
+        return $model->newQuery()->whereDeviceType($deviceType)->whereDeviceId($pc->id)->with(['workProcesses.user', 'assignment']);
     }
 
     /**
@@ -93,7 +96,7 @@ class PCServiceCardsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('assignment_id')->title('Nomor PK'),
+            Column::make('assignment_number')->title('Nomor PK'),
             Column::make('date')->title('Tanggal'),
             Column::make('description')->title('Uraian'),
             Column::make('workers')->title('Pekerja')->orderable(false)->searchable(false),
