@@ -5,11 +5,14 @@
 <tr>
     <th>
         <div class="btn-group">
-            <a href="{{ route('work-instructions.assignments.show', [$workInstruction->id, $id]) }}"
-               class="btn btn-sm btn-default text-blue action-btn">
-                <i class="fas fa-info-circle"></i>
-                Detail
-            </a>
+            @if($isAdmin)
+                <a href="{{ route('work-instructions.assignments.show', [$workInstruction->id, $id]) }}"
+                   class="btn btn-sm btn-default text-blue action-btn">
+                    <i class="fas fa-info-circle"></i>
+                    Detail
+                </a>
+            @endif
+
             @if(!$isAdmin && $workInstruction->user_id === auth()->user()->id)
                 <form action="{{ route('work-instructions.assignments.destroy', [$workInstruction->id, $id]) }}"
                       method="post"
@@ -25,16 +28,18 @@
                         <i class="fas fa-trash"></i> Delete
                     </button>
                 </form>
+
+                {{--            @if($assignment->status !== \App\Support\Enums\AssignmentStatusEnum::Done->value)--}}
+
+                @if($workInstruction->status !== WorkInstructionStatusEnum::Submitted->value)
+                    <a href="{{ route('work-instructions.assignments.edit', [$workInstruction->id, $id]) }}"
+                       class="btn btn-sm btn-default text-blue action-btn">
+                        <i class="fas fa-edit"></i>
+                        Edit
+                    </a>
+                @endif
             @endif
 
-            {{--            @if($assignment->status !== \App\Support\Enums\AssignmentStatusEnum::Done->value)--}}
-            @if($workInstruction->status !== WorkInstructionStatusEnum::Submitted->value)
-                <a href="{{ route('work-instructions.assignments.edit', [$workInstruction->id, $id]) }}"
-                   class="btn btn-sm btn-default text-blue action-btn">
-                    <i class="fas fa-edit"></i>
-                    Edit
-                </a>
-            @endif
 
         </div>
     </th>
