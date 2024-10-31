@@ -104,7 +104,7 @@
                 dom: '<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip',
                 columns: [
                     { data: 'action', name: 'action', searchable: false },
-                    { data: 'assignment_id', name: 'assignment_id', searchable: true },
+                    { data: 'assignment_number', name: 'assignment_number', searchable: true },
                     { data: 'date', name: 'date', searchable: true },
                     { data: 'description', name: 'description', searchable: true },
                     { data: 'workers', name: 'workers', searchable: true },
