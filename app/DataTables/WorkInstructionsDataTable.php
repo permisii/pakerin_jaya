@@ -6,6 +6,7 @@ use App\Models\WorkInstruction;
 use App\Support\Enums\WorkInstructionStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Collection;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -13,6 +14,8 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class WorkInstructionsDataTable extends DataTable {
+
+
     /**
      * Build the DataTable class.
      *
@@ -82,6 +85,15 @@ class WorkInstructionsDataTable extends DataTable {
                     }',
                     'className' => 'btn btn-default text-blue',
                 ]),
+                [
+                    'extend' => 'excel',
+                    'title' => 'WorkInstructions_' . date('YmdHis'),
+                    'className' => 'btn btn-default text-green ml-auto',
+                    'filename' => 'WorkInstructions_' . date('YmdHis'),
+                    'exportOptions' => [
+                        'columns' => ':not(:first-child)', // excluding action column
+                    ],
+                ],
             ]);
     }
 
