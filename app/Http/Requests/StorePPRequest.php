@@ -25,7 +25,7 @@ class StorePPRequest extends FormRequest {
             'unit' => ['required', 'string'],
             'need_date' => ['required', 'date'],
             'description' => ['required', 'string'],
-            'status' => ['required', 'string', implode(',', PPStatusEnum::toArray())],
+            'status' => ['required', 'string', 'in:' . implode(',', PPStatusEnum::toArray())],
             'created_by' => ['required', 'integer', 'exists:users,id'],
             'updated_by' => ['required', 'integer', 'exists:users,id'],
         ];

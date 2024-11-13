@@ -25,7 +25,7 @@ class UpdatePPRequest extends FormRequest {
             'unit' => ['nullable', 'string'],
             'need_date' => ['nullable', 'date'],
             'description' => ['nullable', 'string'],
-            'status' => ['nullable', 'string', implode(',', PPStatusEnum::toArray())],
+            'status' => ['nullable', 'string', 'in:' . implode(',', PPStatusEnum::toArray())],
             'created_by' => ['nullable', 'integer', 'exists:users,id'],
             'updated_by' => ['nullable', 'integer', 'exists:users,id'],
         ];

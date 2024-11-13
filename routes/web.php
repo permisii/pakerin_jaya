@@ -5,6 +5,7 @@ use App\Http\Controllers\DailyReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MonthlyReportController;
 use App\Http\Controllers\PCController;
+use App\Http\Controllers\PPController;
 use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\ServiceCardController;
 use App\Http\Controllers\UnitController;
@@ -32,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('printers', PrinterController::class);
     Route::resource('service-cards', ServiceCardController::class);
     Route::resource('work-processes', WorkProcessController::class);
+    Route::resource('pps', PPController::class);
 });
 
 Route::view('/', 'auth.login')->name('home');
