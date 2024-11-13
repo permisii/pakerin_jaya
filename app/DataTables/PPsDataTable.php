@@ -42,9 +42,14 @@ class PPsDataTable extends DataTable {
      */
     public function query(PP $model): QueryBuilder {
         $date_filter = request('date_filter');
+        $status_filter = request('status_filter');
 
         if ($date_filter) {
             $model = $model->where('need_date', 'like', $date_filter . '%');
+        }
+
+        if ($status_filter) {
+            $model = $model->where('status', $status_filter);
         }
 
         return $model->newQuery();
