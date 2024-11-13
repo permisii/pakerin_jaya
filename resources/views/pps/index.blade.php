@@ -16,7 +16,9 @@
                                         <div class="col">
                                             <input type="month" name="date_filter" id="date_filter"
                                                    class="form-control form-control-sm"
-                                                   value="{{ request('date_filter') }}">
+                                                   value="{{ request('date_filter') }}"
+                                                   min="{{ now()->subMonth()->format('Y-m') }}"
+                                                   max="{{ now()->format('Y-m') }}">
                                         </div>
                                     </div>
                                     <div class="row mt-2">
