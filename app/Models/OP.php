@@ -18,6 +18,9 @@ class OP extends Model {
         'code',
         'no',
         'date',
+        'first_requestor',
+        'second_requestor',
+        'approved_by',
         'head_of_section_id',
         'created_by',
         'updated_by',
@@ -44,5 +47,9 @@ class OP extends Model {
 
     public function pps(): HasManyThrough {
         return $this->hasManyThrough(PP::class, DetailOP::class, 'op_id', 'id', 'id', 'pp_id');
+    }
+
+    public function canBeDeleted(): bool {
+        return $this->pps()->count() === 0;
     }
 }

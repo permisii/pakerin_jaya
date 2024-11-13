@@ -14,7 +14,9 @@ class PP extends Model {
     protected $fillable = [
         'id',
         'item_name',
+        'remaining',
         'need',
+        'buy',
         'unit',
         'need_date',
         'description',

@@ -23,6 +23,7 @@ class MenuSeeder extends Seeder {
             ['name' => 'Service Cards', 'code' => 'service-cards', 'description' => 'Service Card Management', 'url' => 'service-card.index', 'icon' => 'fas fa-clipboard-list', 'created_by' => 1, 'updated_by' => 1],
             //            ['name' => 'Work Processes', 'code' => 'work-processes', 'description' => 'Work Process Management', 'url' => 'work-process.index', 'icon' => 'fas fa-cogs', 'created_by' => 1, 'updated_by' => 1],
             ['name' => 'PPs', 'code' => 'pps', 'description' => 'PP Management', 'url' => 'pp.index', 'icon' => 'fas fa-cogs', 'created_by' => 1, 'updated_by' => 1],
+            ['name' => 'OPs', 'code' => 'ops', 'description' => 'OP Management', 'url' => 'op.index', 'icon' => 'fas fa-cogs', 'created_by' => 1, 'updated_by' => 1],
         ];
 
         foreach ($menus as $menu) {

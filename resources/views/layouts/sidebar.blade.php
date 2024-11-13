@@ -139,6 +139,16 @@
                         </a>
                     </li>
                 @endif
+
+                @if (auth()->user()->hasPermission('read', 'ops'))
+                    <li class="nav-item">
+                        <a href="{{ route('ops.index') }}"
+                           class="nav-link {{ Request::is('ops*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-fw fa-file"></i>
+                            <p>OPS</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
     </div>

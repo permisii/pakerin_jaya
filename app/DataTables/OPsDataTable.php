@@ -2,8 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\PP;
-use App\Support\Enums\PPStatusEnum;
+use App\Models\OP;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -11,7 +10,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class PPsDataTable extends DataTable {
+class OPsDataTable extends DataTable {
     /**
      * Build the DataTable class.
      *
@@ -19,37 +18,27 @@ class PPsDataTable extends DataTable {
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
-            ->addColumn('need_date', function (PP $pp) {
-                return $pp->need_date->format('d/m/Y');
+            ->addColumn('action', function (OP $op) {
+                return view('ops.action', ['op' => $op]);
             })
-            ->addColumn('status', function (PP $pp) {
-                return $pp->status == PPStatusEnum::Input
-                    ? '<span class="badge badge-primary">Input</span>'
-                    : '<span class="badge badge-warning">Proses</span>';
+            ->addColumn('date', function (OP $op) {
+                return $op->date->format('d/m/Y');
             })
-            ->addColumn('created_by', function (PP $pp) {
-                return $pp->createdBy->name;
+            ->addColumn('head_of_section_id', function (OP $op) {
+                return $op->headOfSection->name;
             })
-            ->addColumn('action', function (PP $pp) {
-                return view('pps.action', ['pp' => $pp]);
-            })
-            ->rawColumns(['status', 'action'])
+            ->rawColumns(['action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(PP $model): QueryBuilder {
+    public function query(OP $model): QueryBuilder {
         $date_filter = request('date_filter');
-        $status_filter = request('status_filter');
 
         if ($date_filter) {
-            $model = $model->where('need_date', 'like', $date_filter . '%');
-        }
-
-        if ($status_filter) {
-            $model = $model->where('status', $status_filter);
+            $model = $model->where('date', 'like', $date_filter . '%');
         }
 
         return $model->newQuery();
@@ -60,7 +49,7 @@ class PPsDataTable extends DataTable {
      */
     public function html(): HtmlBuilder {
         return $this->builder()
-            ->setTableId('pps-table')
+            ->setTableId('ops-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->selectStyleSingle()
@@ -69,9 +58,9 @@ class PPsDataTable extends DataTable {
             ->addTableClass('w-100')
             ->buttons([
                 Button::make([
-                    'text' => '<i class="fas fa-plus"></i> Tambah PP',
+                    'text' => '<i class="fas fa-plus"></i> Tambah OP',
                     'action' => 'function() {
-                        window.location.href = "' . route('pps.create') . '";
+                        window.location.href = "' . route('ops.create') . '";
                     }',
                     'className' => 'btn btn-default text-blue',
                 ]),
@@ -88,12 +77,14 @@ class PPsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('item_name')->title('Nama Barang'),
-            Column::make('need')->title('Kebutuhan'),
-            Column::make('unit')->title('Satuan'),
-            Column::make('need_date')->title('Tanggal Kebutuhan'),
-            Column::make('status')->title('Status'),
-            Column::make('created_by')->title('Dibuat Oleh'),
+            Column::make('department')->title('Departemen'),
+            Column::make('code')->title('Kode'),
+            Column::make('no')->title('Nomor'),
+            Column::make('date')->title('Tanggal'),
+            Column::make('first_requestor')->title('Peminta 1'),
+            Column::make('second_requestor')->title('Peminta 2'),
+            Column::make('approved_by')->title('Disetujui Oleh'),
+            Column::make('head_of_section_id')->title('Kepala Seksi'),
         ];
     }
 
@@ -101,6 +92,6 @@ class PPsDataTable extends DataTable {
      * Get the filename for export.
      */
     protected function filename(): string {
-        return 'PPs_' . date('YmdHis');
+        return 'OPs_' . date('YmdHis');
     }
 }

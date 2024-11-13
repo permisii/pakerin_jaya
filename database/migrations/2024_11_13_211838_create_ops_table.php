@@ -15,6 +15,9 @@ return new class extends Migration {
             $table->string('code');
             $table->string('no');
             $table->date('date');
+            $table->string('first_requestor');
+            $table->string('second_requestor');
+            $table->string('approved_by');
             $table->foreignId('head_of_section_id')->constrained('users');
             $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->constrained('users');

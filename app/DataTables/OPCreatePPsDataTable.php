@@ -7,11 +7,10 @@ use App\Support\Enums\PPStatusEnum;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class PPsDataTable extends DataTable {
+class OPCreatePPsDataTable extends DataTable {
     /**
      * Build the DataTable class.
      *
@@ -19,6 +18,9 @@ class PPsDataTable extends DataTable {
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
+            ->addColumn('checkbox', function (PP $pp) {
+                return '<input type="checkbox" name="pp_ids[]" value="' . $pp->id . '">';
+            })
             ->addColumn('need_date', function (PP $pp) {
                 return $pp->need_date->format('d/m/Y');
             })
@@ -30,10 +32,7 @@ class PPsDataTable extends DataTable {
             ->addColumn('created_by', function (PP $pp) {
                 return $pp->createdBy->name;
             })
-            ->addColumn('action', function (PP $pp) {
-                return view('pps.action', ['pp' => $pp]);
-            })
-            ->rawColumns(['status', 'action'])
+            ->rawColumns(['checkbox', 'status'])
             ->setRowId('id');
     }
 
@@ -41,18 +40,7 @@ class PPsDataTable extends DataTable {
      * Get the query source of dataTable.
      */
     public function query(PP $model): QueryBuilder {
-        $date_filter = request('date_filter');
-        $status_filter = request('status_filter');
-
-        if ($date_filter) {
-            $model = $model->where('need_date', 'like', $date_filter . '%');
-        }
-
-        if ($status_filter) {
-            $model = $model->where('status', $status_filter);
-        }
-
-        return $model->newQuery();
+        return $model->newQuery()->where('status', PPStatusEnum::Input);
     }
 
     /**
@@ -64,18 +52,8 @@ class PPsDataTable extends DataTable {
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->selectStyleSingle()
-            ->dom('<"d-flex justify-content-between"<"d-block mb-2"B><"ml-auto"f>>rtip')
             ->lengthChange(false)
-            ->addTableClass('w-100')
-            ->buttons([
-                Button::make([
-                    'text' => '<i class="fas fa-plus"></i> Tambah PP',
-                    'action' => 'function() {
-                        window.location.href = "' . route('pps.create') . '";
-                    }',
-                    'className' => 'btn btn-default text-blue',
-                ]),
-            ]);
+            ->addTableClass('w-100');
     }
 
     /**
@@ -83,11 +61,7 @@ class PPsDataTable extends DataTable {
      */
     public function getColumns(): array {
         return [
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
+            Column::make('checkbox')->title('<input type="checkbox" id="checkAll">')->addClass('text-center'),
             Column::make('item_name')->title('Nama Barang'),
             Column::make('need')->title('Kebutuhan'),
             Column::make('unit')->title('Satuan'),
@@ -101,6 +75,6 @@ class PPsDataTable extends DataTable {
      * Get the filename for export.
      */
     protected function filename(): string {
-        return 'PPs_' . date('YmdHis');
+        return 'OPsCreatePPs_' . date('YmdHis');
     }
 }
