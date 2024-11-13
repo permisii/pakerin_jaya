@@ -121,3 +121,37 @@ select[readonly].select2 + .select2-container {
 .select2-container--default .select2-selection--multiple .select2-selection__rendered {
     color: black !important;
 }
+
+/* OPS Print Feature */
+
+.signature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px; /* Adjust the gap as needed */
+    height: 200px; /* Ensure the height is consistent */
+}
+
+.signature-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 0;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #printableTable, #printableTable * {
+        visibility: visible;
+    }
+
+    #printableTable {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+}

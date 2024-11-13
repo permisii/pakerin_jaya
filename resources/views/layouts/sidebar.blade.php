@@ -96,39 +96,59 @@
                         </a>
                     </li>
                 @endif
-{{--
-                @if (auth()->user()->hasPermission('read', 'service-cards'))
+                {{--
+                                @if (auth()->user()->hasPermission('read', 'service-cards'))
+                                    <li class="nav-item">
+                                        <a href="{{ route('service-cards.index') }}"
+                                           class="nav-link {{ Request::is('service-cards*') ? 'active' : '' }}"
+                                           data-menu-prefix="service-cards">
+                                            <i class="nav-icon fas fa-fw fa-clipboard"></i>
+                                            <p>KARTU SERVIS</p>
+                                        </a>
+                                    </li>
+                                @endif --}}
+
+                <li class="nav-header">KARTU SERVIS</li>
+
+                @if (auth()->user()->hasPermission('read', 'pcs'))
                     <li class="nav-item">
-                        <a href="{{ route('service-cards.index') }}"
-                           class="nav-link {{ Request::is('service-cards*') ? 'active' : '' }}"
-                           data-menu-prefix="service-cards">
-                            <i class="nav-icon fas fa-fw fa-clipboard"></i>
-                            <p>KARTU SERVIS</p>
+                        <a href="{{ route('pcs.index') }}"
+                           class="nav-link {{ Request::is('pcs*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-fw fa-laptop"></i>
+                            <p>PC</p>
                         </a>
                     </li>
-                @endif --}}
+                @endif
 
-                    <li class="nav-header">KARTU SERVIS</li>
+                @if (auth()->user()->hasPermission('read', 'printers'))
+                    <li class="nav-item">
+                        <a href="{{ route('printers.index') }}"
+                           class="nav-link {{ Request::is('printers*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-fw fa-print"></i>
+                            <p>PRINTER</p>
+                        </a>
+                    </li>
+                @endif
 
-                    @if (auth()->user()->hasPermission('read', 'pcs'))
-                        <li class="nav-item">
-                            <a href="{{ route('pcs.index') }}"
-                               class="nav-link {{ Request::is('pcs*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-fw fa-laptop"></i>
-                                <p>PC</p>
-                            </a>
-                        </li>
-                    @endif
+                @if (auth()->user()->hasPermission('read', 'pps'))
+                    <li class="nav-item">
+                        <a href="{{ route('pps.index') }}"
+                           class="nav-link {{ Request::is('pps*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-fw fa-box"></i>
+                            <p>PPS</p>
+                        </a>
+                    </li>
+                @endif
 
-                    @if (auth()->user()->hasPermission('read', 'printers'))
-                        <li class="nav-item">
-                            <a href="{{ route('printers.index') }}"
-                               class="nav-link {{ Request::is('printers*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-fw fa-print"></i>
-                                <p>PRINTER</p>
-                            </a>
-                        </li>
-                    @endif
+                @if (auth()->user()->hasPermission('read', 'ops'))
+                    <li class="nav-item">
+                        <a href="{{ route('ops.index') }}"
+                           class="nav-link {{ Request::is('ops*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-fw fa-file"></i>
+                            <p>OPS</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
     </div>
