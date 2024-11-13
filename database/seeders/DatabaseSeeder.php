@@ -40,6 +40,7 @@ class DatabaseSeeder extends Seeder {
             ServiceCardSeeder::class,
             WorkProcessSeeder::class,
             PPSeeder::class,
+            OPSeeder::class,
         ]);
     }
 }
