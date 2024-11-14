@@ -12,6 +12,16 @@
                         <h6 class="text-divider mb-4"><span>Identity</span></h6>
 
                         <div class="form-group row">
+                            <label class="col-sm-2 col-form-label text-right">OP Preset</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm select2" id="op_preset_id"
+                                        name="op_preset_id">
+                                    <option value="">-- Pilih OP Preset --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Department</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control form-control-sm" name="department">
@@ -108,8 +118,9 @@
         $(document).ready(function() {
             let selectedPPs = [];
 
-            $('.select2').select2({
-                placeholder: '-- Pilih Kepala Bagian --',
+            // Initialize select2 for head of section
+            $('#head_of_section_id').select2({
+                placeholder: '-- Pilih Kepala Seksi --',
                 allowClear: true,
                 ajax: {
                     url: '{{ route('users.index') }}',
@@ -118,7 +129,7 @@
                     data: function(params) {
                         return {
                             search: params.term,
-                            intent: '{{\App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_HEAD_OF_UNITS->value}}',
+                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_HEAD_OF_UNITS->value }}',
                         };
                     },
                     processResults: function(data) {
@@ -126,7 +137,7 @@
                             results: data.data.map(function(user) {
                                 return {
                                     id: user.id,
-                                    text: `Kepala Bagian ${user.unit?.name} - ${user.name}`,
+                                    text: `${user.name} - ${user.unit?.name}`,
                                 };
                             }),
                         };
@@ -135,8 +146,51 @@
                 },
             });
 
+            // Initialize select2 for OP Preset
+            $('#op_preset_id').select2({
+                placeholder: '-- Pilih Preset --',
+                allowClear: true,
+                ajax: {
+                    url: '{{ route('op-presets.index') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            search: params.term,
+                            intent: '{{ \App\Support\Enums\IntentEnum::OP_PRESET_SELECT2_SEARCH_OP_PRESETS->value }}',
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.data.map(function(opPreset) {
+                                return {
+                                    id: opPreset.id,
+                                    text: opPreset.name,
+                                    data: opPreset, // Store the entire object for later use
+                                };
+                            }),
+                        };
+                    },
+                    cache: true,
+                },
+            }).on('select2:select', function(e) {
+                var data = e.params.data.data;
+                updateFormFields(data);
+            });
+
+            function updateFormFields(data) {
+                $('input[name="department"]').val(data.department);
+                $('input[name="code"]').val(data.code);
+                $('input[name="no"]').val(data.no);
+                $('input[name="date"]').val(data.date.split('T')[0]); // Format date
+                $('input[name="first_requestor"]').val(data.first_requestor);
+                $('input[name="second_requestor"]').val(data.second_requestor);
+                $('input[name="approved_by"]').val(data.approved_by);
+                $('#head_of_section_id').val(data.head_of_section_id).trigger('change');
+            }
+
             // Store selected checkboxes
-            $('#pps-table').on('change', 'input[name="pp_id[]"]', function() {
+            $('#pps-table').on('change', 'input[name="pp_ids[]"]', function() {
                 const ppId = $(this).val();
                 if ($(this).is(':checked')) {
                     selectedPPs.push(ppId);
@@ -147,7 +201,7 @@
 
             // Restore selected checkboxes when navigating between pages
             $('#pps-table').on('draw.dt', function() {
-                $('input[name="pp_id[]"]').each(function() {
+                $('input[name="pp_ids[]"]').each(function() {
                     if (selectedPPs.includes($(this).val())) {
                         $(this).prop('checked', true);
                     }
@@ -157,7 +211,7 @@
             // Select/Deselect all checkboxes
             $('#checkAll').on('change', function() {
                 const isChecked = $(this).is(':checked');
-                $('input[name="pp_id[]"]').each(function() {
+                $('input[name="pp_ids[]"]').each(function() {
                     $(this).prop('checked', isChecked).trigger('change');
                 });
             });

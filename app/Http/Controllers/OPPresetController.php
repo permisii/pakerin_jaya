@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\DataTables\OPPresetsDataTable;
 use App\Http\Requests\StoreOPPresetRequest;
 use App\Http\Requests\UpdateOPPresetRequest;
+use App\Http\Resources\OPPresetResource;
 use App\Models\OPPreset;
+use App\Support\Enums\IntentEnum;
 use App\Traits\Controllers\Filterable;
 use App\Traits\Controllers\Searchable;
 use Illuminate\Http\Request;
@@ -18,6 +20,16 @@ class OPPresetController extends Controller {
      */
     public function index(Request $request, OPPresetsDataTable $dataTable) {
         $this->checkPermission('read', 'op-presets');
+        $intent = $request->get('intent');
+
+        switch ($intent) {
+            case IntentEnum::OP_PRESET_SELECT2_SEARCH_OP_PRESETS->value:
+                $opPresets = $this->search($request, OPPreset::class, ['name', 'department', 'code', 'no', 'date', 'first_requestor', 'second_requestor', 'approved_by']);
+                $opPresets = $this->applyColumnFilters($opPresets, $request, ['head_of_section_id']);
+                $opPresets->with('headOfSection');
+
+                return OPPresetResource::collection($opPresets->paginate(5));
+        }
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Master OPPreset' => '',
