@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,7 @@ class UnitFactory extends Factory {
         return [
             'name' => $this->faker->name,
             'unit_code' => $this->faker->unique()->word,
+            'head_of_unit_id' => User::factory(),
             'updated_by' => null,
             'created_by' => null,
         ];

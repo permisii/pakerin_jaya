@@ -24,6 +24,7 @@ class UpdateUnitRequest extends FormRequest {
         return [
             'name' => ['nullable', 'string', 'max:255'],
             'unit_code' => ['nullable', 'string', 'max:255', 'unique:units,unit_code,' . $unitId],
+            'head_of_unit_id' => ['nullable', 'exists:users,id'],
         ];
     }
 }

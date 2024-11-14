@@ -22,6 +22,7 @@ class StoreUnitRequest extends FormRequest {
         return [
             'name' => ['required', 'string', 'max:255'],
             'unit_code' => ['required', 'string', 'max:255', 'unique:units'],
+            'head_of_unit_id' => ['nullable', 'exists:users,id'],
         ];
     }
 }

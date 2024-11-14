@@ -19,6 +19,9 @@ class UnitsDataTable extends DataTable {
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'units.action')
+            ->editColumn('head_of_unit_id', function (Unit $unit) {
+                return $unit->headOfUnit->name ?? '';
+            })
             ->setRowId('id');
     }
 
@@ -63,9 +66,14 @@ class UnitsDataTable extends DataTable {
                 ->width(60)
                 ->addClass('text-center'),
             Column::make('name')
-                ->addClass('text-left'),
+                ->addClass('text-left')
+                ->title('Nama Unit'),
             Column::make('unit_code')
-                ->addClass('text-center'),
+                ->addClass('text-center')
+                ->title('Kode Unit'),
+            Column::make('head_of_unit_id')
+                ->addClass('text-left')
+                ->title('Kepala Unit'),
         ];
     }
 
