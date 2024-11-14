@@ -30,6 +30,17 @@ class UserController extends Controller {
                 $users = $this->applyColumnFilters($users, $request, ['technician']);
 
                 return UserResource::collection($users->paginate(5));
+            case IntentEnum::USER_SELECT2_SEARCH_HEAD_OF_UNITS->value:
+                $users = $this
+                    ->search($request, User::class, ['name', 'email'])
+                    ->whereIn('id', function ($query) {
+                        $query
+                            ->select('head_of_unit_id')
+                            ->from('units')
+                            ->whereNotNull('head_of_unit_id');
+                    })->with('unit');
+
+                return UserResource::collection($users->paginate(5));
         }
 
         $units = Unit::all();

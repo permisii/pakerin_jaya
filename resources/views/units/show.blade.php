@@ -28,6 +28,15 @@
                                        value="{{ $unit->unit_code }}">
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label text-right">Kepala Bagian</label>
+                            <div class="col-sm-4">
+                                <select class="form-control form-control-sm select2" name="head_of_unit_id">
+                                    <option value="">-- Pilih Kepala Bagian --</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-footer">
@@ -52,4 +61,72 @@
             </div>
         </div>
     </form>
+@endsection
+
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            initializeValidation("update-form-{{$unit->id}}", {
+                name: {
+                    required: true,
+                    minlength: 3,
+                },
+                unit_code: {
+                    required: true,
+                    minlength: 3,
+                },
+            }, {
+                name: {
+                    required: 'Masukkan Nama',
+                    minlength: 'minimal 3 karakter',
+                },
+                unit_code: {
+                    required: 'Masukkan Kode Unit',
+                    minlength: 'minimal 3 karakter ',
+                },
+            });
+
+            const existingHeadOfUnit = {
+                id: '{{ $unit->head_of_unit_id }}',
+                text: '{{ $unit->headOfUnit->name ?? '' }}',
+            };
+
+            $('.select2').select2({
+                placeholder: {
+                    id: existingHeadOfUnit.id, // the value of the option
+                    text: existingHeadOfUnit.text, // the text of the option
+                },
+                allowClear: true,
+                ajax: {
+                    url: '{{ route('users.index') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            search: params.term,
+                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.data.map(function(user) {
+                                return {
+                                    id: user.id,
+                                    text: `${user.nip} - ${user.name}`,
+                                };
+                            }),
+                        };
+                    },
+                    cache: true,
+                },
+                initSelection: function(element, callback) {
+                    callback(existingHeadOfUnit);
+                },
+            });
+
+            $('.select2').val(existingHeadOfUnit.text).trigger('change');
+
+        });
+    </script>
 @endsection
