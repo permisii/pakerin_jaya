@@ -44,14 +44,14 @@
                 @foreach($op->pps as $pp)
                     <tr>
                         <td>{{$loop->iteration}}</td>
-                        <td>{{$pp->item_name}}</td>
-                        <td></td>
+                        <td class="text-left">{{$pp->item_name}}</td>
+                        <td class="text-left"></td>
                         <td>{{$pp->remaining}}</td>
                         <td>{{$pp->need}}</td>
                         <td>{{$pp->buy}}</td>
                         <td>{{$pp->unit}}</td>
                         <td>{{$pp->need_date->format('d-m-Y')}}</td>
-                        <td>{{$pp->description}}</td>
+                        <td class="text-left">{{$pp->description}}</td>
                     </tr>
                 @endforeach
                 </tbody>
