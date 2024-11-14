@@ -107,9 +107,9 @@
     <script>
         $(document).ready(function() {
             let selectedPPs = [];
-            
+
             $('.select2').select2({
-                placeholder: '-- Select User --',
+                placeholder: '-- Pilih Kepala Bagian --',
                 allowClear: true,
                 ajax: {
                     url: '{{ route('users.index') }}',
@@ -118,7 +118,7 @@
                     data: function(params) {
                         return {
                             search: params.term,
-                            intent: '{{\App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value}}',
+                            intent: '{{\App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_HEAD_OF_UNITS->value}}',
                         };
                     },
                     processResults: function(data) {
@@ -126,7 +126,7 @@
                             results: data.data.map(function(user) {
                                 return {
                                     id: user.id,
-                                    text: `${user.nip} - ${user.name}`,
+                                    text: `Kepala Bagian ${user.unit.name} - ${user.name}`,
                                 };
                             }),
                         };
