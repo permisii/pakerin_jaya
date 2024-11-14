@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\OP;
+use App\Models\OPPreset;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class OPsDataTable extends DataTable {
+class OPPresetsDataTable extends DataTable {
     /**
      * Build the DataTable class.
      *
@@ -18,27 +18,24 @@ class OPsDataTable extends DataTable {
      */
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function (OP $op) {
-                return view('ops.action', ['op' => $op]);
+            ->addColumn('action', 'op-presets.action')
+            ->addColumn('date', function (OPPreset $opPreset) {
+                return $opPreset->date->format('d/m/Y');
             })
-            ->addColumn('date', function (OP $op) {
-                return $op->date->format('d/m/Y');
+            ->addColumn('head_of_section_id', function (OPPreset $opPreset) {
+                return $opPreset->headOfSection->name;
             })
-            ->addColumn('head_of_section_id', function (OP $op) {
-                return $op->headOfSection->name;
-            })
-            ->rawColumns(['action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(OP $model): QueryBuilder {
+    public function query(OPPreset $model): QueryBuilder {
         $date_filter = request('date_filter');
 
         if ($date_filter) {
-            $model = $model->where('date', 'like', $date_filter . '%');
+            $model = $model->where('date_of_initial_use', 'like', $date_filter . '%');
         }
 
         return $model->newQuery();
@@ -49,7 +46,7 @@ class OPsDataTable extends DataTable {
      */
     public function html(): HtmlBuilder {
         return $this->builder()
-            ->setTableId('ops-table')
+            ->setTableId('op-presets-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->selectStyleSingle()
@@ -58,18 +55,11 @@ class OPsDataTable extends DataTable {
             ->addTableClass('w-100')
             ->buttons([
                 Button::make([
-                    'text' => '<i class="fas fa-plus"></i> Tambah OP',
-                    'action' => 'function() {
-                        window.location.href = "' . route('ops.create') . '";
-                    }',
-                    'className' => 'btn btn-default text-blue',
-                ]),
-                Button::make([
-                    'text' => '<i class="fas fa-plus"></i> Tambah OP Preset',
+                    'text' => '<i class="fas fa-plus"></i> Tambah OPPreset',
                     'action' => 'function() {
                         window.location.href = "' . route('op-presets.create') . '";
                     }',
-                    'className' => 'btn btn-default text-green',
+                    'className' => 'btn btn-default text-blue',
                 ]),
             ]);
     }
@@ -84,6 +74,7 @@ class OPsDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
+            Column::make('name')->title('Nama'),
             Column::make('department')->title('Departemen'),
             Column::make('code')->title('Kode'),
             Column::make('no')->title('Nomor'),
@@ -99,6 +90,6 @@ class OPsDataTable extends DataTable {
      * Get the filename for export.
      */
     protected function filename(): string {
-        return 'OPs_' . date('YmdHis');
+        return 'OPPresets_' . date('YmdHis');
     }
 }

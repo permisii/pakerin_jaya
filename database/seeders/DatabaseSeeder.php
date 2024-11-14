@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder {
             WorkProcessSeeder::class,
             PPSeeder::class,
             OPSeeder::class,
+            OPPresetSeeder::class,
         ]);
     }
 }

@@ -1,15 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{route('ops.store')}}" method="post" id="create-form">
-        {{--    <form action="{{route('ops.store')}}" method="post" id="create-form" onsubmit="confirmCreate(event)">--}}
+    <form action="{{ route('op-presets.store') }}" method="post" id="create-form">
         @csrf
         <div class="row">
             <div class="col-12">
                 <div class="card card-info card-outline card-outline-tabs">
-
                     <div class="card-body">
-                        <h6 class="text-divider mb-4"><span>Identity</span></h6>
+                        <h6 class="text-divider mb-4"><span>OP Preset Details</span></h6>
+
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label text-right">Nama</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control-sm" name="name" required>
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Department</label>
@@ -63,7 +68,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Kepala Seksi</label>
+                            <label class="col-sm-2 col-form-label text-right">Kepala Bagian</label>
                             <div class="col-sm-4">
                                 <select class="form-control form-control-sm select2" name="head_of_section_id"
                                         id="head_of_section_id" required>
@@ -72,14 +77,12 @@
                             </div>
                         </div>
 
-                        {{$dataTable->table()}}
-
                         <input type="hidden" name="created_by" value="{{auth()->user()->id }}">
                         <input type="hidden" name="updated_by" value="{{auth()->user()->id }}">
                     </div>
 
                     <div class="card-footer">
-                        <a href="{{ route('ops.index') }}" class="btn btn-default">
+                        <a href="{{ route('op-presets.index') }}" class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
                             Kembali
                         </a>
@@ -90,9 +93,9 @@
                                 Simpan
                             </button>
 
-                            <a class="btn btn-default text-maroon" href="{{route('ops.index')}}">
+                            <a class="btn btn-default text-maroon" href="{{ route('op-presets.index') }}">
                                 <i class="fas fa-ban"></i>
-                                Batalkan
+                                Batal
                             </a>
                         </div>
                     </div>
@@ -103,10 +106,8 @@
 @endsection
 
 @section('scripts')
-    {{$dataTable->scripts()}}
     <script>
         $(document).ready(function() {
-            let selectedPPs = [];
 
             $('.select2').select2({
                 placeholder: '-- Pilih Kepala Bagian --',
@@ -124,6 +125,7 @@
                     processResults: function(data) {
                         return {
                             results: data.data.map(function(user) {
+                                console.log(user);
                                 return {
                                     id: user.id,
                                     text: `Kepala Bagian ${user.unit?.name} - ${user.name}`,
@@ -135,52 +137,78 @@
                 },
             });
 
-            // Store selected checkboxes
-            $('#pps-table').on('change', 'input[name="pp_id[]"]', function() {
-                const ppId = $(this).val();
-                if ($(this).is(':checked')) {
-                    selectedPPs.push(ppId);
-                } else {
-                    selectedPPs = selectedPPs.filter(id => id !== ppId);
-                }
-            });
-
-            // Restore selected checkboxes when navigating between pages
-            $('#pps-table').on('draw.dt', function() {
-                $('input[name="pp_id[]"]').each(function() {
-                    if (selectedPPs.includes($(this).val())) {
-                        $(this).prop('checked', true);
-                    }
-                });
-            });
-
-            // Select/Deselect all checkboxes
-            $('#checkAll').on('change', function() {
-                const isChecked = $(this).is(':checked');
-                $('input[name="pp_id[]"]').each(function() {
-                    $(this).prop('checked', isChecked).trigger('change');
-                });
-            });
-
-            initializeValidation('#create-form', {
-                name: {
-                    required: true,
-                    minlength: 3,
-                },
-                op_code: {
-                    required: true,
-                    minlength: 3,
-                },
-            }, {
-                name: {
-                    required: 'Masukkan Nama',
-                    minlength: 'minimal 3 karakter',
-                },
-                op_code: {
-                    required: 'Masukkan Kode Op',
-                    minlength: 'minimal 3 karakter ',
-                },
-            });
         });
+
+        // initializeValidation('#create-form', {
+        //     name: {
+        //         required: true,
+        //         minlength: 3,
+        //     },
+        //     department: {
+        //         required: true,
+        //         minlength: 3,
+        //     },
+        //     code: {
+        //         required: true,
+        //         minlength: 3,
+        //     },
+        //     no: {
+        //         required: true,
+        //         minlength: 3,
+        //     },
+        //     date: {
+        //         required: true,
+        //     },
+        //     first_requestor: {
+        //         required: true,
+        //         minlength: 3,
+        //     },
+        //     second_requestor: {
+        //         required: true,
+        //         minlength: 3,
+        //     },
+        //     approved_by: {
+        //         required: true,
+        //         minlength: 3,
+        //     },
+        //     head_of_section_id: {
+        //         required: true,
+        //     },
+        // }, {
+        //     name: {
+        //         required: 'Masukkan Nama',
+        //         minlength: 'minimal 3 karakter',
+        //     },
+        //     department: {
+        //         required: 'Masukkan Department',
+        //         minlength: 'minimal 3 karakter',
+        //     },
+        //     code: {
+        //         required: 'Masukkan Kode',
+        //         minlength: 'minimal 3 karakter',
+        //     },
+        //     no: {
+        //         required: 'Masukkan Nomor',
+        //         minlength: 'minimal 3 karakter',
+        //     },
+        //     date: {
+        //         required: 'Masukkan Tanggal',
+        //     },
+        //     first_requestor: {
+        //         required: 'Masukkan Peminta 1',
+        //         minlength: 'minimal 3 karakter',
+        //     },
+        //     second_requestor: {
+        //         required: 'Masukkan Peminta 2',
+        //         minlength: 'minimal 3 karakter',
+        //     },
+        //     approved_by: {
+        //         required: 'Masukkan Disetujui Oleh',
+        //         minlength: 'minimal 3 karakter',
+        //     },
+        //     head_of_section_id: {
+        //         required: 'Pilih Kepala Bagian',
+        //     },
+        // });
     </script>
 @endsection

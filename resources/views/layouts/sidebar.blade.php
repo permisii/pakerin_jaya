@@ -149,6 +149,16 @@
                         </a>
                     </li>
                 @endif
+
+                @if (auth()->user()->hasPermission('read', 'op-presets'))
+                    <li class="nav-item">
+                        <a href="{{ route('op-presets.index') }}"
+                           class="nav-link {{ Request::is('op-presets*') ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-fw fa-paint-brush"></i>
+                            <p>OP Preset</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </nav>
     </div>
