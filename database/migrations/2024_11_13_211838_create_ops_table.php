@@ -12,9 +12,14 @@ return new class extends Migration {
         Schema::create('ops', function (Blueprint $table) {
             $table->id();
             $table->string('department');
+            /**
+             * TODO: possible new revision (and applied to op_presets too)
+             *  $table->string('department_code')->nullable();
+             *  $table->string('department_name')->nullable();
+             */
             $table->string('code');
-            $table->string('no');
-            $table->date('date');
+            $table->string('no')->nullable();
+            $table->string('date_needed');
             $table->string('first_requestor');
             $table->string('second_requestor');
             $table->string('approved_by');

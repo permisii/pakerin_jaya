@@ -48,6 +48,21 @@ class OPController extends Controller {
         $validated = $request->validated();
         $pps = $validated['pp_ids'];
 
+        // Handle the date_needed field based on the selection
+        switch ($validated['date_needed_select']) {
+            case '2_bulan':
+                //                $validated['date_needed'] = now()->addMonths(2)->toDateString();
+                $validated['date_needed'] = $validated['custom_date'];
+                break;
+            case 'urgent':
+                //                $validated['date_needed'] = now()->toDateString();
+                $validated['date_needed'] = 'Urgent';
+                break;
+            case 'custom_date':
+                $validated['date_needed'] = $validated['custom_date'];
+                break;
+        }
+
         $op = OP::create($validated);
 
         foreach ($pps as $ppId) {

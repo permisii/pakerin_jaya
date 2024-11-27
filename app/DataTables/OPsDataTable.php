@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\OP;
+use DateTime;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -21,8 +22,18 @@ class OPsDataTable extends DataTable {
             ->addColumn('action', function (OP $op) {
                 return view('ops.action', ['op' => $op]);
             })
-            ->addColumn('date', function (OP $op) {
-                return $op->date->format('d/m/Y');
+            ->addColumn('date_needed', function (OP $op) {
+                // Check if the value is a valid date
+                if ($op->isValidDate()) {
+                    // Format the valid date
+
+                    // TODO: refactor, used in ops/show.blade.php
+                    return (new DateTime($op->date_needed))->format('d/m/Y');
+                }
+
+                // If not a valid date, return the raw value
+                return $op->date_needed;
+
             })
             ->addColumn('head_of_section_id', function (OP $op) {
                 return $op->headOfSection->name;
@@ -38,7 +49,7 @@ class OPsDataTable extends DataTable {
         $date_filter = request('date_filter');
 
         if ($date_filter) {
-            $model = $model->where('date', 'like', $date_filter . '%');
+            $model = $model->where('created_at', 'like', $date_filter . '%');
         }
 
         return $model->newQuery();
@@ -87,7 +98,7 @@ class OPsDataTable extends DataTable {
             Column::make('department')->title('Departemen'),
             Column::make('code')->title('Kode'),
             Column::make('no')->title('Nomor'),
-            Column::make('date')->title('Tanggal'),
+            Column::make('date_needed')->title('Tanggal Dibutuhkan'),
             Column::make('first_requestor')->title('Peminta 1'),
             Column::make('second_requestor')->title('Peminta 2'),
             Column::make('approved_by')->title('Disetujui Oleh'),

@@ -14,8 +14,8 @@ return new class extends Migration {
             $table->string('name');
             $table->string('department');
             $table->string('code');
-            $table->string('no');
-            $table->date('date');
+            $table->string('no')->nullable();
+            //            $table->string('date-needed');
             $table->string('first_requestor');
             $table->string('second_requestor');
             $table->string('approved_by');

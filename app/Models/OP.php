@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Events\OPCreated;
+use App\Helpers\NumberHelper;
+use DateTime;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,7 +20,7 @@ class OP extends Model {
         'department',
         'code',
         'no',
-        'date',
+        'date_needed',
         'first_requestor',
         'second_requestor',
         'approved_by',
@@ -26,7 +29,8 @@ class OP extends Model {
         'updated_by',
     ];
     protected $casts = [
-        'date' => 'date',
+        // Datatable compilation error, because this date_needed sometimes NOT a date
+        // 'date_needed' => 'datetime',
     ];
 
     public function headOfSection(): BelongsTo {
@@ -51,5 +55,40 @@ class OP extends Model {
 
     public function canBeDeleted(): bool {
         return $this->pps()->count() === 0;
+    }
+
+    public function getCustomizedNoAttribute() {
+        // Get the current year
+        $currentYear = now()->year;
+
+        // Count the records for the current year
+        $rowPosition = OP::whereYear('date', $currentYear)->count() + 1;
+
+        // Get initial of head of section
+        $headOfSectionInitial = $this->headOfSection ? implode('', array_map(function ($word) {
+            return substr($word, 0, 1);
+        }, explode(' ', $this->headOfSection->name))) : '';
+
+        // Get department
+        $department = $this->department;
+
+        // Convert current month to Roman numerals
+        $currentMonth = now()->month;
+        $romanMonth = NumberHelper::intToRoman($currentMonth);
+
+        // Combine all parts
+        return "{$rowPosition}/{$headOfSectionInitial}/{$department}/{$romanMonth}/{$currentYear}";
+    }
+
+    public function isValidDate($format = 'Y-m-d'): bool {
+        $d = DateTime::createFromFormat($format, $this->date_needed);
+
+        return $d && $d->format($format) === $this->date_needed;
+    }
+
+    protected static function booted(): void {
+        static::created(function ($op) {
+            event(new OPCreated($op));
+        });
     }
 }

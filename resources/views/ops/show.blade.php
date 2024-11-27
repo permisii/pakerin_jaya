@@ -10,20 +10,28 @@
                 <tr>
                     <th colspan="2" class="text-center">COST CENTER</th>
                     <th colspan="5" rowspan="3" class="text-center align-middle">ORDER PEMBELIAN</th>
-                    <th colspan="1" class="text-left">NO</th>
-                    <th colspan="2" class="text-left">{{$op->no}}</th>
+                    <th colspan="2"></th>
+                    {{--                    <th colspan="1" class="text-left">NO</th>--}}
+                    {{--                    <th colspan="2" class="text-left">{{$op->no}}</th>--}}
                 </tr>
                 <tr>
                     <th colspan="1" class="text-left">NAMA:</th>
                     <th colspan="1" class="text-left">{{$op->department}}</th>
                     <th colspan="1" class="text-left">TGL:</th>
-                    <th colspan="2" class="text-left">{{$op->date->format('d-m-Y')}}</th>
+                    <th colspan="1" class="text-left">
+                        @if($op->isValidDate())
+                            {{(new DateTime($op->date_needed))->format('d/m/Y')}}
+                        @else
+                            {{$op->date_needed}}
+                        @endif
+                    </th>
                 </tr>
                 <tr>
                     <th colspan="1" class="text-left">KODE:</th>
                     <th colspan="1" class="text-left">{{$op->code}}</th>
                     <th colspan="1" class="text-left">NO:</th>
-                    <th colspan="2" class="text-left">{{$op->no}}</th>
+                    <th colspan="1" class="text-left">{{$op->no}}</th>
+
                 </tr>
                 <tr>
                     <th rowspan="2" class=" align-middle">NO.</th>
@@ -35,9 +43,9 @@
                     <th rowspan="2" class=" align-middle">KETERANGAN</th>
                 </tr>
                 <tr>
-                    <th>SISA</th>
-                    <th>PERLU</th>
-                    <th>BELI</th>
+                    <th colspan="1">SISA</th>
+                    <th colspan="1">PERLU</th>
+                    <th colspan="1">BELI</th>
                 </tr>
                 </thead>
                 <tbody>

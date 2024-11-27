@@ -43,5 +43,7 @@ class DatabaseSeeder extends Seeder {
             OPSeeder::class,
             OPPresetSeeder::class,
         ]);
+
+        UnitSeeder::addHeadOfUnitIdForEachOfUnits();
     }
 }

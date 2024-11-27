@@ -24,7 +24,7 @@ class OPPresetController extends Controller {
 
         switch ($intent) {
             case IntentEnum::OP_PRESET_SELECT2_SEARCH_OP_PRESETS->value:
-                $opPresets = $this->search($request, OPPreset::class, ['name', 'department', 'code', 'no', 'date', 'first_requestor', 'second_requestor', 'approved_by']);
+                $opPresets = $this->search($request, OPPreset::class, ['name', 'department', 'code', 'no', 'first_requestor', 'second_requestor', 'approved_by']);
                 $opPresets = $this->applyColumnFilters($opPresets, $request, ['head_of_section_id']);
                 $opPresets->with('headOfSection');
 

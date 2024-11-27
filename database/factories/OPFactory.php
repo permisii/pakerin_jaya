@@ -22,7 +22,7 @@ class OPFactory extends Factory {
             'department' => $this->faker->word,
             'code' => $this->faker->word,
             'no' => $this->faker->word,
-            'date' => $this->faker->date(),
+            'date_needed' => $this->faker->date(),
             'first_requestor' => $this->faker->name,
             'second_requestor' => $this->faker->name,
             'approved_by' => $this->faker->name,
