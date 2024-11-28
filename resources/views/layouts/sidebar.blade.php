@@ -130,6 +130,8 @@
                     </li>
                 @endif
 
+                <li class="nav-header">PP</li>
+
                 @if (auth()->user()->hasPermission('read', 'pps'))
                     <li class="nav-item">
                         <a href="{{ route('pps.index') }}"
