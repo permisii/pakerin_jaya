@@ -13,9 +13,9 @@ return new class extends Migration {
         Schema::create('pps', function (Blueprint $table) {
             $table->id();
             $table->string('item_name');
-            $table->integer('remaining');
-            $table->integer('need');
-            $table->integer('buy');
+            $table->integer('remaining')->nullable();
+            $table->integer('need')->nullable();
+            $table->integer('buy')->nullable();
             $table->string('unit');
             $table->date('need_date');
             $table->text('description');

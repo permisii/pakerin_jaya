@@ -18,9 +18,9 @@ class PPFactory extends Factory {
     public function definition(): array {
         return [
             'item_name' => $this->faker->word,
-            'remaining' => $this->faker->randomNumber(2),
-            'need' => $this->faker->randomNumber(2),
-            'buy' => $this->faker->randomNumber(2),
+            //            'remaining' => $this->faker->randomNumber(2),
+            //            'need' => $this->faker->randomNumber(2),
+            //            'buy' => $this->faker->randomNumber(2),
             'unit' => $this->faker->word,
             'need_date' => $this->faker->date(),
             'description' => $this->faker->sentence,
