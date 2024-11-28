@@ -23,8 +23,8 @@ class UpdateOPRequest extends FormRequest {
             'pp_ids.*' => 'nullable|integer|exists:pps,id',
             'department' => 'nullable|string|max:255',
             'code' => 'nullable|string|max:255',
-            'no' => 'nullable|string|max:255',
-            'date' => 'nullable|date',
+            //            'no' => 'nullable|string|max:255', // automatically generated
+            'date-needed' => 'nullable|string|max:255',
             'first_requestor' => 'nullable|string|max:255',
             'second_requestor' => 'nullable|string|max:255',
             'approved_by' => 'nullable|string|max:255',

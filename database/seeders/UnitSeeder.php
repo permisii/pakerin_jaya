@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Unit;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UnitSeeder extends Seeder {
@@ -29,6 +30,15 @@ class UnitSeeder extends Seeder {
 
         foreach ($units as $unit) {
             Unit::create($unit);
+        }
+    }
+
+    public static function addHeadOfUnitIdForEachOfUnits() {
+        $units = Unit::all();
+
+        foreach ($units as $unit) {
+            $unit->head_of_unit_id = User::inRandomOrder()->first()->id;
+            $unit->save();
         }
     }
 }

@@ -21,7 +21,9 @@ class UpdatePPRequest extends FormRequest {
     public function rules(): array {
         return [
             'item_name' => ['nullable', 'string'],
+            'remaining' => ['nullable', 'integer'],
             'need' => ['nullable', 'integer'],
+            'buy' => ['nullable', 'integer'],
             'unit' => ['nullable', 'string'],
             'need_date' => ['nullable', 'date'],
             'description' => ['nullable', 'string'],

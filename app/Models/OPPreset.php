@@ -15,16 +15,13 @@ class OPPreset extends Model {
         'department',
         'code',
         'no',
-        'date',
+        //        'date-needed',
         'first_requestor',
         'second_requestor',
         'approved_by',
         'head_of_section_id',
         'updated_by',
         'created_by',
-    ];
-    protected $casts = [
-        'date' => 'date',
     ];
 
     public function headOfSection(): BelongsTo {

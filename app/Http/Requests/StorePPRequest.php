@@ -21,11 +21,13 @@ class StorePPRequest extends FormRequest {
     public function rules(): array {
         return [
             'item_name' => ['required', 'string'],
+            'remaining' => ['required', 'integer'],
             'need' => ['required', 'integer'],
+            'buy' => ['required', 'integer'],
             'unit' => ['required', 'string'],
             'need_date' => ['required', 'date'],
             'description' => ['required', 'string'],
-            'status' => ['required', 'string', 'in:' . implode(',', PPStatusEnum::toArray())],
+            'status' => ['nullable', 'string', 'in:' . implode(',', PPStatusEnum::toArray())],
             'created_by' => ['required', 'integer', 'exists:users,id'],
             'updated_by' => ['required', 'integer', 'exists:users,id'],
         ];

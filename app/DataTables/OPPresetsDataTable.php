@@ -19,9 +19,9 @@ class OPPresetsDataTable extends DataTable {
     public function dataTable(QueryBuilder $query): EloquentDataTable {
         return (new EloquentDataTable($query))
             ->addColumn('action', 'op-presets.action')
-            ->addColumn('date', function (OPPreset $opPreset) {
-                return $opPreset->date->format('d/m/Y');
-            })
+//            ->addColumn('date', function (OPPreset $opPreset) {
+//                return $opPreset->date->format('d/m/Y');
+//            })
             ->addColumn('head_of_section_id', function (OPPreset $opPreset) {
                 return $opPreset->headOfSection->name;
             })
@@ -78,7 +78,7 @@ class OPPresetsDataTable extends DataTable {
             Column::make('department')->title('Departemen'),
             Column::make('code')->title('Kode'),
             Column::make('no')->title('Nomor'),
-            Column::make('date')->title('Tanggal'),
+            //            Column::make('date')->title('Tanggal'),
             Column::make('first_requestor')->title('Peminta 1'),
             Column::make('second_requestor')->title('Peminta 2'),
             Column::make('approved_by')->title('Disetujui Oleh'),

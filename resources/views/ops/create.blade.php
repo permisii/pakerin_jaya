@@ -35,17 +35,31 @@
                             </div>
                         </div>
 
+                        {{--                        <div class="form-group row">--}}
+                        {{--                            <label class="col-sm-2 col-form-label text-right">Nomor</label>--}}
+                        {{--                            <div class="col-sm-4">--}}
+                        {{--                                <input type="text" class="form-control form-control form-control-sm" name="no">--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Nomor</label>
+                            <label class="col-sm-2 col-form-label text-right">Date Needed</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control form-control form-control-sm" name="no">
+                                <select class="form-control form-control-sm" id="date-needed-select"
+                                        name="date_needed_select">
+                                    <option value="2_bulan">2 Bulan</option>
+                                    {{-- Urgent by default selected to handle both date not triggered --}}
+                                    <option value="urgent" selected>Urgent</option>
+                                    <option value="custom_date">Custom Date</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Tanggal</label>
+                        <div class="form-group row" id="custom-date-group" style="display: none;">
+                            <label class="col-sm-2 col-form-label text-right">Custom Date</label>
                             <div class="col-sm-4">
-                                <input type="date" class="form-control form-control form-control-sm" name="date">
+                                <input type="date" class="form-control form-control-sm" name="custom_date"
+                                       id="custom-date-input">
                             </div>
                         </div>
 
@@ -179,13 +193,18 @@
             });
 
             function updateFormFields(data) {
+                console.log(data);
                 $('input[name="department"]').val(data.department);
                 $('input[name="code"]').val(data.code);
                 $('input[name="no"]').val(data.no);
-                $('input[name="date"]').val(data.date.split('T')[0]); // Format date
+                // $('input[name="date"]').val(data.date.split('T')[0]); // Format date
                 $('input[name="first_requestor"]').val(data.first_requestor);
                 $('input[name="second_requestor"]').val(data.second_requestor);
                 $('input[name="approved_by"]').val(data.approved_by);
+                // search for the head of section and trigger the change event to update the select2
+                $('#head_of_section_id').select2('open');
+                $('input.select2-search__field').eq(0).val(data.head_of_section.name).trigger('input');
+
                 $('#head_of_section_id').val(data.head_of_section_id).trigger('change');
             }
 
@@ -214,6 +233,40 @@
                 $('input[name="pp_ids[]"]').each(function() {
                     $(this).prop('checked', isChecked).trigger('change');
                 });
+            });
+
+            const dateNeededSelect = document.getElementById('date-needed-select');
+            const customDateGroup = document.getElementById('custom-date-group');
+            const customDateInput = document.getElementById('custom-date-input');
+
+            dateNeededSelect.addEventListener('change', function() {
+                if (this.value === 'custom_date') {
+                    // Show the custom date field
+                    customDateGroup.style.display = 'flex';
+                    customDateInput.removeAttribute('min');
+                    customDateInput.removeAttribute('max');
+                } else if (this.value === '2_bulan') {
+                    // Show the custom date field with restricted range
+                    customDateGroup.style.display = 'flex';
+
+                    const currentDate = new Date();
+                    const twoMonthsLater = new Date(currentDate);
+                    twoMonthsLater.setMonth(currentDate.getMonth() + 2);
+
+                    // Format the dates as YYYY-MM-DD for the input[type="date"]
+                    const minDate = currentDate.toISOString().split('T')[0];
+                    const maxDate = twoMonthsLater.toISOString().split('T')[0];
+
+                    // Set the min and max attributes for the custom date input
+                    customDateInput.setAttribute('min', minDate);
+                    customDateInput.setAttribute('max', maxDate);
+                    customDateInput.value = ''; // Clear any previous value to enforce range
+                } else {
+                    // Hide the custom date field for other options
+                    customDateGroup.style.display = 'none';
+                    customDateInput.removeAttribute('min');
+                    customDateInput.removeAttribute('max');
+                }
             });
 
             initializeValidation('#create-form', {

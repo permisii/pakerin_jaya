@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreOPRequest extends FormRequest {
     /**
@@ -23,8 +24,13 @@ class StoreOPRequest extends FormRequest {
             'pp_ids.*' => 'required|integer|exists:pps,id',
             'department' => 'required|string|max:255',
             'code' => 'required|string|max:255',
-            'no' => 'required|string|max:255',
-            'date' => 'required|date',
+            //            'no' => 'required|string|max:255', // automatically generated
+            'date_needed_select' => ['required', Rule::in(['2_bulan', 'urgent', 'custom_date'])],
+            'custom_date' => [
+                'nullable',
+                'date',
+                Rule::requiredIf($this->input('date_needed_select') === 'custom_date'),
+            ],
             'first_requestor' => 'required|string|max:255',
             'second_requestor' => 'required|string|max:255',
             'approved_by' => 'required|string|max:255',

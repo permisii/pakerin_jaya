@@ -20,7 +20,7 @@ class OPPresetFactory extends Factory {
             'department' => $this->faker->name,
             'code' => $this->faker->name,
             'no' => $this->faker->name,
-            'date' => $this->faker->date(),
+            //            'date-needed' => $this->faker->date(),
             'first_requestor' => $this->faker->name,
             'second_requestor' => $this->faker->name,
             'approved_by' => $this->faker->name,
