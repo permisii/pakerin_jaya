@@ -89,7 +89,9 @@ class PPsDataTable extends DataTable {
                 ->width(60)
                 ->addClass('text-center'),
             Column::make('item_name')->title('Nama Barang'),
+            Column::make('remaining')->title('Sisa'),
             Column::make('need')->title('Kebutuhan'),
+            Column::make('buy')->title('Pembelian'),
             Column::make('unit')->title('Satuan'),
             Column::make('need_date')->title('Tanggal Kebutuhan'),
             Column::make('status')->title('Status'),
