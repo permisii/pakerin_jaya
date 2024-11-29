@@ -72,18 +72,19 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Status</label>
-                            <div class="col-sm-4">
-                                <select name="status" class="form-control form-control-sm" required>
-                                    <option value="">Pilih Status</option>
-                                    @foreach(\App\Support\Enums\PPStatusEnum::cases() as $case)
-                                        <option value="{{ $case->value }}"
-                                                @if($pp->status->value === $case->value) selected @endif>{{ $case->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
+                        {{--                        <div class="form-group row">--}}
+                        {{--                            <label class="col-sm-2 col-form-label text-right">Status</label>--}}
+                        {{--                            <div class="col-sm-4">--}}
+                        {{--                                <select name="status" class="form-control form-control-sm" required>--}}
+                        {{--                                    <option value="">Pilih Status</option>--}}
+                        {{--                                    @foreach(\App\Support\Enums\PPStatusEnum::cases() as $case)--}}
+                        {{--                                        <option value="{{ $case->value }}"--}}
+                        {{--                                                @if($pp->status->value === $case->value) selected @endif>{{ $case->name }}</option>--}}
+                        {{--                                    @endforeach--}}
+                        {{--                                </select>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
+
                         <input type="hidden" name="updated_by" value="{{auth()->user()->id}}">
                     </div>
 
