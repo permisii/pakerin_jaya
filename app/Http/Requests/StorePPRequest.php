@@ -21,9 +21,9 @@ class StorePPRequest extends FormRequest {
     public function rules(): array {
         return [
             'item_name' => ['required', 'string'],
-            'remaining' => ['required', 'integer'],
-            'need' => ['required', 'integer'],
-            'buy' => ['required', 'integer'],
+            'remaining' => ['nullable', 'integer'],
+            'need' => ['nullable', 'integer'],
+            'buy' => ['nullable', 'integer'],
             'unit' => ['required', 'string'],
             'need_date' => ['required', 'date'],
             'description' => ['required', 'string'],
