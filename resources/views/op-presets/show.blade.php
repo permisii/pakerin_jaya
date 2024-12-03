@@ -21,7 +21,7 @@
                                     <label class="col-sm-2 col-form-label text-right">Nama</label>
                                     <div class="col-sm-4">
                                         <input type="text" class="form-control form-control-sm" name="name"
-                                               value="{{ $opPreset->name }}" required>
+                                               value="{{ $opPreset->name }}">
                                     </div>
                                 </div>
 
@@ -86,7 +86,7 @@
                                     <div class="col-sm-4">
                                         <select class="form-control form-control-sm select2"
                                                 name="head_of_section_id"
-                                                id="head_of_section_id" required>
+                                                id="head_of_section_id">
                                             <!-- Options will be populated dynamically -->
                                         </select>
                                     </div>
