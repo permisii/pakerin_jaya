@@ -5,84 +5,103 @@
 @section('content')
     <div class="container mt-5">
         <div class="card p-4">
-            <table id="printableTable" class="table table-bordered text-center">
+            <table id="printableTable" style="width: 236.97mm; border-collapse: collapse;">
                 <thead>
                 <tr>
-                    <th colspan="2" class="text-center">COST CENTER</th>
-                    <th colspan="5" rowspan="3" class="text-center align-middle">ORDER PEMBELIAN</th>
-                    <th colspan="2"></th>
-                    {{--                    <th colspan="1" class="text-left">NO</th>--}}
-                    {{--                    <th colspan="2" class="text-left">{{$op->no}}</th>--}}
+                    <th colspan="2"
+                        style="width: 63.23mm; height: 4.33mm; text-align: center; border: 1px solid black;">COST CENTER
+                    </th>
+                    <th colspan="5" rowspan="3"
+                        style="width: 70.67mm; height: 17.44mm; text-align: center; border: 1px solid black;">ORDER
+                        PEMBELIAN
+                    </th>
+
+                    <th rowspan="2" style="width: 16.42mm; height: 8.74mm; border: 1px solid black;">NO:</th>
+                    <th rowspan="2" style="width: 45.07mm; height: 8.74mm; border: 1px solid black;">{{$op->no}}</th>
                 </tr>
                 <tr>
-                    <th colspan="1" class="text-left">NAMA:</th>
-                    <th colspan="1" class="text-left">{{$op->department}}</th>
-                    <th colspan="1" class="text-left">TGL:</th>
-                    <th colspan="1" class="text-left">
+                    <th style="width: 16.42mm; height: 6.56mm; border: 1px solid black;">NAMA:</th>
+                    <th style="width: 45.07mm; height: 6.56mm; border: 1px solid black;">{{$op->department}}</th>
+
+                </tr>
+                <tr>
+                    <th style="width: 16.42mm; height: 6.56mm; border: 1px solid black;">KODE:</th>
+                    <th style="width: 45.07mm; height: 6.56mm; border: 1px solid black;">{{$op->code}}</th>
+                    <th style="width: 16.42mm; height: 8.74mm; border: 1px solid black;">TGL:</th>
+                    <th style="width: 45.07mm; height: 8.74mm; border: 1px solid black;">
                         @if($op->isValidDate())
-                            {{(new DateTime($op->date_needed))->format('d/m/Y')}}
+                            {{(new DateTime($op->date_needed))->format('d F Y')}}
                         @else
                             {{$op->date_needed}}
                         @endif
                     </th>
                 </tr>
                 <tr>
-                    <th colspan="1" class="text-left">KODE:</th>
-                    <th colspan="1" class="text-left">{{$op->code}}</th>
-                    <th colspan="1" class="text-left">NO:</th>
-                    <th colspan="1" class="text-left">{{$op->no}}</th>
-
+                    <th rowspan="2"
+                        style="width: 10.60mm; height: 12.77mm; border: 1px solid black; text-align: center;">NO.
+                    </th>
+                    <th rowspan="2"
+                        style="width: 46.32mm; height: 12.77mm; border: 1px solid black; text-align: center;">NAMA
+                        BARANG
+                    </th>
+                    <th rowspan="2"
+                        style="width: 21.81mm; height: 12.77mm; border: 1px solid black; text-align: center;">INDEX
+                    </th>
+                    <th colspan="3"
+                        style="width: 35.75mm; height: 6.67mm; text-align: center; border: 1px solid black;">KWANTUM
+                    </th>
+                    <th rowspan="2"
+                        style="width: 11.33mm; height: 12.77mm; border: 1px solid black; text-align: center;">UNIT
+                    </th>
+                    <th rowspan="2"
+                        style="width: 14.75mm; height: 12.77mm; border: 1px solid black; text-align: center;">TGL. BUTUH
+                    </th>
+                    <th rowspan="2"
+                        style="width: 56.22mm; height: 12.77mm; border: 1px solid black; text-align: center;">KETERANGAN
+                    </th>
                 </tr>
                 <tr>
-                    <th rowspan="2" class=" align-middle">NO.</th>
-                    <th rowspan="2" class=" align-middle">NAMA BARANG</th>
-                    <th rowspan="2" class=" align-middle">INDEX</th>
-                    <th colspan="3" class=" align-middle">KWANTUM</th>
-                    <th rowspan="2" colspan="1" class=" align-middle">UNIT</th>
-                    <th rowspan="2" class=" align-middle">TGL. BUTUH</th>
-                    <th rowspan="2" class=" align-middle">KETERANGAN</th>
-                </tr>
-                <tr>
-                    <th colspan="1">SISA</th>
-                    <th colspan="1">PERLU</th>
-                    <th colspan="1">BELI</th>
+                    <th style="width: 11.44mm; height: 6.67mm; border: 1px solid black; text-align: center;">SISA</th>
+                    <th style="width: 11.44mm; height: 6.67mm; border: 1px solid black; text-align: center;">PERLU</th>
+                    <th style="width: 11.44mm; height: 6.67mm; border: 1px solid black; text-align: center;">BELI</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($op->pps as $pp)
                     <tr>
-                        <td>{{$loop->iteration}}</td>
-                        <td class="text-left">{{$pp->item_name}}</td>
-                        <td class="text-left"></td>
-                        <td>{{$pp->remaining}}</td>
-                        <td>{{$pp->need}}</td>
-                        <td>{{$pp->buy}}</td>
-                        <td>{{$pp->unit}}</td>
-                        <td>{{$pp->need_date->format('d-m-Y')}}</td>
-                        <td class="text-left">{{$pp->description}}</td>
+                        <td style="width: 10.60mm; height: 5.77mm; border: 1px solid black;">{{$loop->iteration}}</td>
+                        <td style="width: 46.32mm; height: 5.77mm; text-align: left; border: 1px solid black;">{{$pp->item_name}}</td>
+                        <td style="width: 21.81mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 11.44mm; height: 5.77mm; border: 1px solid black;">{{$pp->remaining}}</td>
+                        <td style="width: 11.44mm; height: 5.77mm; border: 1px solid black;">{{$pp->need}}</td>
+                        <td style="width: 11.44mm; height: 5.77mm; border: 1px solid black;">{{$pp->buy}}</td>
+                        <td style="width: 11.33mm; height: 5.77mm; border: 1px solid black;">{{$pp->unit}}</td>
+                        <td style="width: 14.75mm; height: 5.77mm; border: 1px solid black;">{{$pp->need_date->format('d-m-y')}}</td>
+                        <td style="width: 56.22mm; height: 5.77mm; text-align: left; border: 1px solid black;">{{$pp->description}}</td>
                     </tr>
                 @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
-                    <td colspan="2" class="border-0 align-bottom" style="height: 200px; width: 300px">
-                        <p>{{$op->first_requestor}}</p>
+                    <td colspan="2"
+                        style="width: 103.07mm; height: 21.78mm; border: 1px solid black; vertical-align: bottom">
+                        <p class="m-0 mb-1">{{$op->first_requestor}}</p>
                     </td>
-                    <td colspan="2" class="border-0 align-bottom" style="height: 200px; width: 300px">
-                        <p>{{$op->second_requestor}}</p>
+                    <td colspan="2"
+                        style="width: 103.07mm; height: 21.78mm; border: 1px solid black; vertical-align: bottom">
+                        <p class="m-0 mb-1">{{$op->second_requestor}}</p>
                     </td>
-                    <td colspan="2" class="border-0"></td>
-                    <td colspan="2" style="height: 200px; width: 300px">
-                        <div class="d-flex flex-column justify-content-between h-100">
+                    <td colspan="3" style="width: 49.61mm; height: 21.78mm; border: 1px solid black;">
+                        <div class="d-flex flex-column justify-content-between text-center h-100">
                             <p>DISETUJUI</p>
-                            <p style="text-underline-offset: 8px"><u>{{$op->approved_by}}</u></p>
+                            <p class="m-0 mb-1" style="text-underline-offset: 8px"><u>{{$op->approved_by}}</u></p>
                         </div>
                     </td>
-                    <td colspan="2" class="border-0 d-flex flex-column justify-content-between"
-                        style="height: 200px; width: 300px">
-                        <div class="d-flex flex-column justify-content-between h-100">
+                    <td colspan="2" style="width: 44.21mm; height: 21.78mm; border: 1px solid black;">
+                        <div class="d-flex flex-column justify-content-between text-center h-100">
                             <p>DIMINTA</p>
-                            <p style="text-underline-offset: 8px"><u>{{$op->headOfSection->name}}</u></p>
+                            <p class="m-0 mb-1" style="text-underline-offset: 8px"><u>{{$op->headOfSection->name}}</u>
+                            </p>
                         </div>
                     </td>
                 </tr>
@@ -99,56 +118,6 @@
             </div>
         </div>
     </div>
-
-    {{--    <form action="{{ route('ops.update', $op->id) }}" method="post" id="update-form-{{$op->id}}"--}}
-    {{--          onsubmit="confirmUpdate(event, {{$op->id}})">--}}
-    {{--        @csrf--}}
-    {{--        @method('PUT')--}}
-    {{--        <div class="row">--}}
-    {{--            <div class="col-12">--}}
-    {{--                <div class="card card-info card-outline card-outline-tabs">--}}
-
-    {{--                    <div class="card-body">--}}
-    {{--                        <h6 class="text-divider mb-4"><span>Data</span></h6>--}}
-    {{--                        <div class="form-group row">--}}
-    {{--                            <label class="col-sm-2 col-form-label text-right">Nama</label>--}}
-    {{--                            <div class="col-sm-4">--}}
-    {{--                                <input type="text" class="form-control form-control-sm" name="name"--}}
-    {{--                                       value="{{ $op->name }}">--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-
-    {{--                        <div class="form-group row">--}}
-    {{--                            <label class="col-sm-2 col-form-label text-right">Kode</label>--}}
-    {{--                            <div class="col-sm-4">--}}
-    {{--                                <input type="text" class="form-control form-control-sm" name="op_code"--}}
-    {{--                                       value="{{ $op->op_code }}">--}}
-    {{--                            </div>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-
-    {{--                    <div class="card-footer">--}}
-    {{--                        <a href="{{ route('ops.index') }}" class="btn btn-default">--}}
-    {{--                            <i class="fa fa-fw fa-arrow-left"></i>--}}
-    {{--                            Kembali--}}
-    {{--                        </a>--}}
-
-    {{--                        <div class="btn-group float-right">--}}
-    {{--                            <button class="btn btn-default text-blue">--}}
-    {{--                                <i class="fa fa-fw fa-save"></i>--}}
-    {{--                                Ubah--}}
-    {{--                            </button>--}}
-
-    {{--                            <a class="btn btn-default text-maroon" href="{{route('ops.index')}}">--}}
-    {{--                                <i class="fas fa-ban"></i>--}}
-    {{--                                Batalkan--}}
-    {{--                            </a>--}}
-    {{--                        </div>--}}
-    {{--                    </div>--}}
-    {{--                </div>--}}
-    {{--            </div>--}}
-    {{--        </div>--}}
-    {{--    </form>--}}
 @endsection
 
 @section('scripts')
