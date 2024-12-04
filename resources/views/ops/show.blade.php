@@ -5,6 +5,7 @@
 @section('content')
     <div class="container mt-5">
         <div class="card p-4">
+            {{--            TODO: Hybrid styling header(flex) items(table) --}}
             <div class="flex-container" id="printableArea"
                  style="display: flex; flex-direction: column; width: 195.39mm; font-size: 12px; border: 1px solid black">
 
@@ -129,7 +130,7 @@
 
                 <div class="footer-row" style="display: flex; height: 21.78mm">
                     <div
-                        style="width: 103.07mm; border-right: 1px solid black; vertical-align: bottom; display: flex; flex: 1; justify-content: space-between; align-items: end">
+                        style="width: 103.07mm; border-right: 1px solid black; vertical-align: bottom; display: flex; flex: 1; justify-content: space-between; align-items: end; padding: 0 15px">
                         <p class="m-0 mb-1">{{$op->first_requestor}}</p>
                         <p class="m-0 mb-1">{{$op->second_requestor}}</p>
                     </div>
