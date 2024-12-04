@@ -104,6 +104,12 @@
                     <div style="flex: 1;"></div>
                 </div>
 
+                @php
+                    $totalRows = 16;
+                    $existingRows = $op->pps->count();
+                    $remainingRows = $totalRows - $existingRows;
+                @endphp
+
                 @foreach($op->pps as $pp)
                     {{--                    remove the height so the value can adapt, but who knows --}}
 
@@ -127,6 +133,21 @@
                         <div style="flex: 1;"></div>
                     </div>
                 @endforeach
+
+                @for ($i = 0; $i < $remainingRows; $i++)
+                    <div class="data-row" style="display: flex; height: 5.77mm; border-bottom: 1px solid black;">
+                        <div style="width: 10.60mm; border-right: 1px solid black;"></div>
+                        <div style="width: 46.32mm; border-right: 1px solid black;"></div>
+                        <div style="width: 21.81mm; border-right: 1px solid black;"></div>
+                        <div style="width: 11.44mm; border-right: 1px solid black;"></div>
+                        <div style="width: 11.44mm; border-right: 1px solid black;"></div>
+                        <div style="width: 11.44mm; border-right: 1px solid black;"></div>
+                        <div style="width: 11.13mm; border-right: 1px solid black;"></div>
+                        <div style="width: 14.75mm; border-right: 1px solid black;"></div>
+                        <div style="width: 56.22mm;"></div>
+                        <div style="flex: 1;"></div>
+                    </div>
+                @endfor
 
                 <div class="footer-row" style="display: flex; height: 21.78mm">
                     <div
