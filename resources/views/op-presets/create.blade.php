@@ -24,7 +24,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Kode</label>
+                            <label class="col-sm-2 col-form-label text-right">Kode Kasi</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control form-control-sm" name="code">
                             </div>
@@ -45,7 +45,7 @@
                         {{--                        </div>--}}
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Peminta 1</label>
+                            <label class="col-sm-2 col-form-label text-right">Divisi Head</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control form-control-sm"
                                        name="first_requestor">
@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label text-right">Peminta 2</label>
+                            <label class="col-sm-2 col-form-label text-right">Plan Manager</label>
                             <div class="col-sm-4">
                                 <input type="text" class="form-control form-control form-control-sm"
                                        name="second_requestor">

@@ -86,9 +86,9 @@ class OP extends Model {
         return $d && $d->format($format) === $this->date_needed;
     }
 
-    protected static function booted(): void {
-        static::created(function ($op) {
-            event(new OPCreated($op));
-        });
-    }
+    //    protected static function booted(): void {
+    //        static::created(function ($op) {
+    //            event(new OPCreated($op));
+    //        });
+    //    }
 }

@@ -24,7 +24,7 @@ class StoreOPRequest extends FormRequest {
             'pp_ids.*' => 'required|integer|exists:pps,id',
             'department' => 'required|string|max:255',
             'code' => 'required|string|max:255',
-            //            'no' => 'required|string|max:255', // automatically generated
+            'no' => 'required|string|max:255', // automatically generated
             'date_needed_select' => ['required', Rule::in(['2_bulan', 'urgent', 'custom_date'])],
             'custom_date' => [
                 'nullable',
