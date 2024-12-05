@@ -67,6 +67,13 @@
                 </tr>
                 </thead>
                 <tbody>
+
+                @php
+                    $totalRows = 16;
+                    $existingRows = $op->pps->count();
+                    $remainingRows = $totalRows - $existingRows;
+                @endphp
+
                 @foreach($op->pps as $pp)
                     <tr>
                         <td style="width: 10.60mm; height: 5.77mm; border: 1px solid black;">{{$loop->iteration}}</td>
@@ -80,6 +87,20 @@
                         <td style="width: 56.22mm; height: 5.77mm; text-align: left; border: 1px solid black;">{{$pp->description}}</td>
                     </tr>
                 @endforeach
+
+                @for ($i = 0; $i < $remainingRows; $i++)
+                    <tr>
+                        <td style="width: 10.60mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 46.32mm; height: 5.77mm; text-align: left; border: 1px solid black;"></td>
+                        <td style="width: 21.81mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 11.44mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 11.44mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 11.44mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 11.33mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 14.75mm; height: 5.77mm; border: 1px solid black;"></td>
+                        <td style="width: 56.22mm; height: 5.77mm; text-align: left; border: 1px solid black;"></td>
+                    </tr>
+                @endfor
                 </tbody>
                 <tfoot>
                 <tr>
