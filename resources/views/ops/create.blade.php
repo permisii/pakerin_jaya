@@ -35,12 +35,12 @@
                             </div>
                         </div>
 
-                        {{--                        <div class="form-group row">--}}
-                        {{--                            <label class="col-sm-2 col-form-label text-right">Nomor</label>--}}
-                        {{--                            <div class="col-sm-4">--}}
-                        {{--                                <input type="text" class="form-control form-control form-control-sm" name="no">--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label text-right">Nomor</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="form-control form-control form-control-sm" name="no">
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Date Needed</label>
