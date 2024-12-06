@@ -96,7 +96,7 @@
                             </div>
                         </div>
 
-                        {{$dataTable->table()}}
+                        {{$dataTable->table(['class' => 'table table-bordered'])}}
 
                         <input type="hidden" name="created_by" value="{{auth()->user()->id }}">
                         <input type="hidden" name="updated_by" value="{{auth()->user()->id }}">

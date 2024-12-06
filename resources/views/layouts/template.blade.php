@@ -20,6 +20,7 @@
           href="{{ asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('select2/select2.min.css') }}">
+    <link href="{{asset('quill/quill.snow.css')}}" rel="stylesheet" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -64,6 +65,8 @@
 <script src="{{ asset('adminlte/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 <script src="{{ asset('select2/select2.min.js') }}"></script>
+<script src="{{asset('quill/quill.js')}}"></script>
+
 @yield('scripts')
 
 {{--@include('layouts.validation_alert')--}}

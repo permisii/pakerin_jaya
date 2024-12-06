@@ -50,7 +50,7 @@ class PCServiceCardsDataTable extends DataTable {
                     </div>
                 ';
             })
-            ->rawColumns(['action', 'workers'])
+            ->rawColumns(['action', 'workers', 'description'])
             ->setRowId('id');
     }
 

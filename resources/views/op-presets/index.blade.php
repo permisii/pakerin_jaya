@@ -34,7 +34,7 @@
                     </div>
                 </div>
 
-                {{$dataTable->table()}}
+                {{$dataTable->table(['class' => 'table table-bordered'])}}
             </div>
         </div>
     </div>

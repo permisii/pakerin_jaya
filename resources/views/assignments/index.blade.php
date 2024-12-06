@@ -36,7 +36,7 @@
             </form>
 
             <div class="card-body">
-                {{$dataTable->table()}}
+                {{$dataTable->table(['class' => 'table table-bordered'])}}
             </div>
         </div>
     </div>

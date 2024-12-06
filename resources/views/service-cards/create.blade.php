@@ -12,7 +12,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
-                                <input class="form-control form-control-sm" name="assignment_number" required/>
+                                <input class="form-control form-control-sm" name="assignment_number" required />
                             </div>
                         </div>
 
@@ -26,7 +26,8 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Pekerja</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2" name="worker_ids[]" id="worker_ids" multiple required>
+                                <select class="form-control form-control-sm select2" name="worker_ids[]" id="worker_ids"
+                                        multiple required>
                                     <!-- Options will be populated dynamically -->
                                 </select>
                             </div>
@@ -35,14 +36,19 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control form-control-sm" name="description" required></textarea>
+                                {{--                                <textarea class="form-control form-control-sm" name="description" required></textarea>--}}
+                                <div id="editor">
+                                    <p>Tell your story!</p>
+                                </div>
                             </div>
                         </div>
+                        <input type="hidden" name="description" id="description">
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Tipe Device</label>
                             <div class="col-sm-4">
-                                <select class="form-control form-control-sm select2 disabled" name="device_type" id="device_type"
+                                <select class="form-control form-control-sm select2 disabled" name="device_type"
+                                        id="device_type"
                                         required readonly>
                                     <option value="">-- Select Device Type --</option>
                                     <option value="App\Models\PC">PC</option>
@@ -51,16 +57,16 @@
                             </div>
                         </div>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <label class="col-sm-2 col-form-label text-right">Device ID</label>--}}
-{{--                            <div class="col-sm-4">--}}
-{{--                                <select class="form-control form-control-sm select2" name="fake_device_id" id="device_id"--}}
-{{--                                    required readonly>--}}
-{{--                                    <option value="">-- Select Device ID --</option>--}}
-{{--                                    <!-- Dynamically populate based on device type -->--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="form-group row">--}}
+                        {{--                            <label class="col-sm-2 col-form-label text-right">Device ID</label>--}}
+                        {{--                            <div class="col-sm-4">--}}
+                        {{--                                <select class="form-control form-control-sm select2" name="fake_device_id" id="device_id"--}}
+                        {{--                                    required readonly>--}}
+                        {{--                                    <option value="">-- Select Device ID --</option>--}}
+                        {{--                                    <!-- Dynamically populate based on device type -->--}}
+                        {{--                                </select>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
 
                         <input type="hidden" name="device_id" value="{{ request()->query('device_id') }}">
                         <input type="hidden" name="created_by" value="{{ auth()->user()->id }}">
@@ -70,8 +76,8 @@
 
                     <div class="card-footer">
                         <a id="button-back"
-                            href="{{ request()->query('device_type') == 'App\Models\PC' ? route('pcs.index') : route('printers.index') }}"
-                            class="btn btn-default">
+                           href="{{ request()->query('device_type') == 'App\Models\PC' ? route('pcs.index') : route('printers.index') }}"
+                           class="btn btn-default">
                             <i class="fa fa-fw fa-arrow-left"></i>
                             Back
                         </a>
@@ -97,6 +103,14 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            const quill = new window.Quill('#editor', {
+                theme: 'snow',
+            });
+
+            $('#create-form').on('submit', function() {
+                $('#description').val(quill.root.innerHTML);
+            });
+
             document.getElementById('date').valueAsDate = new Date();
 
             $('#worker_ids').select2({
@@ -110,9 +124,9 @@
                         return {
                             search: params.term,
                             intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
-                            column_filters: {
-                                technician: 1
-                            }
+                            // column_filters: {
+                            //     technician: 1
+                            // }
                         };
                     },
                     processResults: function(data) {

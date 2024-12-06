@@ -14,7 +14,7 @@
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
                                 <input class="form-control form-control-sm" name="assignment_number"
-                                       value="{{ $serviceCard->assignment->assignment_number ?? '' }}" />
+                                       value="{{ $serviceCard->assignment->assignment_number ?? '' }}" required />
                             </div>
                         </div>
 
@@ -38,8 +38,10 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control form-control-sm" name="description"
-                                          required>{{ $serviceCard->description }}</textarea>
+                                <div id="editor">
+                                    {!! $serviceCard->description !!}
+                                </div>
+                                <input type="hidden" name="description" id="description">
                             </div>
                         </div>
 
@@ -61,16 +63,16 @@
                             </div>
                         </div>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <label class="col-sm-2 col-form-label text-right">ID Perangkat</label>--}}
-{{--                            <div class="col-sm-4">--}}
-{{--                                <select class="form-control form-control-sm select2" name="device_id" id="device_id"--}}
-{{--                                        required disabled>--}}
-{{--                                    <option value="">-- Select Device ID --</option>--}}
-{{--                                    <!-- Dynamically populate based on device type -->--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="form-group row">--}}
+                        {{--                            <label class="col-sm-2 col-form-label text-right">ID Perangkat</label>--}}
+                        {{--                            <div class="col-sm-4">--}}
+                        {{--                                <select class="form-control form-control-sm select2" name="device_id" id="device_id"--}}
+                        {{--                                        required disabled>--}}
+                        {{--                                    <option value="">-- Select Device ID --</option>--}}
+                        {{--                                    <!-- Dynamically populate based on device type -->--}}
+                        {{--                                </select>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
 
                         <input type="hidden" name="updated_by" value="{{auth()->user()->id}}">
 
@@ -106,6 +108,14 @@
 
         // TODO: experimental - might be buggy
         $(document).ready(function() {
+            const quill = new window.Quill('#editor', {
+                theme: 'snow',
+            });
+
+            $('#edit-form').on('submit', function() {
+                $('#description').val(quill.root.innerHTML);
+            });
+
             document.getElementById('date').valueAsDate = new Date('{{ $serviceCard->date }}');
 
             function fetchAndSetSelect2Value(selector, url, value, text, intent) {
