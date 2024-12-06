@@ -38,7 +38,9 @@
                     </li>
                 @endif
 
-                <li class="nav-header">ADMINISTRATION</li>
+                @if (auth()->user()->hasPermission('read', 'users'))
+                    <li class="nav-header">ADMINISTRATION</li>
+                @endif
 
                 @if (auth()->user()->hasPermission('read', 'users'))
                     <li class="nav-item">
@@ -50,7 +52,9 @@
                     </li>
                 @endif
 
-                <li class="nav-header">MASTER DATA</li>
+                @if (auth()->user()->hasPermission('read', 'units'))
+                    <li class="nav-header">MASTER DATA</li>
+                @endif
 
                 @if (auth()->user()->hasPermission('read', 'units'))
                     <li class="nav-item">
@@ -62,7 +66,10 @@
                     </li>
                 @endif
 
-                <li class="nav-header">OPERASIONAL</li>
+                @if(auth()->user()->hasPermission('read', 'work-instructions') || auth()->user()->hasPermission('read', 'daily-reports'))
+                    <li class="nav-header">OPERASIONAL</li>
+                @endif
+
 
                 @if (auth()->user()->hasPermission('read', 'work-instructions'))
                     <li class="nav-item">
@@ -85,7 +92,9 @@
                     </li>
                 @endif
 
-                <li class="nav-header">LAPORAN</li>
+                @if(auth()->user()->hasPermission('read', 'monthly-reports'))
+                    <li class="nav-header">LAPORAN</li>
+                @endif
 
                 @if (auth()->user()->hasPermission('read', 'monthly-reports'))
                     <li class="nav-item">
@@ -108,7 +117,9 @@
                                     </li>
                                 @endif --}}
 
-                <li class="nav-header">KARTU SERVIS</li>
+                @if(auth()->user()->hasPermission('read', 'pcs') || auth()->user()->hasPermission('read', 'printers') )
+                    <li class="nav-header">KARTU SERVIS</li>
+                @endif
 
                 @if (auth()->user()->hasPermission('read', 'pcs'))
                     <li class="nav-item">
@@ -130,7 +141,9 @@
                     </li>
                 @endif
 
-                <li class="nav-header">PP</li>
+                @if(auth()->user()->hasPermission('read', 'pps') || auth()->user()->hasPermission('read', 'ops') || auth()->user()->hasPermission('read', 'op-presets'))
+                    <li class="nav-header">PP</li>
+                @endif
 
                 @if (auth()->user()->hasPermission('read', 'pps'))
                     <li class="nav-item">
