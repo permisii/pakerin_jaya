@@ -36,9 +36,13 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Deskripsi</label>
                             <div class="col-sm-4">
-                                <textarea class="form-control form-control-sm" name="description" required></textarea>
+                                {{--                                <textarea class="form-control form-control-sm" name="description" required></textarea>--}}
+                                <div id="editor">
+                                    <p>Tell your story!</p>
+                                </div>
                             </div>
                         </div>
+                        <input type="hidden" name="description" id="description">
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label text-right">Tipe Device</label>
@@ -99,6 +103,14 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
+            const quill = new window.Quill('#editor', {
+                theme: 'snow',
+            });
+
+            $('#create-form').on('submit', function() {
+                $('#description').val(quill.root.innerHTML);
+            });
+
             document.getElementById('date').valueAsDate = new Date();
 
             $('#worker_ids').select2({
