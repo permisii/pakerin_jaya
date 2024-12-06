@@ -14,7 +14,7 @@
                             <label class="col-sm-2 col-form-label text-right">No. PK</label>
                             <div class="col-sm-4">
                                 <input class="form-control form-control-sm" name="assignment_number"
-                                       value="{{ $serviceCard->assignment->assignment_number ?? '' }}" />
+                                       value="{{ $serviceCard->assignment->assignment_number ?? '' }}" required />
                             </div>
                         </div>
 
@@ -61,16 +61,16 @@
                             </div>
                         </div>
 
-{{--                        <div class="form-group row">--}}
-{{--                            <label class="col-sm-2 col-form-label text-right">ID Perangkat</label>--}}
-{{--                            <div class="col-sm-4">--}}
-{{--                                <select class="form-control form-control-sm select2" name="device_id" id="device_id"--}}
-{{--                                        required disabled>--}}
-{{--                                    <option value="">-- Select Device ID --</option>--}}
-{{--                                    <!-- Dynamically populate based on device type -->--}}
-{{--                                </select>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
+                        {{--                        <div class="form-group row">--}}
+                        {{--                            <label class="col-sm-2 col-form-label text-right">ID Perangkat</label>--}}
+                        {{--                            <div class="col-sm-4">--}}
+                        {{--                                <select class="form-control form-control-sm select2" name="device_id" id="device_id"--}}
+                        {{--                                        required disabled>--}}
+                        {{--                                    <option value="">-- Select Device ID --</option>--}}
+                        {{--                                    <!-- Dynamically populate based on device type -->--}}
+                        {{--                                </select>--}}
+                        {{--                            </div>--}}
+                        {{--                        </div>--}}
 
                         <input type="hidden" name="updated_by" value="{{auth()->user()->id}}">
 
