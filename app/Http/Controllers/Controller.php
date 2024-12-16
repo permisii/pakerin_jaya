@@ -28,6 +28,9 @@ abstract class Controller {
         return view($view, array_merge($data, ['breadcrumbs' => $this->getBreadcrumbs(), 'params' => $this->getParams()]));
     }
 
+    /**
+     * Check single permission
+     */
     protected function checkPermission($permissionType, $menuCode) {
         // Get the user's access to this menu based on the menu code
         $accessMenu = auth()->user()->accessMenus()->whereHas('menu', function ($query) use ($menuCode) {
@@ -53,6 +56,63 @@ abstract class Controller {
         }
 
         return true;
+    }
+
+    /**
+     * Check multiple permissions
+     *
+     * Usage:
+     * ```
+     * // Example 1: Redirect mode (default)
+     * $this->checkMultiplePermissions([['read', 'users'], ['update', 'pps']]);
+     *
+     * // Example 2: Boolean mode (silent failure)
+     * if (!$this->checkMultiplePermissions([['read', 'users'], ['update', 'pps']], true)) {
+     * // Take alternative action
+     * abort(403, 'Unauthorized');
+     * }
+     * ```
+     */
+    protected function checkMultiplePermissions(array $permissions, bool $returnBoolean = false) {
+        foreach ($permissions as $permission) {
+            [$permissionType, $menuCode] = $permission;
+
+            // Get the user's access to the menu
+            $accessMenu = auth()->user()->accessMenus()->whereHas('menu', function ($query) use ($menuCode) {
+                $query->where('code', $menuCode);
+            })->first();
+
+            // If menu access is missing
+            if (!$accessMenu) {
+                if ($returnBoolean) {
+                    return false;
+                }
+
+                return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.')->send();
+            }
+
+            // Check for specific permissions
+            $hasPermission = match ($permissionType) {
+                'create' => $accessMenu->can_create,
+                'read' => $accessMenu->can_read,
+                'update' => $accessMenu->can_update,
+                'delete' => $accessMenu->can_delete,
+                'etc' => $accessMenu->can_etc,
+                default => false,
+            };
+
+            // If a specific permission is missing
+            if (!$hasPermission) {
+                if ($returnBoolean) {
+                    return false;
+                }
+
+                return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.')->send();
+            }
+        }
+
+        // All permissions are valid
+        return $returnBoolean ? true : null;
     }
 
     /**
