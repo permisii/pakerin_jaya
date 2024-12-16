@@ -73,7 +73,9 @@ abstract class Controller {
      * }
      * ```
      */
-    protected function checkMultiplePermissions(array $permissions, bool $returnBoolean = false) {
+    protected function checkMultiplePermissions(array $permissions, bool $returnBoolean = false, bool $strict = true) {
+        $hasAnyPermission = false;
+
         foreach ($permissions as $permission) {
             [$permissionType, $menuCode] = $permission;
 
@@ -84,11 +86,15 @@ abstract class Controller {
 
             // If menu access is missing
             if (!$accessMenu) {
-                if ($returnBoolean) {
-                    return false;
+                if ($strict) {
+                    if ($returnBoolean) {
+                        return false;
+                    }
+
+                    return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.')->send();
                 }
 
-                return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.')->send();
+                continue; // Skip in non-strict mode
             }
 
             // Check for specific permissions
@@ -101,8 +107,15 @@ abstract class Controller {
                 default => false,
             };
 
-            // If a specific permission is missing
-            if (!$hasPermission) {
+            if ($hasPermission) {
+                $hasAnyPermission = true; // At least one permission is valid
+
+                if (!$strict) {
+                    // If not strict, allow one valid permission to pass
+                    return $returnBoolean ? true : null;
+                }
+            } elseif ($strict) {
+                // If strict, fail as soon as one permission check fails
                 if ($returnBoolean) {
                     return false;
                 }
@@ -111,8 +124,13 @@ abstract class Controller {
             }
         }
 
-        // All permissions are valid
-        return $returnBoolean ? true : null;
+        // For strict checking, if all permissions pass
+        if ($strict && !$returnBoolean) {
+            return null; // Allow request
+        }
+
+        // For strict mode in boolean return or non-strict mode if no permission was valid
+        return $returnBoolean ? $hasAnyPermission : ($hasAnyPermission ? null : redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.')->send());
     }
 
     /**

@@ -23,11 +23,9 @@ class UserController extends Controller {
     public function index(Request $request, UsersDataTable $dataTable) {
         $this->checkMultiplePermissions([
             ['read', 'users'],
-            ['create', 'pps'],
-            ['update', 'pps'],
             ['create', 'service-cards'],
             ['update', 'service-cards'],
-        ]);
+        ], strict: false);
 
         $intent = $request->get('intent');
 
