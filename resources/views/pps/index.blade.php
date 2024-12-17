@@ -7,24 +7,22 @@
         <div class="card card-info card-outline">
             <div class="card-body">
                 <div class="row">
-                    <div class="offset-2 col-sm-6 col-md-8 col-lg-3">
+                    <div class="offset-2 col col-lg-4">
                         <form method="GET" action="{{ route('pps.index') }}" class="d-flex flex-column">
                             <div class="form-group d-flex flex-fill m-0">
                                 <div class="d-flex flex-fill flex-column justify-content-end">
-                                    <div class="row">
-                                        <div class="col-2">Bulan</div>
-                                        <div class="col">
+                                    <div class="row px-2">
+                                        <div class="d-flex flex-column justify-content-between">
+                                            <div>Bulan</div>
+                                            <div class="mt-2">Status</div>
+                                        </div>
+                                        <div class="d-flex flex-fill flex-column ml-2">
                                             <input type="month" name="date_filter" id="date_filter"
                                                    class="form-control form-control-sm"
                                                    value="{{ request('date_filter') }}"
                                                    min="{{ now()->subMonth()->format('Y-m') }}"
                                                    max="{{ now()->format('Y-m') }}">
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-2">Status</div>
-                                        <div class="col">
-                                            <select name="status_filter" class="form-control form-control-sm">
+                                            <select name="status_filter" class="form-control form-control-sm mt-2">
                                                 <option value="">Pilih Status</option>
                                                 @foreach(\App\Support\Enums\PPStatusEnum::cases() as $case)
                                                     <option value="{{ $case->value }}">{{ $case->name }}</option>
