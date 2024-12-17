@@ -21,7 +21,12 @@ class UserController extends Controller {
     use Filterable, Searchable;
 
     public function index(Request $request, UsersDataTable $dataTable) {
-        $this->checkPermission('read', 'users');
+        $this->checkMultiplePermissions([
+            ['read', 'users'],
+            ['create', 'service-cards'],
+            ['update', 'service-cards'],
+        ], strict: false);
+
         $intent = $request->get('intent');
 
         switch ($intent) {
