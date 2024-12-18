@@ -14,17 +14,17 @@
                                     <div class="row flex-nowrap px-2">
                                         <div class="d-flex flex-column justify-content-between text-bold">
                                             <div>Tanggal</div>
-                                            <div>Pekerja</div>
+                                            {{--                                            <div>Pekerja</div>--}}
                                         </div>
                                         <div class="d-flex flex-fill flex-column ml-2">
                                             <input type="text" name="date_range" id="date_range"
                                                    class="form-control form-control-sm"
                                                    placeholder="Select Date Range"
                                                    value="{{ request('date_range') }}">
-                                            <select class="form-control form-control-sm" name="worker_id"
-                                                    id="worker_id">
-                                                <!-- Options will be populated dynamically -->
-                                            </select>
+                                            {{--                                            <select class="form-control form-control-sm" name="worker_id"--}}
+                                            {{--                                                    id="worker_id">--}}
+                                            {{--                                                <!-- Options will be populated dynamically -->--}}
+                                            {{--                                            </select>--}}
                                         </div>
                                     </div>
                                     <div class="btn-group btn-block d-flex justify-content-end mt-2">
