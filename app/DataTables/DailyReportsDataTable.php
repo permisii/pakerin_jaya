@@ -34,7 +34,7 @@ class DailyReportsDataTable extends DataTable {
                 if ($workInstruction->status == WorkInstructionStatusEnum::Draft->value) {
                     return '<span class="badge badge-warning">Pending</span>';
                 } elseif ($workInstruction->status == WorkInstructionStatusEnum::Submitted->value) {
-                    return '<span class="badge badge-success">Selesai</span>';
+                    return '<span class="badge badge-success">Selesai Dilaporkan</span>';
                 }
 
                 //                return '<span class="badge badge-danger">Rejected</span>';
