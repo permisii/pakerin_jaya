@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use App\DataTables\OPCreatePPsDataTable;
 use App\DataTables\OPsDataTable;
+use App\Exports\OP\ExportPPDetails;
 use App\Http\Requests\StoreOPRequest;
 use App\Http\Requests\UpdateOPRequest;
 use App\Models\OP;
 use App\Models\PP;
+use App\Support\Enums\IntentEnum;
 use App\Support\Enums\PPStatusEnum;
 use App\Traits\Controllers\Filterable;
 use App\Traits\Controllers\Searchable;
+use Excel;
 use Illuminate\Http\Request;
 
 class OPController extends Controller {
@@ -21,6 +24,7 @@ class OPController extends Controller {
      */
     public function index(Request $request, OPsDataTable $dataTable) {
         $this->checkPermission('read', 'ops');
+
         $this->setBreadcrumbs([
             'Home' => route('dashboard'),
             'Master OP' => '',
@@ -76,7 +80,17 @@ class OPController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(OP $op) {
+    public function show(Request $request, OP $op) {
+        $intent = $request->get('intent');
+
+        switch ($intent) {
+            case IntentEnum::OP_EXPORT_PP_DETAILS->value:
+                $currentDate = now()->toDateString();
+                $filename = "op_export_{$currentDate}.xlsx";
+
+                return Excel::download(new ExportPPDetails($op), $filename);
+        }
+
         $op = $op->load('detailOps.pp');
 
         return view('ops.show', compact('op'));

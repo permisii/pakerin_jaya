@@ -129,13 +129,18 @@
                 </tfoot>
             </table>
 
-            <div class="d-flex">
+            <div class="d-flex mt-4">
                 <a href="{{route('ops.index')}}" class="btn btn-default" style="width: fit-content;">Kembali</a>
 
-                <button class="btn btn-primary ml-auto" onclick="printTable()" style="width: fit-content;">
+                {{--                <button class="btn btn-primary ml-auto" onclick="printTable()" style="width: fit-content;">--}}
+                {{--                    <i class="fa fa-print"></i>--}}
+                {{--                    Print Table--}}
+                {{--                </button>--}}
+                <a href="{{route('ops.show', [$op->id, 'intent' => \App\Support\Enums\IntentEnum::OP_EXPORT_PP_DETAILS->value])}}"
+                   class="btn btn-primary ml-auto" style="width: fit-content;">
                     <i class="fa fa-print"></i>
                     Print Table
-                </button>
+                </a>
             </div>
         </div>
     </div>
