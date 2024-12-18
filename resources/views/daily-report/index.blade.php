@@ -12,7 +12,7 @@
                             <div class="form-group d-flex flex-fill m-0">
                                 <div class="d-flex flex-fill flex-column justify-content-end">
                                     <div class="row flex-nowrap px-2">
-                                        <div class="d-flex flex-column justify-content-between text-bold">
+                                        <div class="d-flex flex-column text-bold">
                                             <div>Tanggal</div>
                                             {{--                                            <div>Pekerja</div>--}}
                                         </div>
@@ -25,19 +25,21 @@
                                             {{--                                                    id="worker_id">--}}
                                             {{--                                                <!-- Options will be populated dynamically -->--}}
                                             {{--                                            </select>--}}
-                                        </div>
-                                    </div>
-                                    <div class="btn-group btn-block d-flex justify-content-end mt-2">
-                                        <div class="btn-group btn-block d-flex justify-content-end mt-2">
-                                            <button type="submit" class="btn btn-default btn-sm">
-                                                <i class="fas fa-fw fa-search"></i>
-                                                Filter
-                                            </button>
-                                            <a href="{{ route('daily-report.index') }}"
-                                               class="btn btn-default btn-sm">
-                                                <i class="fas fa-undo"></i>
-                                                Reset
-                                            </a>
+
+                                            <div class="btn-group btn-block d-flex justify-content-end mt-2">
+                                                <div class="btn-group btn-block d-flex justify-content-end mt-2">
+                                                    <button type="submit" class="btn btn-default btn-sm">
+                                                        <i class="fas fa-fw fa-search"></i>
+                                                        Filter
+                                                    </button>
+                                                    <a href="{{ route('daily-report.index') }}"
+                                                       class="btn btn-default btn-sm">
+                                                        <i class="fas fa-undo"></i>
+                                                        Reset
+                                                    </a>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
