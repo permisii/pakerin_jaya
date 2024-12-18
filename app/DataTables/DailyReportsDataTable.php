@@ -45,11 +45,26 @@ class DailyReportsDataTable extends DataTable {
     }
 
     public function query(WorkInstruction $model): QueryBuilder {
-        $date_filter = request('date_filter', date('Y-m'));
+        // Fetch the filters from the request
+        $dateRange = request('date_range'); // Format: 'YYYY-MM-DD to YYYY-MM-DD'
+        $workerId = request('worker_id');
 
-        $query = $model->newQuery()
-            ->where('work_date', 'like', $date_filter . '%');
+        // Start building the query
+        $query = $model->newQuery();
 
+        // Filter by the selected date range
+        if ($dateRange) {
+            // Split the date range into start and end dates
+            [$startDate, $endDate] = explode(' to ', $dateRange);
+            $query->whereBetween('work_date', [$startDate, $endDate]);
+        }
+
+        // Filter by the selected worker
+        if ($workerId) {
+            $query->where('user_id', $workerId);
+        }
+
+        // Apply additional filters for admin or regular users
         if (auth()->user()->is_admin) {
             $query->where('status', WorkInstructionStatusEnum::Submitted->value);
         } else {

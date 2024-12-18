@@ -11,14 +11,20 @@
                         <form method="GET" action="{{ route('daily-report.index') }}" class="d-flex flex-column">
                             <div class="form-group d-flex flex-fill m-0">
                                 <div class="d-flex flex-fill flex-column justify-content-end">
-                                    <div class="row px-2 align-items-center">
+                                    <div class="row flex-nowrap px-2">
                                         <div class="d-flex flex-column justify-content-between text-bold">
-                                            <div>Bulan</div>
+                                            <div>Tanggal</div>
+                                            <div>Pekerja</div>
                                         </div>
                                         <div class="d-flex flex-fill flex-column ml-2">
-                                            <input type="month" name="date_filter" id="date_filter"
+                                            <input type="text" name="date_range" id="date_range"
                                                    class="form-control form-control-sm"
-                                                   value="{{ request('date_filter') }}">
+                                                   placeholder="Select Date Range"
+                                                   value="{{ request('date_range') }}">
+                                            <select class="form-control form-control-sm" name="worker_id"
+                                                    id="worker_id">
+                                                <!-- Options will be populated dynamically -->
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="btn-group btn-block d-flex justify-content-end mt-2">
@@ -49,4 +55,55 @@
 
 @section('scripts')
     {{$dataTable->scripts()}}
+
+    <script>
+        $(document).ready(function() {
+            $('#worker_id').select2({
+                placeholder: '-- Select Workers --',
+                allowClear: true,
+                theme: 'default mt-2',
+                ajax: {
+                    url: '{{ route('users.index') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            search: params.term,
+                            intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
+                            // column_filters: {
+                            //     technician: 1
+                            // }
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: data.data.map(function(user) {
+                                return {
+                                    id: user.id,
+                                    text: `${user.nip} - ${user.name}`,
+                                };
+                            }),
+                        };
+                    },
+                    cache: true,
+                },
+            });
+
+            $('input[name="date_range"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear',
+                    format: 'YYYY-MM-DD',
+                },
+            });
+
+            $('input[name="date_range"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
+            });
+
+            $('input[name="date_range"]').on('cancel.daterangepicker', function(ev, picker) {
+                $(this).val('');
+            });
+        });
+    </script>
 @endsection
