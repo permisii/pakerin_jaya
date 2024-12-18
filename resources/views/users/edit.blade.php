@@ -21,44 +21,54 @@
                             <tr>
                                 <th></th>
                                 <th>
-                                    <button type="button" class="btn btn-sm btn-outline-primary"
-                                            onclick="toggleCheckAll('view')">Check All
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3"
-                                            onclick="removeAll('view')">Remove All
-                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                onclick="toggleCheckAll('view')">Check All
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                onclick="removeAll('view')">Remove All
+                                        </button>
+                                    </div>
                                 </th>
                                 <th>
-                                    <button type="button" class="btn btn-sm btn-outline-primary"
-                                            onclick="toggleCheckAll('create')">Check All
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3"
-                                            onclick="removeAll('create')">Remove All
-                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                onclick="toggleCheckAll('create')">Check All
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                onclick="removeAll('create')">Remove All
+                                        </button>
+                                    </div>
                                 </th>
                                 <th>
-                                    <button type="button" class="btn btn-sm btn-outline-primary"
-                                            onclick="toggleCheckAll('update')">Check All
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3"
-                                            onclick="removeAll('update')">Remove All
-                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                onclick="toggleCheckAll('update')">Check All
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                onclick="removeAll('update')">Remove All
+                                        </button>
+                                    </div>
                                 </th>
                                 <th>
-                                    <button type="button" class="btn btn-sm btn-outline-primary"
-                                            onclick="toggleCheckAll('delete')">Check All
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3"
-                                            onclick="removeAll('delete')">Remove All
-                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                onclick="toggleCheckAll('delete')">Check All
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                onclick="removeAll('delete')">Remove All
+                                        </button>
+                                    </div>
                                 </th>
                                 <th>
-                                    <button type="button" class="btn btn-sm btn-outline-primary"
-                                            onclick="toggleCheckAll('etc')">Check All
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-danger ml-3"
-                                            onclick="removeAll('etc')">Remove All
-                                    </button>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                                onclick="toggleCheckAll('etc')">Check All
+                                        </button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger"
+                                                onclick="removeAll('etc')">Remove All
+                                        </button>
+                                    </div>
                                 </th>
                             </tr>
                             </thead>
@@ -72,13 +82,13 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             {{ ucfirst($perm['name']) }}
 
-                                            <div>
+                                            <div class="btn-group">
                                                 <button type="button" class="btn btn-sm btn-outline-primary"
                                                         onclick="toggleCheckAllHorizontally({{ $loop->index }}, 'etc')">
                                                     Check
                                                     All
                                                 </button>
-                                                <button type="button" class="btn btn-sm btn-outline-danger ml-3"
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
                                                         onclick="removeAllHorizontally({{ $loop->index }}, 'etc')">
                                                     Remove
                                                     All
