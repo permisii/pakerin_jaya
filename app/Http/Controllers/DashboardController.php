@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\PP;
 use App\Models\User;
+use App\Models\WorkInstruction;
 use App\Support\Enums\PPStatusEnum;
+use App\Support\Enums\WorkInstructionStatusEnum;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller {
@@ -21,14 +23,17 @@ class DashboardController extends Controller {
             'subtitle' => 'Welcome to the dashboard',
         ]);
 
-        $users_count = User::count();
+        $usersCount = User::count();
 
-        $unprocessed_pps = PP::where('status', PPStatusEnum::Input)->count();
+        $unprocessedPps = PP::where('status', PPStatusEnum::Input)->count();
+
+        $draftedWorkInstructions = WorkInstruction::where('status', WorkInstructionStatusEnum::Draft)->count();
 
         return $this->renderView('dashboard.index', [
             'breadcrumbs' => $this->getBreadcrumbs(),
-            'users_count' => $users_count,
-            'unprocessed_pps' => $unprocessed_pps,
+            'users_count' => $usersCount,
+            'unprocessed_pps' => $unprocessedPps,
+            'drafted_work_instructions' => $draftedWorkInstructions,
             'params' => $this->getParams(),
         ]);
     }

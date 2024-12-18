@@ -6,7 +6,6 @@ use App\Models\WorkInstruction;
 use App\Support\Enums\WorkInstructionStatusEnum;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
-use Illuminate\Support\Collection;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -14,8 +13,6 @@ use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class WorkInstructionsDataTable extends DataTable {
-
-
     /**
      * Build the DataTable class.
      *
@@ -36,8 +33,8 @@ class WorkInstructionsDataTable extends DataTable {
             })
             ->addColumn('status', function (WorkInstruction $workInstruction) {
                 return match ($workInstruction->status) {
-                    WorkInstructionStatusEnum::Draft->value => '<span class="badge badge-warning">Draft</span>',
-                    WorkInstructionStatusEnum::Submitted->value => '<span class="badge badge-success">Submitted</span>',
+                    WorkInstructionStatusEnum::Draft->value => '<span class="badge badge-warning">Pending</span>',
+                    WorkInstructionStatusEnum::Submitted->value => '<span class="badge badge-success">Selesai Dilaporkan</span>',
                     WorkInstructionStatusEnum::Rejected->value => '<span class="badge badge-danger">Rejected</span>',
                     default => '-',
                 };

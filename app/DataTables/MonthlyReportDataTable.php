@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\WorkInstruction;
+use App\Support\Enums\AssignmentStatusEnum;
 use App\Support\Enums\WorkInstructionStatusEnum;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
@@ -21,6 +22,9 @@ class MonthlyReportDataTable extends DataTable {
             ->addColumn('action', function (WorkInstruction $workInstruction) {
                 return view('daily-report.action', ['workInstruction' => $workInstruction]);
             })
+            ->addColumn('worker', function (WorkInstruction $workInstruction) {
+                return $workInstruction->user->name;
+            })
             ->addColumn('status', function (WorkInstruction $workInstruction) {
                 if ($workInstruction->status == WorkInstructionStatusEnum::Draft->value) {
                     return '<span class="badge badge-warning">Pending</span>';
@@ -31,16 +35,70 @@ class MonthlyReportDataTable extends DataTable {
                 //                return '<span class="badge badge-danger">Rejected</span>';
 
             })
-            ->rawColumns(['action', 'status'])
+            ->addColumn('assignments', function (WorkInstruction $workInstruction) {
+                if ($workInstruction->assignments->isEmpty()) {
+                    return '<span class="text-muted">No assignments</span>';
+                }
+
+                $assignmentList = '';
+                foreach ($workInstruction->assignments as $assignment) {
+                    // Determine the badge style based on the assignment's `status`
+                    $statusBadge = '';
+                    if ($assignment->status === AssignmentStatusEnum::Draft->value) {
+                        $statusBadge = '<span class="badge badge-primary">Lanjut</span>';
+                    } elseif ($assignment->status === AssignmentStatusEnum::Process->value) {
+                        //
+                    } elseif ($assignment->status === AssignmentStatusEnum::Done->value) {
+                        $statusBadge = '<span class="badge badge-success">Selesai</span>';
+                    }
+
+                    $assignmentProblem = $assignment->problem;
+                    $percentage = $assignment->percentage;
+
+                    // Concatenate assignment details with the badge
+                    $assignmentList .= '<li class="list-group-item">' .
+                        "{$assignmentProblem} ({$percentage}%)" . ' ' . // Escape output for assignment problem
+                        $statusBadge .
+                        '</li>';
+                }
+
+                return '
+    <ul class="list-group">
+        ' . $assignmentList . '
+    </ul>';
+            })
+            ->rawColumns(['action', 'status', 'assignments'])
             ->setRowId('id');
     }
 
     public function query(WorkInstruction $model): QueryBuilder {
-        $date_filter = request('date_filter', date('Y-m'));
+        // Fetch the filters from the request
+        $dateRange = request('date_range'); // Format: 'YYYY-MM-DD to YYYY-MM-DD'
+        $workerId = request('worker_id');
 
-        return $model->newQuery()
-            ->whereUserId(auth()->id())
-            ->where('work_date', 'like', $date_filter . '%');
+        // Start building the query
+        $query = $model->newQuery();
+
+        // Filter by the selected date range
+        if ($dateRange) {
+            // Split the date range into start and end dates
+            [$startDate, $endDate] = explode(' to ', $dateRange);
+            $query->whereBetween('work_date', [$startDate, $endDate]);
+        }
+
+        // Filter by the selected worker
+        if ($workerId) {
+            $query->where('user_id', $workerId);
+        }
+
+        //        // Apply additional filters for admin or regular users
+        //        if (auth()->user()->is_admin) {
+        //            $query->where('status', WorkInstructionStatusEnum::Submitted->value);
+        //        } else {
+        //            $query->where('user_id', auth()->id());
+        //        }
+
+        return $query;
     }
 
     public function html(): HtmlBuilder {
@@ -65,8 +123,10 @@ class MonthlyReportDataTable extends DataTable {
                 ->printable(false)
                 ->width(60)
                 ->addClass('text-center'),
-            Column::make('work_date'),
-            Column::make('status'),
+            Column::make('worker')->title('Nama Pegawai'),
+            Column::make('work_date')->title('Tanggal Kerja'),
+            Column::make('assignments')->title('Pekerjaan'),
+            Column::make('status')->title('Status IK'),
         ];
     }
 

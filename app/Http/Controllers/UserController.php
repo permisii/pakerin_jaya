@@ -25,6 +25,7 @@ class UserController extends Controller {
             ['read', 'users'],
             ['create', 'service-cards'],
             ['update', 'service-cards'],
+            ['read', 'daily-reports'],
         ], strict: false);
 
         $intent = $request->get('intent');

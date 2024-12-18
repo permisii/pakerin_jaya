@@ -90,7 +90,8 @@ class WorkInstructionController extends Controller {
         $this->checkPermission('update', 'work-instructions');
         $workInstruction->update($request->validated());
 
-        return redirect()->route('work-instructions.index')->with('success', 'WorkInstruction updated.');
+        //        return redirect()->route('work-instructions.index')->with('success', 'WorkInstruction updated.');
+        return redirect()->route('daily-report.index')->with('success', 'WorkInstruction updated.');
     }
 
     public function destroy(WorkInstruction $workInstruction) {
