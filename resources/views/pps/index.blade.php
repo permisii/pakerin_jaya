@@ -6,13 +6,13 @@
     <div class="col-12">
         <div class="card card-info card-outline">
             <div class="card-body">
-                <div class="row">
-                    <div class="offset-2 col col-lg-4">
+                <div class="row my-3">
+                    <div class="offset-2 col-sm-6 col-md-8 col-lg-3">
                         <form method="GET" action="{{ route('pps.index') }}" class="d-flex flex-column">
                             <div class="form-group d-flex flex-fill m-0">
                                 <div class="d-flex flex-fill flex-column justify-content-end">
                                     <div class="row px-2">
-                                        <div class="d-flex flex-column justify-content-between">
+                                        <div class="d-flex flex-column justify-content-between text-bold">
                                             <div>Bulan</div>
                                             <div class="mt-2">Status</div>
                                         </div>
