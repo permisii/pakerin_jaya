@@ -60,7 +60,7 @@ class WorkInstructionController extends Controller {
 
         $this->setParams([
             'title' => 'Instruksi Kerja',
-            'subtitle' => 'Detail Instruksi Kerja',
+            'subtitle' => 'General',
         ]);
 
         return $this->renderView('work-instructions.show', ['workInstruction' => $workInstruction]);
