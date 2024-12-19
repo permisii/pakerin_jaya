@@ -25,7 +25,7 @@
                                                     id="worker_id">
                                                 <!-- Options will be populated dynamically -->
                                             </select>
-                                            
+
                                             <div class="btn-group btn-block d-flex justify-content-end mt-2">
                                                 <div class="btn-group btn-block d-flex justify-content-end mt-2">
                                                     <button type="submit" class="btn btn-default btn-sm">
@@ -83,9 +83,9 @@
                         return {
                             search: params.term,
                             intent: '{{ \App\Support\Enums\IntentEnum::USER_SELECT2_SEARCH_USERS->value }}',
-                            // column_filters: {
-                            //     technician: 1
-                            // }
+                            column_filters: {
+                                technician: 1,
+                            },
                         };
                     },
                     processResults: function(data) {
