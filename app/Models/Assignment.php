@@ -6,12 +6,13 @@ use App\Support\Enums\AssignmentStatusEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Assignment extends Model {
     use HasFactory;
 
     protected $fillable = [
-        //        'work_instruction_id',
+        'work_instruction_id',
         'assignment_number',
         'problem',
         'resolution',
@@ -43,5 +44,9 @@ class Assignment extends Model {
 
     public function updatedBy() {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function user(): HasOneThrough {
+        return $this->hasOneThrough(User::class, WorkInstruction::class, 'id', 'id', 'work_instruction_id', 'user_id');
     }
 }
