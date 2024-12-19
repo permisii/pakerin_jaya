@@ -26,7 +26,7 @@
                 <div class="small-box bg-warning">
                     <div class="inner">
                         <h3>{{$drafted_work_instructions}}</h3>
-                        <p>IK yang belum direporting</p>
+                        <p>IK yang belum direport</p>
                     </div>
                     <div class="icon">
                         <i class="ion ion-stats-bars"></i>

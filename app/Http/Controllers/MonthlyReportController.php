@@ -22,10 +22,11 @@ class MonthlyReportController extends Controller {
             'subtitle' => 'List of monthly reports',
         ]);
 
-        $todayWorkInstruction = WorkInstruction::where('work_date', date('Y-m-d'))
-            ->where('user_id', auth()->id())
-            ->first();
+        //        $todayWorkInstruction = WorkInstruction::where('work_date', date('Y-m-d'))
+        //            ->where('user_id', auth()->id())
+        //            ->first();
 
-        return $dataTable->render('monthly-report.index', ['params' => $this->getParams(), 'breadcrumbs' => $this->getBreadcrumbs(), 'todayWorkInstruction' => $todayWorkInstruction]);
+        //        return $dataTable->render('monthly-report.index', ['params' => $this->getParams(), 'breadcrumbs' => $this->getBreadcrumbs(), 'todayWorkInstruction' => $todayWorkInstruction]);
+        return $dataTable->render('monthly-report.index', ['params' => $this->getParams(), 'breadcrumbs' => $this->getBreadcrumbs()]);
     }
 }

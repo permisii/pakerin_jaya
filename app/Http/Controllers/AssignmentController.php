@@ -39,7 +39,7 @@ class AssignmentController extends Controller {
 
         $this->setParams([
             'title' => 'Pekerjaan',
-            'subtitle' => $workInstruction->id,
+            'subtitle' => 'Detail Instruksi Kerja',
         ]);
 
         return $dataTable->with('work_instruction_id', $workInstruction->id)->render('assignments.index', [

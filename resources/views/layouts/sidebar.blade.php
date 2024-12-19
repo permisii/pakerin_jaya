@@ -20,9 +20,13 @@
             <a href="{{ route('users.show', auth()->user()->id) }}" class="btn btn-default btn-sm">
                 <i class="fas fa-user"></i> Profil Pengguna
             </a>
-            <a href="{{ route('login') }}" class="btn btn-default btn-sm">
+            <a href="#" class="btn btn-default btn-sm"
+               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
         </div>
 
         <nav class="mt-2">
