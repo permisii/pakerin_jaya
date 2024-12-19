@@ -15,6 +15,7 @@ use App\Traits\Controllers\Filterable;
 use App\Traits\Controllers\Searchable;
 use Excel;
 use Illuminate\Http\Request;
+use Str;
 
 class OPController extends Controller {
     use Filterable, Searchable;
@@ -86,7 +87,8 @@ class OPController extends Controller {
         switch ($intent) {
             case IntentEnum::OP_EXPORT_PP_DETAILS->value:
                 $currentDate = now()->toDateString();
-                $filename = "op_export_{$currentDate}.xlsx";
+                $title = Str::slug($op->no, '-');
+                $filename = "{$title}.xlsx";
 
                 return Excel::download(new ExportPPDetails($op), $filename);
         }
