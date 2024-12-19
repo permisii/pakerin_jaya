@@ -102,18 +102,29 @@
                 },
             });
 
+            const startOfMonth = moment().startOf('month');
+            const endOfMonth = moment().endOf('month');
+
             $('input[name="date_range"]').daterangepicker({
-                autoUpdateInput: false,
+                startDate: startOfMonth,
+                endDate: endOfMonth,
                 locale: {
                     cancelLabel: 'Clear',
                     format: 'YYYY-MM-DD',
                 },
             });
 
+            // Set the default displayed value in the input field
+            $('input[name="date_range"]').val(
+                `${startOfMonth.format('YYYY-MM-DD')} to ${endOfMonth.format('YYYY-MM-DD')}`,
+            );
+
+            // Update input value on date range apply
             $('input[name="date_range"]').on('apply.daterangepicker', function(ev, picker) {
                 $(this).val(picker.startDate.format('YYYY-MM-DD') + ' to ' + picker.endDate.format('YYYY-MM-DD'));
             });
 
+            // Clear the input value on date range cancel
             $('input[name="date_range"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
             });
