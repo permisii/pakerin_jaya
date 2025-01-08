@@ -12,26 +12,27 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class WorkInstructionsDataTable extends DataTable {
+class WorkInstructionsDataTable extends DataTable
+{
     /**
      * Build the DataTable class.
      *
      * @param  QueryBuilder  $query  Results from query() method.
      */
-    public function dataTable(QueryBuilder $query): EloquentDataTable {
+    public function dataTable(QueryBuilder $query): EloquentDataTable
+    {
         return (new EloquentDataTable($query))
-            ->addColumn('user.nip', function (WorkInstruction $workInstruction) {
+            ->editColumn('user.nip', function (WorkInstruction $workInstruction) {
                 return $workInstruction->user->nip ?? '-';
             })
-            ->addColumn('user.name', function (WorkInstruction $workInstruction) {
+            ->editColumn('user.name', function (WorkInstruction $workInstruction) {
                 return $workInstruction->user->name ?? '-';
             })
-            ->addColumn('work_date', function (WorkInstruction $workInstruction) {
+            ->editColumn('work_date', function (WorkInstruction $workInstruction) {
                 $workDate = Carbon::parse($workInstruction->work_date);
-
                 return $workDate->format('d/m/Y');
             })
-            ->addColumn('status', function (WorkInstruction $workInstruction) {
+            ->editColumn('status', function (WorkInstruction $workInstruction) {
                 return match ($workInstruction->status) {
                     WorkInstructionStatusEnum::Draft->value => '<span class="badge badge-warning">Pending</span>',
                     WorkInstructionStatusEnum::Submitted->value => '<span class="badge badge-success">Selesai Dilaporkan</span>',
@@ -40,7 +41,7 @@ class WorkInstructionsDataTable extends DataTable {
                 };
             })
             ->rawColumns(['status', 'action'])
-            ->addColumn('action', function (WorkInstruction $workInstruction) {
+            ->editColumn('action', function (WorkInstruction $workInstruction) {
                 return view('work-instructions.action', [
                     'workInstruction' => $workInstruction,
                     'id' => $workInstruction->id,
@@ -52,7 +53,8 @@ class WorkInstructionsDataTable extends DataTable {
     /**
      * Get the query source of dataTable.
      */
-    public function query(WorkInstruction $model): QueryBuilder {
+    public function query(WorkInstruction $model): QueryBuilder
+    {
         $date_filter = request('date_filter');
 
         if ($date_filter) {
@@ -65,7 +67,8 @@ class WorkInstructionsDataTable extends DataTable {
     /**
      * Optional method if you want to use the html builder.
      */
-    public function html(): HtmlBuilder {
+    public function html(): HtmlBuilder
+    {
         return $this->builder()
             ->setTableId('work-instructions-table')
             ->columns($this->getColumns())
@@ -74,7 +77,7 @@ class WorkInstructionsDataTable extends DataTable {
             ->lengthChange(false)
             ->orderBy(1)
             ->selectStyleSingle()
-            ->buttons([
+            ->buttons(
                 Button::make([
                     'text' => '<i class="fas fa-plus"></i> Tambah Instruksi Kerja',
                     'action' => 'function() {
@@ -82,35 +85,40 @@ class WorkInstructionsDataTable extends DataTable {
                     }',
                     'className' => 'btn btn-default text-blue',
                 ]),
-                [
+                Button::make([
                     'extend' => 'excel',
+                    'text' => '<i class="far fa-file-excel"></i> Export Excel',
                     'title' => 'WorkInstructions_' . date('YmdHis'),
-                    'className' => 'btn btn-default text-green ml-auto',
+                    'className' => 'btn btn-default text-green',
                     'filename' => 'WorkInstructions_' . date('YmdHis'),
                     'exportOptions' => [
                         'columns' => ':not(:first-child)', // excluding action column
                     ],
-                ],
-            ]);
+                ]),
+            );
     }
 
     /**
      * Get the dataTable columns definition.
      */
-    public function getColumns(): array {
+    public function getColumns(): array
+    {
         return [
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
                 ->width(60)
-                ->addClass('text-center'),
+                ->addClass('text-left'),
             Column::make('work_date')->title('Work Date')
-                ->addClass('text-left'),
+                ->width(100)
+                ->addClass('text-center'),
             Column::make('user.nip')->title('NIP')
-                ->addClass('text-left'),
+                ->width(100)
+                ->addClass('text-center'),
             Column::make('user.name')->title('Name')
                 ->addClass('text-left'),
             Column::make('status')
+                ->width(120)
                 ->addClass('text-center'),
         ];
     }
@@ -118,7 +126,8 @@ class WorkInstructionsDataTable extends DataTable {
     /**
      * Get the filename for export.
      */
-    protected function filename(): string {
+    protected function filename(): string
+    {
         return 'WorkInstructions_' . date('YmdHis');
     }
 }
