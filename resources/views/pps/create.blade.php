@@ -25,13 +25,13 @@
                         {{--                            </div>--}}
                         {{--                        </div>--}}
 
-                        {{--                        <div class="form-group row">--}}
-                        {{--                            <label class="col-sm-2 col-form-label text-right">Jumlah Kebutuhan</label>--}}
-                        {{--                            <div class="col-sm-4">--}}
-                        {{--                                <input type="number" class="form-control form-control-sm" name="need"--}}
-                        {{--                                       required>--}}
-                        {{--                            </div>--}}
-                        {{--                        </div>--}}
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label text-right">Jumlah Kebutuhan</label>
+                            <div class="col-sm-4">
+                                <input type="number" class="form-control form-control-sm" name="need"
+                                       required>
+                            </div>
+                        </div>
 
                         {{--                        <div class="form-group row">--}}
                         {{--                            <label class="col-sm-2 col-form-label text-right">Jumlah Beli</label>--}}
